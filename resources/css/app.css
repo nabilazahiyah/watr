@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+@theme {
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --color-brand-blue: #0ACBFE;
+    --color-brand-yellow: #FDD303;
+    --color-brand-green: #637E2E;
+    --color-brand-green-2: #0C9624;
+    --color-brand-green-3: #293A09;
+    --color-brand-sky: #E4F6FD;
+
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.leaflet-container img {
+    max-width: none !important;
+}
+
+.leaflet-popup-content-wrapper {
+    padding: 0;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.2);
+}
+.leaflet-popup-content {
+    margin: 0;
+    width: 260px !important;
+}
+.leaflet-popup-tip-container { margin-top: -1px; }
+
+.pin-depot { background: none; border: 0; }

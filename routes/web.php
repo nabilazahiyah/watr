@@ -8,3 +8,4 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/jelajahi', [JelajahiController::class, 'index'])->name('jelajahi');
+Route::view('/tentang', 'tentang')->name('tentang');

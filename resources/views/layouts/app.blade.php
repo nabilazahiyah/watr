@@ -13,13 +13,22 @@
 </head>
 <body class="font-sans text-slate-800 antialiased">
 
-    @include('partials.navbar', ['solid' => View::hasSection('navbar_solid')])
+    @php
+    $solid = View::hasSection('navbar_solid');
+    $noNav = View::hasSection('hide_navbar');
+@endphp
 
- <main>
+@unless ($noNav)
+    @include('partials.navbar', ['solid' => $solid])
+@endunless
+
+<main class="{{ $solid && ! $noNav ? 'pt-20' : '' }}">
     @yield('content')
 </main>
 
-@include('partials.footer')
+@unless ($noNav)
+    @include('partials.footer')
+@endunless
 
 @stack('scripts')
 

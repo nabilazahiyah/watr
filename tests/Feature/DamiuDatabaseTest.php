@@ -105,6 +105,7 @@ class DamiuDatabaseTest extends TestCase
         $this->get(route('jelajahi'))
             ->assertOk()
             ->assertSee('window.DEPOTS =')
+            ->assertSee('data-depot-placeholder')
             ->assertSee($depot->nama_depot)
             ->assertSee((string) $depot->id)
             ->assertSee($depot->alamat);
@@ -133,7 +134,7 @@ class DamiuDatabaseTest extends TestCase
 
         $this->get(route('jelajahi'))
             ->assertOk()
-            ->assertSee('window.DEPOTS = []')
+            ->assertSee('data-depots="[]"', false)
             ->assertSee('Belum ada data depot.');
     }
 

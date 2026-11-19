@@ -192,9 +192,13 @@
 @endsection
 
 @push('scripts')
+    <div id="depot-page-data" hidden
+         data-depots="{{ json_encode($depots) }}"
+         data-depot-placeholder="{{ asset('images/fotodummy.jpg') }}"></div>
     <script>
-        window.DEPOTS = @json($depots);
-        window.DEPOT_PLACEHOLDER = @json(asset('images/fotodummy.jpg'));
+        const depotPageData = document.getElementById('depot-page-data');
+        window.DEPOTS = JSON.parse(depotPageData.dataset.depots);
+        window.DEPOT_PLACEHOLDER = depotPageData.dataset.depotPlaceholder;
     </script>
     @vite('resources/js/jelajahi.js')
 @endpush

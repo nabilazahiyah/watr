@@ -72,14 +72,9 @@
                 ke informasi depot air minum di pusat Kota Bogor.
             </p>
 
-            {{-- Statistik --}}
+            {{-- Statistik dari data depot --}}
             <dl class="mt-8 grid grid-cols-2 gap-x-8 gap-y-6">
-                @foreach ([
-                    ['10+', 'Kelurahan'],
-                    ['50+', 'Depot Air Terdata'],
-                    ['99%', 'Terverifikasi Lokasi Presisi'],
-                    ['24/7', 'Akses Peta Interaktif'],
-                ] as [$angka, $label])
+                @foreach ($statistics as [$angka, $label])
                     <div>
                         <dt class="text-2xl font-semibold text-brand-green-3">{{ $angka }}</dt>
                         <dd class="mt-1 text-xs text-slate-600">{{ $label }}</dd>
@@ -91,27 +86,19 @@
     </div>
 </section>
 
-@php
-    $rekomendasi = [
-        ['nama' => 'Jaya Tirta Alam',   'rating' => '4,9', 'ulasan' => 59, 'foto' => 'jaya-tirta-alam.png',     'buka24' => false, 'antar' => true],
-        ['nama' => 'SHiST Water Station','rating' => '5,0', 'ulasan' => 1,  'foto' => 'shist-water-station.png', 'buka24' => true,  'antar' => true],
-        ['nama' => "TIN'S TIRTA",       'rating' => '5,0', 'ulasan' => 24, 'foto' => 'tins-tirta.png',          'buka24' => false, 'antar' => false],
-    ];
-@endphp
-
 <section id="favorit" class="bg-brand-sky py-20 md:py-24">
     <div class="mx-auto max-w-5xl px-6">
 
         <div class="text-center">
-            <p class="text-xs font-semibold text-brand-green-2">Pilihan Populer</p>
+            <p class="text-xs font-semibold text-brand-green-2">Data Depot</p>
             <h2 class="mt-2 text-2xl font-semibold text-brand-green-3 md:text-3xl">
-                Rekomendasi Depot Air Minum
-                <span class="bg-brand-yellow px-1">Terpercaya</span>
+                Depot Air Minum
+                <span class="bg-brand-yellow px-1">Terdata</span>
             </h2>
         </div>
 
         <div id="filter-depot" class="mt-8 flex flex-wrap justify-center gap-3">
-            @foreach ([['semua', 'Semua'], ['buka24', 'Buka 24 Jam'], ['antar', 'Layanan Antar']] as [$key, $label])
+            @foreach ([['semua', 'Semua'], ['buka', 'Buka Setiap Hari'], ['antar', 'Layanan Antar']] as [$key, $label])
                 <button type="button" data-filter="{{ $key }}"
                         class="filter-btn rounded-full border border-brand-blue px-5 py-1.5 text-xs font-medium transition
                                {{ $key === 'semua' ? 'bg-brand-blue text-white' : 'bg-white text-brand-blue hover:bg-brand-blue/10' }}">
@@ -121,16 +108,16 @@
         </div>
 
         <div class="mt-8 grid gap-6 md:grid-cols-3">
-            @foreach ($rekomendasi as $d)
+            @forelse ($recommendedDepots as $d)
                 <article class="depot-card rounded-xl bg-white p-3 shadow-lg shadow-slate-300/50"
-                         data-buka24="{{ $d['buka24'] ? '1' : '0' }}"
+                         data-buka="{{ $d['buka_setiap_hari'] ? '1' : '0' }}"
                          data-antar="{{ $d['antar'] ? '1' : '0' }}">
 
                     <div class="relative">
-                        <img src="{{ asset('images/depot/' . $d['foto']) }}" alt="{{ $d['nama'] }}"
+                        <img src="{{ asset('images/fotodummy.jpg') }}" alt="Foto simulasi depot"
                              class="aspect-4/3 w-full rounded-lg object-cover">
 
-                        <button type="button" aria-label="Favorit"
+                        <button type="button" data-favorite-id="{{ $d['id'] }}" aria-label="Tambahkan ke favorit" aria-pressed="false"
                                 class="fav-btn absolute right-2 top-2 text-white/80 transition hover:scale-110">
                             <svg class="size-6 drop-shadow" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.7 5 6 5c2 0 3.3 1.1 4 2.2h4C14.7 6.1 16 5 18 5c3.3 0 5.1 3.4 3.6 6.8C19.5 16.4 12 21 12 21z"/>
@@ -139,25 +126,30 @@
                     </div>
 
                     <h3 class="mt-3 text-sm font-semibold text-brand-green-3">{{ $d['nama'] }}</h3>
+                    <p class="mt-1 truncate text-xs text-slate-500">{{ $d['kelurahan'] }} - {{ $d['alamat'] }}</p>
 
-                    <div class="mt-1 flex items-center gap-1.5 text-xs text-slate-600">
-                        <span>{{ $d['rating'] }}</span>
-                        <span class="text-yellow-400">★★★★★</span>
-                        <span>· {{ $d['ulasan'] }} Google Reviews</span>
+                    <div class="mt-2 space-y-1 text-xs text-slate-600">
+                        <p class="font-medium text-brand-green-3">Rp{{ number_format($d['harga'], 0, ',', '.') }} per galon</p>
+                        <p>Jam {{ $d['jam_buka'] }} sampai {{ $d['jam_tutup'] }} - {{ $d['antar'] ? 'Melayani antar' : 'Tidak ada layanan antar' }}</p>
+                        <p>{{ count($d['hari_libur']) ? 'Libur: '.implode(', ', $d['hari_libur']) : 'Hari libur belum dicatat' }}</p>
                     </div>
 
-                    <a href="#"
+                    <a href="{{ route('jelajahi', ['q' => $d['nama']]) }}"
                        class="mt-3 block rounded-lg border border-slate-300 py-2 text-center text-xs font-medium text-slate-700 transition hover:bg-slate-50">
-                        Lihat Peta
+                        Lihat di Peta
                     </a>
                 </article>
-            @endforeach
+            @empty
+                <p class="col-span-full rounded-xl bg-white p-8 text-center text-sm text-slate-600">
+                    Belum ada data depot. Informasi akan tampil setelah data tersedia.
+                </p>
+            @endforelse
         </div>
 
         <div class="mt-10 text-center">
-            <a href="#"
+            <a href="{{ route('jelajahi') }}"
                class="inline-block rounded-full bg-brand-blue px-7 py-2.5 text-sm font-medium text-white transition hover:brightness-95">
-                Lihat Semua
+                Jelajahi Semua Depot
             </a>
         </div>
 

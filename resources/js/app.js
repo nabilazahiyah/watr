@@ -1,3 +1,5 @@
+import { initializeFavoriteButtons } from './favorites';
+
 document.getElementById('menu-btn')?.addEventListener('click', () => {
     document.getElementById('mobile-menu').classList.toggle('hidden');
 });
@@ -24,10 +26,4 @@ filterBtns.forEach((btn) => {
     });
 });
 
-// Tombol favorit (merah saat aktif)
-document.querySelectorAll('.fav-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-        btn.classList.toggle('text-red-500');
-        btn.classList.toggle('text-white/80');
-    });
-});
+initializeFavoriteButtons();

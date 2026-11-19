@@ -44,12 +44,12 @@
             <label class="text-sm font-medium text-brand-green-3">
                 Rentang Harga <span class="text-xs font-normal text-slate-500">(per galon)</span>
             </label>
-            <span id="harga-label" class="text-xs font-semibold text-brand-blue">Rp15.000</span>
+            <span id="harga-label" class="text-xs font-semibold text-brand-blue">Rp{{ number_format($maxHarga, 0, ',', '.') }}</span>
         </div>
-        <input id="f-harga" type="range" min="0" max="15000" step="500" value="15000"
+        <input id="f-harga" type="range" min="0" max="{{ $maxHarga }}" step="500" value="{{ $maxHarga }}"
                class="mt-2 w-full accent-brand-blue">
         <div class="flex justify-between text-[10px] text-slate-400">
-            <span>Rp0</span><span>Rp15.000</span>
+            <span>Rp0</span><span>Rp{{ number_format($maxHarga, 0, ',', '.') }}</span>
         </div>
 
         {{-- Layanan --}}
@@ -58,7 +58,7 @@
             <input id="f-antar" type="checkbox" class="size-4 accent-brand-blue"> Antar jemput
         </label>
         <label class="mt-2 flex items-center gap-2 text-xs text-slate-700">
-            <input id="f-24" type="checkbox" class="size-4 accent-brand-blue"> Buka 24 jam
+            <input id="f-buka" type="checkbox" class="size-4 accent-brand-blue"> Buka setiap hari
         </label>
 
         <button id="f-apply" type="button"
@@ -70,12 +70,19 @@
         <p class="mt-6 text-sm font-medium text-brand-green-3">
             Hasil Pencarian <span id="hasil-jumlah" class="text-xs font-normal text-slate-500"></span>
         </p>
-        <ul id="hasil" class="mt-3 space-y-3"></ul>
+        <ul id="hasil" class="mt-3 space-y-3">
+            @if ($depots->isEmpty())
+                <li class="text-xs text-slate-500">Belum ada data depot.</li>
+            @endif
+        </ul>
     </aside>
 </section>
 @endsection
 
 @push('scripts')
-    <script>window.DEPOTS = @json($depots);</script>
+    <script>
+        window.DEPOTS = @json($depots);
+        window.DEPOT_PLACEHOLDER = @json(asset('images/fotodummy.jpg'));
+    </script>
     @vite('resources/js/jelajahi.js')
 @endpush

@@ -3,6 +3,7 @@
 
     $isHome     = request()->routeIs('home');
     $isJelajahi = request()->routeIs('jelajahi');
+    $isTentang = request()->routeIs('tentang');
 
     // Warna teks: putih di Beranda, gelap di Jelajahi
     $teks   = $solid ? 'text-slate-800' : 'text-white';
@@ -28,8 +29,7 @@
         <ul class="hidden items-center gap-8 text-sm md:flex">
             <li><a href="{{ route('home') }}#beranda" class="{{ $isHome ? $aktif : $biasa }}">Beranda</a></li>
             <li><a href="{{ route('jelajahi') }}" class="{{ $isJelajahi ? $aktif : $biasa }}">Jelajahi</a></li>
-            <li><a href="{{ route('home') }}#favorit" class="{{ $biasa }}">Favorit</a></li>
-            <li><a href="{{ route('home') }}#tentang" class="{{ $biasa }}">Tentang</a></li>
+            <li><a href="{{ route('tentang') }}" class="{{ $isTentang ? $aktif : $biasa }}">Tentang</a></li>
         </ul>
 
         {{-- Bahasa --}}
@@ -72,7 +72,6 @@
     <ul id="mobile-menu" class="hidden space-y-3 bg-white px-6 py-4 text-sm text-slate-700 md:hidden">
         <li><a href="{{ route('home') }}#beranda" class="{{ $isHome ? 'font-bold' : '' }}">Beranda</a></li>
         <li><a href="{{ route('jelajahi') }}" class="{{ $isJelajahi ? 'font-bold' : '' }}">Jelajahi</a></li>
-        <li><a href="{{ route('home') }}#favorit">Favorit</a></li>
-        <li><a href="{{ route('home') }}#tentang">Tentang</a></li>
+        <li><a href="{{ route('tentang') }}" class="{{ $isTentang ? 'font-bold' : '' }}">Tentang</a></li>
     </ul>
 </header>

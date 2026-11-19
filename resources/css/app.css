@@ -27,6 +27,10 @@ html {
     max-width: none !important;
 }
 
+.leaflet-container a.btn-popup {
+    color: #fff;
+}
+
 .leaflet-popup-content-wrapper {
     padding: 0;
     border-radius: 0.75rem;
@@ -37,5 +41,6 @@ html {
     width: 260px !important;
 }
 .leaflet-popup-tip-container { margin-top: -1px; }
+
 
 .pin-depot { background: none; border: 0; }

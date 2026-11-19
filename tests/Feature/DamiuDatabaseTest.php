@@ -110,6 +110,13 @@ class DamiuDatabaseTest extends TestCase
             ->assertSee($depot->alamat);
     }
 
+    public function test_tentang_route_renders_the_new_frontend_page(): void
+    {
+        $this->get(route('tentang'))
+            ->assertOk()
+            ->assertSee('Tentang WATR');
+    }
+
     public function test_pages_render_empty_catalog_state(): void
     {
         $emptyCatalog = \Mockery::mock(DepotFrontendData::class);

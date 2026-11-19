@@ -23,7 +23,7 @@
                     <li><a href="#beranda" class="transition hover:text-brand-green-2">Beranda</a></li>
                     <li><a href="#jelajahi" class="transition hover:text-brand-green-2">Peta Interaktif</a></li>
                     <li><a href="#favorit" class="transition hover:text-brand-green-2">Daftar Favorit</a></li>
-                    <li><a href="#tentang" class="transition hover:text-brand-green-2">Tentang</a></li>
+                    <li><a href={{ route('tentang') }} class="transition hover:text-brand-green-2">Tentang</a></li>
                 </ul>
             </div>
 

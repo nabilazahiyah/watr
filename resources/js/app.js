@@ -24,10 +24,17 @@ filterBtns.forEach((btn) => {
     });
 });
 
-// Tombol favorit (merah saat aktif)
+import { isFav, toggleFav } from './favorit';
+
 document.querySelectorAll('.fav-btn').forEach((btn) => {
+    const id = Number(btn.dataset.id);
+
+    if (id) btn.setAttribute('aria-pressed', String(isFav(id)));
+
     btn.addEventListener('click', () => {
-        btn.classList.toggle('text-red-500');
-        btn.classList.toggle('text-white/80');
+        const on = id
+            ? toggleFav(id)
+            : btn.getAttribute('aria-pressed') !== 'true'; // kartu tanpa data-id: hanya tampilan
+        btn.setAttribute('aria-pressed', String(on));
     });
 });

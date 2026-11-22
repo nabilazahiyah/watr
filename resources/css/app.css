@@ -44,3 +44,11 @@ html {
 
 
 .pin-depot { background: none; border: 0; }
+
+/* Tombol favorit aktif: hati merah penuh */
+.fav-btn[aria-pressed="true"] {
+    color: #ef4444;
+}
+.fav-btn[aria-pressed="true"] svg {
+    fill: currentColor;
+}

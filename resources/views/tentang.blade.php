@@ -141,7 +141,7 @@
                 <p class="mt-2 text-xs text-slate-600">Buka peta atau telusuri daftar depot di Bogor Tengah.</p>
             </div>
             <div class="flex flex-wrap gap-3">
-                <a href="{{ route('jelajahi') }}"
+                <a href="{{ route('peta') }}"
                    class="rounded-full bg-brand-blue px-6 py-2.5 text-xs font-medium text-white transition hover:brightness-95">
                     Jelajahi peta
                 </a>

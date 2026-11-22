@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { getFav, isFav, toggleFav } from './favorit';
 
 const depots = window.DEPOTS ?? [];
 const FOTO = '/images/depot/';
@@ -8,6 +9,9 @@ const PUSAT = [-6.5985, 106.7975];
 
 // ---------- Helper ----------
 const rupiah = (n) => 'Rp' + n.toLocaleString('id-ID');
+const hargaText = (d) => d.harga_min
+    ? `${rupiah(d.harga_min)} – ${rupiah(d.harga_max)} / galon`
+    : 'Harga belum tersedia';
 const koma = (n) => String(n).replace('.', ',');
 const bintang = (rating) => {
     const persen = Math.max(0, Math.min(5, rating)) / 5 * 100;
@@ -32,7 +36,7 @@ const basemaps = {
 let aktifLayer = basemaps.jalan.addTo(map);
 
 // Klik/scroll di atas panel tidak ikut menggeser peta
-['panel', 'layer-panel', 'legend-panel', 'layer-btn'].forEach((id) => {
+['panel', 'layer-panel', 'legend-panel', 'layer-btn', 'fav-panel', 'fav-btn'].forEach((id) => {
     const el = $(id);
     if (el) {
         L.DomEvent.disableClickPropagation(el);
@@ -168,14 +172,132 @@ const popupHtml = (d) => {
           <p class="mt-1 text-xs text-slate-500">${koma(d.rating)} · ${d.ulasan} Google Reviews</p>
           ${info ? `<p class="mt-2 text-xs text-brand-green-2">${info}</p>` : ''}
           <p class="mt-3 text-sm font-semibold text-brand-green-3">
-            ${rupiah(d.harga_min)} – ${rupiah(d.harga_max)} / galon
+            ${hargaText(d)}
           </p>
-          <a href="#" class="btn-popup mt-4 block rounded-full bg-brand-blue py-2.5 text-center text-sm font-medium text-white transition hover:brightness-95">
+          <button type="button" data-id="${d.id}"
+        class="popup-detail mt-4 block w-full rounded-full bg-brand-blue py-2.5 text-center text-sm font-medium text-white transition hover:brightness-95">
   Lihat detail depot
-</a>
+</button>
         </div>
       </div>`;
 };
+
+// ---------- Kartu detail ----------
+const filterCard = $('filter-card');
+const detailCard = $('detail-card');
+
+const detailHtml = (d) => `
+    <div class="flex items-center justify-between">
+    <button type="button" class="detail-back flex items-center gap-1 text-xs text-brand-blue">
+      <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Kembali ke hasil
+    </button>
+    <button type="button" aria-label="Favorit" aria-pressed="${isFav(d.id)}"
+            class="detail-fav fav-btn flex size-8 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:scale-105">
+      <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linejoin="round" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.7 5 6 5c2 0 3.3 1.1 4 2.2h4C14.7 6.1 16 5 18 5c3.3 0 5.1 3.4 3.6 6.8C19.5 16.4 12 21 12 21z"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="relative mt-3">
+    <img src="${FOTO + d.foto}" alt="${d.nama}" class="aspect-16/10 w-full rounded-xl object-cover">
+  </div>
+
+  <h3 class="mt-3 text-lg font-semibold text-brand-green-3">${d.nama}</h3>
+  <p class="mt-0.5 text-[11px] text-slate-500">${koma(d.rating)} · ${d.ulasan} Google Reviews</p>
+
+  <div class="mt-3 flex flex-wrap gap-2 text-[11px]">
+    ${d.buka24 ? '<span class="rounded-full bg-green-100 px-3 py-1 text-brand-green-2">Buka 24 jam</span>' : ''}
+    ${d.antar ? '<span class="rounded-full bg-sky-100 px-3 py-1 text-brand-blue">Layanan antar</span>' : ''}
+  </div>
+
+  <p class="mt-4 text-sm font-semibold text-brand-green-3">${rupiah(d.harga_min)} – ${rupiah(d.harga_max)}</p>
+  <p class="text-[11px] text-slate-500">per galon</p>
+
+  <p class="mt-4 text-xs font-semibold text-brand-green-3">Alamat</p>
+  <p class="mt-1 text-[11px] leading-relaxed text-slate-600">${d.alamat ?? '-'}</p>
+
+  <p class="mt-4 text-xs text-brand-green-2">${d.buka24 ? 'Buka 24 jam' : (d.jam ?? 'Jam buka belum tersedia')}</p>
+  <p class="mt-2 text-xs text-brand-green-3">${d.antar ? 'Layanan antar tersedia' : 'Layanan antar tidak tersedia'}</p>
+  <a href="tel:${(d.telp ?? '').replace(/[^0-9+]/g, '')}" class="mt-2 block text-xs text-brand-blue">${d.telp ?? ''}</a>
+
+  <div class="mt-4 grid grid-cols-2 gap-2">
+    <a href="https://wa.me/${d.wa ?? ''}" target="_blank" rel="noopener"
+       class="btn-popup rounded-full bg-brand-blue py-2.5 text-center text-xs font-medium text-white transition hover:brightness-95">
+      Hubungi depot
+    </a>
+    <a href="https://www.google.com/maps/dir/?api=1&destination=${d.lat},${d.lng}" target="_blank" rel="noopener"
+       class="rounded-full border border-brand-blue bg-white py-2.5 text-center text-xs font-medium text-brand-blue transition hover:bg-brand-blue/10">
+      Petunjuk arah
+    </a>
+  </div>`;
+
+function openDetail(d) {
+    detailCard.innerHTML = detailHtml(d);
+    filterCard.classList.add('hidden');
+    detailCard.classList.remove('hidden');
+    $('panel').classList.remove('hidden'); // supaya tampil juga di HP
+
+    map.closePopup();
+    map.flyTo([d.lat, d.lng], 16, { duration: 0.8 });
+
+    detailCard.querySelector('.detail-back').addEventListener('click', closeDetail);
+    detailCard.querySelector('.detail-fav').addEventListener('click', (e) => {e.currentTarget.setAttribute('aria-pressed', String(toggleFav(d.id)));
+    });
+}
+
+function closeDetail() {
+    detailCard.classList.add('hidden');
+    filterCard.classList.remove('hidden');
+}
+
+// ---------- Panel favorit ----------
+const favPanel = $('fav-panel');
+const favList = $('fav-list');
+
+function renderFav() {
+    const items = getFav().map((id) => depots.find((d) => d.id === id)).filter(Boolean);
+
+    $('fav-count').textContent = items.length;
+    $('fav-jumlah').textContent = `${items.length} depot tersimpan`;
+    favList.innerHTML = '';
+
+    if (!items.length) {
+        favList.innerHTML = `<li class="py-6 text-center text-xs leading-relaxed text-slate-500">
+            Belum ada depot favorit.<br>Tekan ikon hati pada depot untuk menyimpannya.</li>`;
+        return;
+    }
+
+    items.forEach((d) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <button type="button" class="flex w-full items-center gap-3 rounded-xl border border-slate-200 p-2 text-left transition hover:bg-slate-50">
+            <img src="${FOTO + d.foto}" alt="${d.nama}" class="size-16 shrink-0 rounded-lg object-cover">
+            <span class="min-w-0 flex-1">
+              <span class="block truncate text-sm font-semibold text-brand-green-3">${d.nama}</span>
+              <span class="block text-[11px] text-slate-500">${koma(d.rating)} · ${d.ulasan} Google Reviews</span>
+              <span class="mt-0.5 block text-[11px] text-brand-green-2">Lihat informasi depot</span>
+            </span>
+            <svg class="size-4 shrink-0 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/>
+            </svg>
+          </button>`;
+        li.firstElementChild.addEventListener('click', () => {
+            favPanel.classList.add('hidden');
+            openDetail(d);
+        });
+        favList.appendChild(li);
+    });
+}
+
+$('fav-btn').addEventListener('click', () => favPanel.classList.toggle('hidden'));
+$('fav-close').addEventListener('click', () => favPanel.classList.add('hidden'));
+window.addEventListener('favorit:change', renderFav);
+
+renderFav();
 // ---------- Elemen filter ----------
 const fQ = $('f-q'), fKel = $('f-kel'), fHarga = $('f-harga');
 const fAntar = $('f-antar'), f24 = $('f-24');
@@ -246,6 +368,7 @@ $('f-apply').addEventListener('click', () => {
 });
 
 fQ.addEventListener('input', () => {
+    closeDetail();
     listAktif = fQ.value.trim() !== '';
     render();
 });
@@ -273,8 +396,12 @@ $('f-reset').addEventListener('click', () => {
 
 // Tombol close di popup
 map.on('popupopen', (e) => {
-    e.popup.getElement().querySelector('.popup-close')
-        ?.addEventListener('click', () => map.closePopup());
+    const el = e.popup.getElement();
+    el.querySelector('.popup-close')?.addEventListener('click', () => map.closePopup());
+    el.querySelector('.popup-detail')?.addEventListener('click', (ev) => {
+        const d = depots.find((x) => x.id === Number(ev.currentTarget.dataset.id));
+        if (d) openDetail(d);
+    });
 });
 
 // Panel di HP
@@ -288,3 +415,9 @@ if (qs) {
 }
 
 render();
+
+const depotId = Number(new URLSearchParams(location.search).get('depot'));
+if (depotId) {
+    const d = depots.find((x) => x.id === depotId);
+    if (d) openDetail(d);
+}

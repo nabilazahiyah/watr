@@ -1,223 +1,174 @@
 @extends('layouts.app')
 
-@section('title', 'Jelajahi Depot - Watr.id')
-@section('hide_navbar', '1')
+@section('title', 'Daftar Depot - Watr.id')
+@section('navbar_solid', '1')
 
 @section('content')
-<section class="relative h-screen">
 
-    {{-- Peta --}}
-    <div id="map" class="absolute inset-0 z-0"></div>
+<section class="bg-sky-50 py-12 md:py-14">
+    <div class="mx-auto flex max-w-6xl flex-col gap-6 px-6 md:flex-row md:items-center md:justify-between">
+        <div>
+            <nav class="text-[11px] text-slate-500">
+                <a href="{{ route('home') }}" class="hover:text-brand-blue">Beranda</a> / Daftar depot
+            </nav>
+            <h1 class="mt-5 text-2xl font-semibold text-brand-green-3 md:text-3xl">Daftar semua depot</h1>
+            <p class="mt-3 max-w-md text-xs leading-relaxed text-slate-600">
+                Temukan Depot Air Minum Isi Ulang di Bogor Tengah.
+                Kenali informasi dan layanan depot sebelum menentukan pilihan.
+            </p>
+        </div>
 
-    {{-- Tombol Halaman Utama (kanan atas) --}}
-    <a href="{{ route('home') }}"
-       class="absolute right-4 top-4 z-1000 flex items-center gap-2 rounded-full bg-brand-blue px-5 py-2.5
-              text-sm font-medium text-white shadow-lg transition hover:brightness-95">
-        <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-        Halaman Utama
-    </a>
-
-    {{-- Tombol buka panel (HP) --}}
-    <button id="panel-toggle" type="button"
-            class="absolute left-4 top-4 z-1000 rounded-full bg-white px-4 py-2 text-xs font-medium shadow-lg md:hidden">
-        Filter
-    </button>
-
-    {{-- Panel filter --}}
-<aside id="panel"
-class="absolute left-4 top-4 z-1000 hidden max-h-[calc(100%-6rem)] w-[calc(100%-2rem)] max-w-xs overflow-y-auto
-              rounded-2xl bg-white p-5 shadow-xl md:block md:w-80">
-
-    {{-- Cari --}}
-    <div class="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2.5">
-        <svg class="size-5 shrink-0 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="7" stroke-width="2"/>
-            <path stroke-linecap="round" stroke-width="2" d="M21 21l-4.3-4.3"/>
-        </svg>
-        <input id="f-q" type="text" placeholder="Cari depot atau lokasi..."
-               class="w-full bg-transparent text-sm outline-none placeholder:text-slate-400">
+        <a href="{{ route('peta') }}"
+           class="self-start rounded-full bg-brand-blue px-8 py-2.5 text-xs font-medium text-white transition hover:brightness-95 md:self-center">
+            Lihat di peta
+        </a>
     </div>
+</section>
 
-    {{-- Kelurahan --}}
-    <label class="mt-5 block text-sm font-medium text-brand-green-3">Kelurahan</label>
-    <select id="f-kel" class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none">
-        <option value="">Semua Kelurahan</option>
-        @foreach ($kelurahan as $k)
-            <option value="{{ $k }}">{{ $k }}</option>
-        @endforeach
-    </select>
+{{-- ================= FILTER + DAFTAR ================= --}}
+<section class="bg-white py-8 md:py-10">
+    <div class="mx-auto max-w-6xl px-6">
 
-    {{-- Harga --}}
-    <div class="mt-5 flex items-baseline justify-between">
-        <label class="text-sm font-medium text-brand-green-3">
-            Rentang Harga <span class="text-xs font-normal text-slate-500">(per galon)</span>
-        </label>
-        <span id="harga-label" class="text-xs font-semibold text-brand-blue">Rp15.000</span>
-    </div>
-    <input id="f-harga" type="range" min="0" max="15000" step="500" value="15000"
-           class="mt-2 w-full accent-brand-blue">
-    <div class="flex justify-between text-[10px] text-slate-400">
-        <span>Rp0</span><span>Rp15.000</span>
-    </div>
+        {{-- Filter --}}
+        <form method="GET" action="{{ route('jelajahi') }}"
+              class="rounded-2xl border border-slate-100 p-4 shadow-sm md:p-5">
 
-    {{-- Layanan --}}
-<p class="mt-5 text-sm font-medium text-brand-green-3">Layanan</p>
-<div class="mt-2 grid grid-cols-2 gap-2">
-    <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 px-3 py-2.5 text-xs text-slate-700">
-        <input id="f-antar" type="checkbox" class="size-4 shrink-0 accent-brand-blue">
-        Antar jemput
-    </label>
-    <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 px-3 py-2.5 text-xs text-slate-700">
-        <input id="f-24" type="checkbox" class="size-4 shrink-0 accent-brand-blue">
-        Buka 24 jam
-    </label>
-</div>
-
- {{-- Terapkan filter --}}
-    <button id="f-apply" type="button"
-            class="mt-6 w-full rounded-full bg-brand-blue py-2.5 text-sm font-medium text-white transition hover:brightness-95">
-        Terapkan Filter
-    </button>
-
-    {{-- Hasil (disembunyikan sampai filter diterapkan) --}}
-    <div id="hasil-wrap" class="hidden">
-        <p class="mt-6 text-sm font-medium text-brand-green-3">
-            Hasil Pencarian <span id="hasil-jumlah" class="text-xs font-normal text-slate-500"></span>
-        </p>
-        <ul id="hasil" class="mt-3 space-y-3"></ul>
-
-        <button id="f-reset" type="button"
-                class="mt-6 w-full rounded-full border border-brand-blue bg-white py-2.5 text-sm font-medium
-                       text-brand-blue transition hover:bg-brand-blue/10">
-            Reset Filter
-        </button>
-    </div>
-</aside>
-
-    {{-- Layer peta + Legenda (kiri bawah) --}}
-<div class="absolute bottom-4 left-4 z-1001 flex flex-col-reverse items-start gap-3 md:flex-row md:items-end">
-
-    <div class="flex flex-col items-start gap-2">
-
-        {{-- Panel Layer peta --}}
-        <div id="layer-panel" class="hidden w-64 rounded-xl bg-white p-4 shadow-xl">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2 text-sm font-semibold text-brand-green-3">
-                    <svg class="size-4 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 13l9 5 9-5"/>
+            <div class="grid gap-3 md:grid-cols-[1fr_auto_auto_auto]">
+                <div class="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2.5">
+                    <svg class="size-4 shrink-0 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="7" stroke-width="2"/>
+                        <path stroke-linecap="round" stroke-width="2" d="M21 21l-4.3-4.3"/>
                     </svg>
-                    Layer peta
+                    <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari nama depot atau lokasi..."
+                           class="w-full bg-transparent text-xs outline-none placeholder:text-slate-400">
                 </div>
-                <button id="layer-close" type="button" aria-label="Tutup" class="text-slate-400 hover:text-slate-600">
-                    <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
-                    </svg>
+
+                <select name="kelurahan" class="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-xs outline-none md:w-44">
+                    <option value="">Semua kelurahan</option>
+                    @foreach ($kelurahan as $k)
+                        <option value="{{ $k }}" @selected(request('kelurahan') === $k)>{{ $k }}</option>
+                    @endforeach
+                </select>
+
+                <select name="urut" class="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-xs outline-none md:w-44">
+                    <option value="nama_asc"  @selected(request('urut', 'nama_asc') === 'nama_asc')>Nama depot (A-Z)</option>
+                    <option value="nama_desc" @selected(request('urut') === 'nama_desc')>Nama depot (Z-A)</option>
+                    <option value="rating"    @selected(request('urut') === 'rating')>Rating tertinggi</option>
+                </select>
+
+                <button type="submit"
+                        class="rounded-full bg-brand-blue px-8 py-2.5 text-xs font-medium text-white transition hover:brightness-95">
+                    Cari depot
                 </button>
             </div>
 
-            <div class="mt-4 space-y-3 text-xs text-slate-700">
-                @foreach ([
-                    ['depot', 'Lokasi depot', true],
-                    ['kesehatan', 'Pusat kesehatan', true],
-                    ['sungai', 'Sungai', false],
-                    ['wilayah', 'Poligon wilayah', false],
-                    ['kelurahan', 'Batas kelurahan', false],
-                ] as [$key, $label, $on])
-                    <label class="flex cursor-pointer items-center gap-2.5">
-                        <input type="checkbox" data-ov="{{ $key }}" class="ov-check size-4 accent-brand-blue" @checked($on)>
-                        {{ $label }}
+            {{-- Chip filter cepat --}}
+            @php $aktif = request('filter', ''); @endphp
+            <div class="mt-4 flex flex-wrap gap-2">
+                @foreach (['' => 'Semua', 'buka24' => 'Buka 24 jam', 'antar' => 'Layanan antar'] as $val => $label)
+                    <label class="cursor-pointer">
+                        <input type="radio" name="filter" value="{{ $val }}" class="peer sr-only"
+                               @checked($aktif === $val) onchange="this.form.submit()">
+                        <span class="block rounded-full border border-brand-blue/40 bg-white px-4 py-1.5 text-[11px] text-slate-700 transition
+                                     peer-checked:border-brand-blue peer-checked:bg-sky-100 peer-checked:text-brand-blue">
+                            {{ $label }}
+                        </span>
                     </label>
                 @endforeach
             </div>
+        </form>
 
-            <div class="mt-4 border-t border-slate-200 pt-3">
-                <p class="text-[11px] text-slate-500">Peta dasar</p>
-                <div class="mt-2 grid grid-cols-2 gap-1 rounded-lg bg-slate-100 p-1 text-xs">
-                    <button type="button" data-base="jalan"
-                            class="base-opt rounded-md bg-sky-100 py-1.5 font-medium text-brand-blue">Jalan</button>
-                    <button type="button" data-base="satelit"
-                            class="base-opt rounded-md py-1.5 font-medium text-slate-600">Satelit</button>
-                </div>
+        {{-- Judul daftar --}}
+        <div class="mt-10 flex items-baseline justify-between">
+            <h2 class="text-base font-semibold text-brand-green-3">Depot di Bogor Tengah</h2>
+            <p class="text-[11px] text-slate-500">{{ count($depots) }} depot ditampilkan</p>
+        </div>
+
+        {{-- Kartu --}}
+        <div class="mt-5 grid gap-6 md:grid-cols-3">
+            @forelse ($depots as $d)
+                <article class="flex flex-col rounded-2xl border border-slate-100 bg-white p-3 shadow-md shadow-slate-300/40">
+
+                    <div class="relative">
+                        <img src="{{ asset('images/depot/' . $d['foto']) }}" alt="{{ $d['nama'] }}"
+                             class="aspect-4/3 w-full rounded-xl object-cover">
+                        <button type="button" aria-label="Favorit" data-id="{{ $d['id'] }}"
+                                class="fav-btn absolute right-2 top-2 flex size-8 items-center justify-center rounded-full bg-white/90 text-slate-500 shadow transition hover:scale-105">
+                            <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linejoin="round" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.7 5 6 5c2 0 3.3 1.1 4 2.2h4C14.7 6.1 16 5 18 5c3.3 0 5.1 3.4 3.6 6.8C19.5 16.4 12 21 12 21z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="flex flex-1 flex-col px-1 pb-1 pt-3">
+                        <h3 class="text-sm font-semibold text-brand-green-3">{{ $d['nama'] }}</h3>
+                        <p class="mt-1 text-[11px] text-slate-500">
+                            {{ number_format($d['rating'], 1, ',', '') }} · {{ $d['ulasan'] }} Google Reviews
+                        </p>
+                        <p class="mt-2 text-[11px] text-slate-500">DAMIU · Bogor Tengah</p>
+
+                        {{-- Harga --}}
+                        @if ($d['harga_min'])
+                            <p class="mt-3 text-sm font-semibold text-brand-green-3">
+                                Rp{{ number_format($d['harga_min'], 0, ',', '.') }} – Rp{{ number_format($d['harga_max'], 0, ',', '.') }}
+                            </p>
+                            <p class="text-[10px] text-slate-500">per galon</p>
+                        @else
+                            <p class="mt-3 text-sm font-semibold text-brand-green-3">Konfirmasi harga ke depot</p>
+                            <p class="text-[10px] text-slate-500">Harga belum tersedia</p>
+                        @endif
+
+                        {{-- Jam & layanan --}}
+                        <p class="mt-2 text-[11px] {{ $d['buka24'] ? 'text-brand-green-2' : 'text-slate-600' }}">
+                            {{ $d['buka24'] ? 'Buka 24 jam' : 'Jam buka perlu dikonfirmasi' }}
+                        </p>
+                        <p class="mt-1 text-[11px] text-slate-600">
+                            {{ $d['antar'] ? 'Layanan antar tersedia' : 'Layanan: hubungi depot' }}
+                        </p>
+
+                        <a href="{{ route('peta', ['depot' => $d['id']]) }}"
+                           class="mt-4 block rounded-full border border-slate-300 py-2 text-center text-[11px] font-medium text-slate-700
+                                  transition hover:border-brand-blue hover:text-brand-blue">
+                            Lihat informasi depot →
+                        </a>
+                    </div>
+                </article>
+            @empty
+                <p class="col-span-full py-10 text-center text-sm text-slate-500">
+                    Tidak ada depot yang cocok dengan pencarianmu.
+                </p>
+            @endforelse
+        </div>
+    </div>
+
+    
+</section>
+
+{{-- ================= CTA PETA ================= --}}
+<section class="bg-white pb-16 md:pb-20">
+    <div class="mx-auto max-w-6xl px-6">
+        <div class="flex flex-col gap-8 rounded-3xl bg-brand-sky p-8 md:flex-row md:items-center md:justify-between md:px-12 md:py-10">
+
+            <div class="max-w-xs">
+                <h2 class="text-xl font-semibold leading-snug text-brand-green-3 md:text-2xl">
+                    Lebih nyaman mencari lewat peta?
+                </h2>
+                <p class="mt-3 text-xs leading-relaxed text-slate-600">
+                    Lihat persebaran depot dan informasi di sekitarnya melalui peta interaktif WATR.
+                </p>
+                <a href="{{ route('peta') }}"
+                   class="mt-6 inline-block rounded-full bg-brand-blue px-7 py-2.5 text-xs font-medium text-white transition hover:brightness-95">
+                    Buka peta interaktif
+                </a>
             </div>
 
-            <button id="legend-open" type="button"
-                    class="mt-3 flex w-full items-center justify-between border-t border-slate-200 pt-3 text-xs text-slate-700 hover:text-brand-blue">
-                Lihat legenda
-                <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/>
-                </svg>
-            </button>
-        </div>
-
-        {{-- Tombol layer --}}
-        <button id="layer-btn" type="button" aria-label="Layer peta"
-                class="flex size-10 items-center justify-center rounded-lg bg-white text-brand-blue shadow-lg transition hover:bg-slate-50">
-            <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13l9 5 9-5"/>
-            </svg>
-        </button>
-    </div>
-
-    {{-- Panel Legenda (di kanan panel layer) --}}
-    <div id="legend-panel" class="hidden w-56 rounded-xl bg-white p-4 shadow-xl md:mb-12">
-        <div class="flex items-center justify-between">
-            <p class="text-sm font-semibold text-brand-green-3">Legenda</p>
-            <button id="legend-close" type="button" aria-label="Tutup" class="text-slate-400 hover:text-slate-600">
-                <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
-                </svg>
-            </button>
-        </div>
-
-        <ul class="mt-4 space-y-3 text-[11px] text-slate-600">
-            <li class="flex items-center gap-3">
-                <svg class="size-4 shrink-0" viewBox="0 0 32 42"><path d="M16 0C7.2 0 0 7 0 15.7 0 27 16 42 16 42s16-15 16-26.3C32 7 24.8 0 16 0z" fill="#0ACBFE"/><circle cx="16" cy="15.5" r="6" fill="#fff"/></svg>
-                Depot air minum
-            </li>
-            <li class="flex items-center gap-3">
-                <span class="flex size-4 shrink-0 items-center justify-center rounded-full bg-brand-green-2 text-[11px] font-bold leading-none text-white">+</span>
-                Pusat kesehatan
-            </li>
-            <li class="flex items-center gap-3">
-                <span class="h-0.5 w-4 shrink-0 bg-brand-blue"></span> Sungai
-            </li>
-            <li class="flex items-center gap-3">
-                <span class="size-4 shrink-0 rounded-sm border border-slate-300 bg-slate-200/70"></span> Poligon wilayah
-            </li>
-            <li class="flex items-center gap-3">
-                <span class="w-4 shrink-0 border-t-2 border-dashed border-slate-500"></span> Batas kelurahan
-            </li>
-            <li class="flex items-center gap-3">
-                <span class="size-4 shrink-0 rounded-full border border-pink-400 bg-pink-200/70"></span> Buffer TPS - 200 m
-            </li>
-        </ul>
-    </div>
-</div>
-
-    {{-- Kontrol kanan bawah: lokasi + zoom --}}
-    <div class="absolute bottom-4 right-4 z-1000 flex flex-col gap-2">
-        <button id="locate-btn" type="button" aria-label="Lokasi saya"
-                class="flex size-10 items-center justify-center rounded-lg bg-white text-slate-700 shadow-lg transition hover:bg-slate-50">
-            <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/>
-                <path stroke-linecap="round" d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
-            </svg>
-        </button>
-        <div class="flex flex-col overflow-hidden rounded-lg bg-white shadow-lg">
-            <button id="zoom-in" type="button" aria-label="Perbesar"
-                    class="flex size-10 items-center justify-center text-xl text-slate-700 transition hover:bg-slate-50">+</button>
-            <button id="zoom-out" type="button" aria-label="Perkecil"
-                    class="flex size-10 items-center justify-center border-t border-slate-200 text-xl text-slate-700 transition hover:bg-slate-50">&minus;</button>
+            <a href="{{ route('peta') }}" class="block w-full md:w-[46%]" aria-label="Buka peta interaktif">
+                <img src="{{ asset('images/map-preview.png') }}" alt="Pratinjau peta depot"
+                     class="aspect-2/1 w-full rounded-2xl object-cover shadow-sm">
+            </a>
         </div>
     </div>
 </section>
+
 @endsection
 
-@push('scripts')
-    <script>window.DEPOTS = @json($depots);</script>
-    @vite('resources/js/jelajahi.js')
-@endpush

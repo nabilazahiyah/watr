@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DepotFrontendData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class JelajahiController extends Controller
 {
+    private ?array $catalog = null;
+
+    public function __construct(private DepotFrontendData $depotFrontendData)
+    {
+    }
+
+    /** Halaman daftar semua depot (tab "Jelajahi"). */
     public function index(Request $request)
     {
         $depots = collect($this->depots());
@@ -39,6 +48,7 @@ class JelajahiController extends Controller
         ]);
     }
 
+    /** Halaman peta interaktif (dibuka dari tombol "Lihat di peta"). */
     public function peta()
     {
         return view('peta', [
@@ -47,42 +57,76 @@ class JelajahiController extends Controller
         ]);
     }
 
-    private function kelurahan(): array
+    /** Data dari service backend, dipanggil sekali per request. */
+    private function catalog(): array
     {
-        return ['Babakan', 'Babakan Pasar', 'Cibogor', 'Ciwaringin', 'Gudang', 'Kebon Kalapa',
-                'Pabaton', 'Panaragan', 'Paledang', 'Sempur', 'Tegallega'];
+        return $this->catalog ??= $this->depotFrontendData->catalog();
     }
 
+    private function kelurahan(): array
+    {
+        return $this->catalog()['kelurahan']->all();
+    }
+
+    /**
+     * Ubah data dari service ke format yang dipakai frontend.
+     */
     private function depots(): array
     {
-        $depots = [
-            ['id' => 1, 'nama' => 'Jaya Tirta Alam', 'kelurahan' => 'Babakan', 'lat' => -6.5890, 'lng' => 106.7935,
-             'harga_min' => 12000, 'harga_max' => 18000, 'rating' => 4.9, 'ulasan' => 59,
-             'antar' => true, 'buka24' => true, 'foto' => 'jaya-tirta-alam.png',
-             'alamat' => 'Jln veteran gang kepatihan 06 RT03 RW01 Bogor, Gang kepithan, RT.01/RW.01, Kb. Klp., Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16125',
-             'telp' => '0815-1313-7534', 'wa' => '6281513137534'],
-
-            ['id' => 2, 'nama' => 'SHiST Water Station', 'kelurahan' => 'Babakan Pasar', 'lat' => -6.6035, 'lng' => 106.8000,
-             'harga_min' => 12000, 'harga_max' => 18000, 'rating' => 5.0, 'ulasan' => 1,
-             'antar' => true, 'buka24' => false, 'foto' => 'shist-water-station.png',
-             'alamat' => 'Jl. Kb. Kopi No.3, RT.03/RW.09, Kb. Klp., Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16125',
-             'telp' => '0857-7374-3400', 'jam' => '08.30 - 17.00'],
-
-            ['id' => 3, 'nama' => "TIN'S TIRTA", 'kelurahan' => 'Tegallega', 'lat' => -6.6075, 'lng' => 106.8050,
-             'harga_min' => 12000, 'harga_max' => 18000, 'rating' => 5.0, 'ulasan' => 24,
-             'antar' => false, 'buka24' => false, 'foto' => 'tins-tirta.png',
-             'alamat' => 'Jl. Pendidikan No.02, RT.03/RW.01, Babakan, Kecamatan Bogor Tengah, Kota Bogor, Jawa Barat 16128',
-             'telp' => '0813-1778-0207', 'jam' => '08.00 - 20.30'],
+        // SEMENTARA: rating & ulasan belum ada di database.
+        // Hapus array ini kalau backend sudah menambah kolomnya.
+        $sementara = [
+            1 => ['rating' => 4.9, 'ulasan' => 59],
+            2 => ['rating' => 5.0, 'ulasan' => 1],
+            3 => ['rating' => 5.0, 'ulasan' => 24],
         ];
 
-        // Lengkapi field yang belum diisi: nomor WhatsApp dibuat dari telp (0xxx -> 62xxx)
-        return array_map(function ($d) {
-            $d['jam'] = $d['jam'] ?? null;
-            $d['wa']  = $d['wa'] ?? (! empty($d['telp'])
-                ? '62' . ltrim(preg_replace('/\D/', '', $d['telp']), '0')
-                : null);
+        return $this->catalog()['depots']->map(function (array $d) use ($sementara) {
+            $jamBuka  = $d['jam_buka'] ?? null;
+            $jamTutup = $d['jam_tutup'] ?? null;
 
-            return $d;
-        }, $depots);
+            // Dianggap 24 jam kalau buka tiap hari, 00:00 sampai tengah malam
+            $buka24 = ! empty($d['buka_setiap_hari'])
+                && $jamBuka === '00:00'
+                && in_array($jamTutup, ['00:00', '23:59', '24:00'], true);
+
+            $harga = $d['harga'] ?? null;
+
+            // Foto dari slug nama (jaya-tirta-alam.png), kalau tidak ada pakai placeholder
+            $foto = Str::slug($d['nama']) . '.png';
+            if (! file_exists(public_path('images/depot/' . $foto))) {
+                $foto = 'placeholder.png';
+            }
+
+            $telp = $d['telepon'] ?? null;
+
+            return [
+                'id'        => $d['id'],
+                'nama'      => $d['nama'],
+                'kelurahan' => $d['kelurahan'],
+                'alamat'    => $d['alamat'] ?? null,
+                'lat'       => (float) $d['lat'],
+                'lng'       => (float) $d['lng'],
+
+                // Database hanya punya satu harga, jadi min = max
+                'harga_min' => $harga,
+                'harga_max' => $harga,
+
+                'rating'    => $sementara[$d['id']]['rating'] ?? 0,
+                'ulasan'    => $sementara[$d['id']]['ulasan'] ?? 0,
+
+                'antar'     => (bool) $d['antar'],
+                'buka24'    => $buka24,
+                'jam'       => (! $buka24 && $jamBuka && $jamTutup)
+                    ? str_replace(':', '.', $jamBuka) . ' - ' . str_replace(':', '.', $jamTutup)
+                    : null,
+                'hari_libur' => $d['hari_libur'] ?? [],
+
+                'foto'      => $foto,
+                'telp'      => $telp,
+                'wa'        => $telp ? '62' . ltrim(preg_replace('/\D/', '', $telp), '0') : null,
+                'maps'      => $d['link_google_maps'] ?? null,
+            ];
+        })->values()->all();
     }
 }

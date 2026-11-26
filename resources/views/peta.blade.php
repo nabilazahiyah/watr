@@ -106,8 +106,8 @@
                     Antar jemput
                 </label>
                 <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 px-3 py-2.5 text-xs text-slate-700">
-                    <input id="f-24" type="checkbox" class="size-4 shrink-0 accent-brand-blue">
-                    Buka 24 jam
+                    <input id="f-harian" type="checkbox" class="size-4 shrink-0 accent-brand-blue">
+                    Buka setiap hari
                 </label>
             </div>
 

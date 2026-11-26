@@ -1,12 +1,23 @@
 const STORAGE_KEY = 'watr:favorites:v1';
+const LEGACY_STORAGE_KEY = 'watr:favorit';
+
+const normalizeIds = (ids) => [...new Set(ids
+    .filter((id) => typeof id === 'string' || typeof id === 'number')
+    .map(String)
+    .filter((id) => id !== '' && id !== '0'))];
 
 const readFavorites = () => {
     try {
-        const stored = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? '[]');
+        const current = window.localStorage.getItem(STORAGE_KEY);
+        const legacy = window.localStorage.getItem(LEGACY_STORAGE_KEY);
+        const stored = JSON.parse(current ?? legacy ?? '[]');
+        const ids = normalizeIds(Array.isArray(stored) ? stored : []);
 
-        return new Set(Array.isArray(stored)
-            ? stored.filter((id) => typeof id === 'string' || typeof id === 'number').map(String)
-            : []);
+        if (current === null && legacy !== null) {
+            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+        }
+
+        return new Set(ids);
     } catch {
         return null;
     }
@@ -23,15 +34,19 @@ export function syncFavoriteButtons(root = document) {
 
     root.querySelectorAll('[data-favorite-id]').forEach((button) => {
         const active = isFavorite(button.dataset.favoriteId);
-        button.classList.toggle('text-red-500', active);
-        button.classList.toggle('text-white/80', !active);
+        button.style.color = active ? '#ef4444' : '';
         button.setAttribute('aria-pressed', String(active));
         button.setAttribute('aria-label', active ? 'Hapus dari favorit' : 'Tambahkan ke favorit');
     });
 }
 
-function toggleFavorite(id) {
+export function getFavoriteIds() {
+    return [...favorites];
+}
+
+export function toggleFavorite(id) {
     const key = String(id);
+    const active = !favorites.has(key);
 
     if (favorites.has(key)) {
         favorites.delete(key);
@@ -46,13 +61,15 @@ function toggleFavorite(id) {
     }
 
     syncFavoriteButtons();
+    window.dispatchEvent(new CustomEvent('watr:favorites:change'));
+    return active;
 }
 
 export function initializeFavoriteButtons() {
     syncFavoriteButtons();
 
     document.addEventListener('click', (event) => {
-        const button = event.target.closest('[data-favorite-id]');
+        const button = event.target.closest?.('[data-favorite-id]');
 
         if (!button) return;
 
@@ -62,9 +79,10 @@ export function initializeFavoriteButtons() {
     });
 
     window.addEventListener('storage', (event) => {
-        if (event.key !== STORAGE_KEY) return;
+        if (event.key !== STORAGE_KEY && event.key !== LEGACY_STORAGE_KEY) return;
 
         favorites = readFavorites() ?? favorites;
         syncFavoriteButtons();
+        window.dispatchEvent(new CustomEvent('watr:favorites:change'));
     });
 }

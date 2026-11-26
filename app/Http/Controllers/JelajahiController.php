@@ -22,7 +22,8 @@ class JelajahiController extends Controller
         if ($q = trim((string) $request->query('q'))) {
             $depots = $depots->filter(fn ($d) =>
                 str_contains(strtolower($d['nama']), strtolower($q)) ||
-                str_contains(strtolower($d['kelurahan']), strtolower($q))
+                str_contains(strtolower($d['kelurahan']), strtolower($q)) ||
+                str_contains(strtolower($d['alamat'] ?? ''), strtolower($q))
             );
         }
 
@@ -31,14 +32,14 @@ class JelajahiController extends Controller
         }
 
         $depots = match ($request->query('filter')) {
-            'buka24' => $depots->where('buka24', true),
+            'harian' => $depots->where('buka_setiap_hari', true),
             'antar'  => $depots->where('antar', true),
             default  => $depots,
         };
 
         $depots = match ($request->query('urut', 'nama_asc')) {
             'nama_desc' => $depots->sortByDesc('nama', SORT_NATURAL | SORT_FLAG_CASE),
-            'rating'    => $depots->sortByDesc('rating'),
+            'harga_asc' => $depots->sortBy('harga_min'),
             default     => $depots->sortBy('nama', SORT_NATURAL | SORT_FLAG_CASE),
         };
 
@@ -73,30 +74,12 @@ class JelajahiController extends Controller
      */
     private function depots(): array
     {
-        // SEMENTARA: rating & ulasan belum ada di database.
-        // Hapus array ini kalau backend sudah menambah kolomnya.
-        $sementara = [
-            1 => ['rating' => 4.9, 'ulasan' => 59],
-            2 => ['rating' => 5.0, 'ulasan' => 1],
-            3 => ['rating' => 5.0, 'ulasan' => 24],
-        ];
-
-        return $this->catalog()['depots']->map(function (array $d) use ($sementara) {
-            $jamBuka  = $d['jam_buka'] ?? null;
-            $jamTutup = $d['jam_tutup'] ?? null;
-
-            // Dianggap 24 jam kalau buka tiap hari, 00:00 sampai tengah malam
-            $buka24 = ! empty($d['buka_setiap_hari'])
-                && $jamBuka === '00:00'
-                && in_array($jamTutup, ['00:00', '23:59', '24:00'], true);
-
+        return $this->catalog()['depots']->map(function (array $d) {
             $harga = $d['harga'] ?? null;
-
-            // Foto dari slug nama (jaya-tirta-alam.png), kalau tidak ada pakai placeholder
             $foto = Str::slug($d['nama']) . '.png';
-            if (! file_exists(public_path('images/depot/' . $foto))) {
-                $foto = 'placeholder.png';
-            }
+            $fotoUrl = file_exists(public_path('images/depot/' . $foto))
+                ? asset('images/depot/' . $foto)
+                : asset('images/fotodummy.jpg');
 
             $telp = $d['telepon'] ?? null;
 
@@ -112,17 +95,13 @@ class JelajahiController extends Controller
                 'harga_min' => $harga,
                 'harga_max' => $harga,
 
-                'rating'    => $sementara[$d['id']]['rating'] ?? 0,
-                'ulasan'    => $sementara[$d['id']]['ulasan'] ?? 0,
-
                 'antar'     => (bool) $d['antar'],
-                'buka24'    => $buka24,
-                'jam'       => (! $buka24 && $jamBuka && $jamTutup)
-                    ? str_replace(':', '.', $jamBuka) . ' - ' . str_replace(':', '.', $jamTutup)
-                    : null,
+                'buka_setiap_hari' => (bool) $d['buka_setiap_hari'],
+                'jam_buka'  => $d['jam_buka'],
+                'jam_tutup' => $d['jam_tutup'],
                 'hari_libur' => $d['hari_libur'] ?? [],
 
-                'foto'      => $foto,
+                'foto'      => $fotoUrl,
                 'telp'      => $telp,
                 'wa'        => $telp ? '62' . ltrim(preg_replace('/\D/', '', $telp), '0') : null,
                 'maps'      => $d['link_google_maps'] ?? null,

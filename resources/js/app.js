@@ -24,17 +24,6 @@ filterBtns.forEach((btn) => {
     });
 });
 
-import { isFav, toggleFav } from './favorit';
+import { initializeFavoriteButtons } from './favorites';
 
-document.querySelectorAll('.fav-btn').forEach((btn) => {
-    const id = Number(btn.dataset.id);
-
-    if (id) btn.setAttribute('aria-pressed', String(isFav(id)));
-
-    btn.addEventListener('click', () => {
-        const on = id
-            ? toggleFav(id)
-            : btn.getAttribute('aria-pressed') !== 'true'; // kartu tanpa data-id: hanya tampilan
-        btn.setAttribute('aria-pressed', String(on));
-    });
-});
+initializeFavoriteButtons();

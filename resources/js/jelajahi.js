@@ -1,9 +1,8 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { getFav, isFav, toggleFav } from './favorit';
+import { getFavoriteIds, syncFavoriteButtons, toggleFavorite } from './favorites';
 
 const depots = window.DEPOTS ?? [];
-const FOTO = '/images/depot/';
 const $ = (id) => document.getElementById(id);
 const PUSAT = [-6.5985, 106.7975];
 
@@ -12,16 +11,9 @@ const rupiah = (n) => 'Rp' + n.toLocaleString('id-ID');
 const hargaText = (d) => d.harga_min
     ? `${rupiah(d.harga_min)} – ${rupiah(d.harga_max)} / galon`
     : 'Harga belum tersedia';
-const koma = (n) => String(n).replace('.', ',');
-const bintang = (rating) => {
-    const persen = Math.max(0, Math.min(5, rating)) / 5 * 100;
-    return `
-      <span class="relative inline-block leading-none" aria-label="Rating ${rating} dari 5">
-        <span class="text-slate-300">★★★★★</span>
-        <span class="absolute inset-y-0 left-0 overflow-hidden whitespace-nowrap text-yellow-400" style="width:${persen}%">★★★★★</span>
-      </span>`;
-};
-
+const jamText = (d) => `Jam ${String(d.jam_buka ?? '').slice(0, 5)}-${String(d.jam_tutup ?? '').slice(0, 5)}`;
+const jadwalText = (d) => d.buka_setiap_hari ? 'Buka setiap hari' : 'Tidak buka setiap hari';
+const hariLiburText = (d) => d.hari_libur?.length ? `Libur: ${d.hari_libur.join(', ')}` : 'Hari libur belum dicatat';
 // ---------- Peta ----------
 const map = L.map('map', { zoomControl: false }).setView(PUSAT, 14);
 
@@ -154,12 +146,17 @@ $('legend-close').addEventListener('click', () => legendPanel.classList.add('hid
 
 // ---------- Kartu popup ----------
 const popupHtml = (d) => {
-    const info = [d.buka24 && 'Buka 24 jam', d.antar && 'Layanan antar'].filter(Boolean).join(' · ');
+    const info = [jadwalText(d), d.antar && 'Layanan antar tersedia'].filter(Boolean).join(' / ');
 
     return `
       <div class="p-2">
         <div class="relative">
-          <img src="${FOTO + d.foto}" alt="${d.nama}" class="aspect-4/3 w-full rounded-xl object-cover">
+          <img src="${d.foto}" alt="${d.nama}" class="aspect-4/3 w-full rounded-xl object-cover">
+          <button type="button" data-favorite-id="${d.id}" class="popup-fav absolute left-2 top-2 flex size-8 items-center justify-center rounded-full bg-white/90 text-slate-500 shadow" aria-label="Tambahkan ke favorit">
+            <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linejoin="round" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.7 5 6 5c2 0 3.3 1.1 4 2.2h4C14.7 6.1 16 5 18 5c3.3 0 5.1 3.4 3.6 6.8C19.5 16 12 21 12 21z"/>
+            </svg>
+          </button>
           <button type="button" class="popup-close absolute right-2 top-2 flex size-8 items-center justify-center rounded-full bg-white/90 text-slate-600 shadow transition hover:bg-white" aria-label="Tutup">
             <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
@@ -169,8 +166,9 @@ const popupHtml = (d) => {
 
         <div class="px-1 pb-1 pt-3">
           <p class="text-base font-semibold text-brand-green-3">${d.nama}</p>
-          <p class="mt-1 text-xs text-slate-500">${koma(d.rating)} · ${d.ulasan} Google Reviews</p>
           ${info ? `<p class="mt-2 text-xs text-brand-green-2">${info}</p>` : ''}
+          <p class="mt-1 text-xs text-slate-600">${jamText(d)}</p>
+          <p class="mt-1 text-xs text-slate-500">${hariLiburText(d)}</p>
           <p class="mt-3 text-sm font-semibold text-brand-green-3">
             ${hargaText(d)}
           </p>
@@ -194,7 +192,7 @@ const detailHtml = (d) => `
       </svg>
       Kembali ke hasil
     </button>
-    <button type="button" aria-label="Favorit" aria-pressed="${isFav(d.id)}"
+    <button type="button" data-favorite-id="${d.id}" aria-label="Tambahkan ke favorit"
             class="detail-fav fav-btn flex size-8 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:scale-105">
       <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path stroke-linejoin="round" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.7 5 6 5c2 0 3.3 1.1 4 2.2h4C14.7 6.1 16 5 18 5c3.3 0 5.1 3.4 3.6 6.8C19.5 16.4 12 21 12 21z"/>
@@ -203,14 +201,15 @@ const detailHtml = (d) => `
   </div>
 
   <div class="relative mt-3">
-    <img src="${FOTO + d.foto}" alt="${d.nama}" class="aspect-16/10 w-full rounded-xl object-cover">
+    <img src="${d.foto}" alt="${d.nama}" class="aspect-16/10 w-full rounded-xl object-cover">
   </div>
 
   <h3 class="mt-3 text-lg font-semibold text-brand-green-3">${d.nama}</h3>
-  <p class="mt-0.5 text-[11px] text-slate-500">${koma(d.rating)} · ${d.ulasan} Google Reviews</p>
 
   <div class="mt-3 flex flex-wrap gap-2 text-[11px]">
-    ${d.buka24 ? '<span class="rounded-full bg-green-100 px-3 py-1 text-brand-green-2">Buka 24 jam</span>' : ''}
+    ${d.buka_setiap_hari
+        ? '<span class="rounded-full bg-green-100 px-3 py-1 text-brand-green-2">Buka setiap hari</span>'
+        : '<span class="rounded-full bg-slate-100 px-3 py-1 text-slate-600">Tidak buka setiap hari</span>'}
     ${d.antar ? '<span class="rounded-full bg-sky-100 px-3 py-1 text-brand-blue">Layanan antar</span>' : ''}
   </div>
 
@@ -220,7 +219,8 @@ const detailHtml = (d) => `
   <p class="mt-4 text-xs font-semibold text-brand-green-3">Alamat</p>
   <p class="mt-1 text-[11px] leading-relaxed text-slate-600">${d.alamat ?? '-'}</p>
 
-  <p class="mt-4 text-xs text-brand-green-2">${d.buka24 ? 'Buka 24 jam' : (d.jam ?? 'Jam buka belum tersedia')}</p>
+  <p class="mt-4 text-xs text-brand-green-2">${jamText(d)}</p>
+  <p class="mt-1 text-xs text-slate-500">${hariLiburText(d)}</p>
   <p class="mt-2 text-xs text-brand-green-3">${d.antar ? 'Layanan antar tersedia' : 'Layanan antar tidak tersedia'}</p>
   <a href="tel:${(d.telp ?? '').replace(/[^0-9+]/g, '')}" class="mt-2 block text-xs text-brand-blue">${d.telp ?? ''}</a>
 
@@ -237,6 +237,7 @@ const detailHtml = (d) => `
 
 function openDetail(d) {
     detailCard.innerHTML = detailHtml(d);
+    syncFavoriteButtons(detailCard);
     filterCard.classList.add('hidden');
     detailCard.classList.remove('hidden');
     $('panel').classList.remove('hidden'); // supaya tampil juga di HP
@@ -245,7 +246,10 @@ function openDetail(d) {
     map.flyTo([d.lat, d.lng], 16, { duration: 0.8 });
 
     detailCard.querySelector('.detail-back').addEventListener('click', closeDetail);
-    detailCard.querySelector('.detail-fav').addEventListener('click', (e) => {e.currentTarget.setAttribute('aria-pressed', String(toggleFav(d.id)));
+    detailCard.querySelector('.detail-fav').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleFavorite(d.id);
     });
 }
 
@@ -259,7 +263,7 @@ const favPanel = $('fav-panel');
 const favList = $('fav-list');
 
 function renderFav() {
-    const items = getFav().map((id) => depots.find((d) => d.id === id)).filter(Boolean);
+    const items = getFavoriteIds().map((id) => depots.find((d) => String(d.id) === id)).filter(Boolean);
 
     $('fav-count').textContent = items.length;
     $('fav-jumlah').textContent = `${items.length} depot tersimpan`;
@@ -275,10 +279,9 @@ function renderFav() {
         const li = document.createElement('li');
         li.innerHTML = `
           <button type="button" class="flex w-full items-center gap-3 rounded-xl border border-slate-200 p-2 text-left transition hover:bg-slate-50">
-            <img src="${FOTO + d.foto}" alt="${d.nama}" class="size-16 shrink-0 rounded-lg object-cover">
+            <img src="${d.foto}" alt="${d.nama}" class="size-16 shrink-0 rounded-lg object-cover">
             <span class="min-w-0 flex-1">
               <span class="block truncate text-sm font-semibold text-brand-green-3">${d.nama}</span>
-              <span class="block text-[11px] text-slate-500">${koma(d.rating)} · ${d.ulasan} Google Reviews</span>
               <span class="mt-0.5 block text-[11px] text-brand-green-2">Lihat informasi depot</span>
             </span>
             <svg class="size-4 shrink-0 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -295,12 +298,12 @@ function renderFav() {
 
 $('fav-btn').addEventListener('click', () => favPanel.classList.toggle('hidden'));
 $('fav-close').addEventListener('click', () => favPanel.classList.add('hidden'));
-window.addEventListener('favorit:change', renderFav);
+window.addEventListener('watr:favorites:change', renderFav);
 
 renderFav();
 // ---------- Elemen filter ----------
 const fQ = $('f-q'), fKel = $('f-kel'), fHarga = $('f-harga');
-const fAntar = $('f-antar'), f24 = $('f-24');
+const fAntar = $('f-antar'), fHarian = $('f-harian');
 const listEl = $('hasil'), jumlahEl = $('hasil-jumlah'), hargaLabel = $('harga-label');
 const wrapEl = $('hasil-wrap');
 let listAktif = false; // daftar hasil tampil hanya setelah filter dipakai
@@ -312,11 +315,11 @@ function render() {
     const maxHarga = Number(fHarga.value);
 
     const hasil = depots.filter((d) =>
-    (!q || d.nama.toLowerCase().includes(q) || d.kelurahan.toLowerCase().includes(q)) &&
+    (!q || d.nama.toLowerCase().includes(q) || d.kelurahan.toLowerCase().includes(q) || String(d.alamat ?? '').toLowerCase().includes(q)) &&
     (!kel || d.kelurahan === kel) &&
     d.harga_min <= maxHarga &&
     (!fAntar.checked || d.antar) &&
-    (!f24.checked || d.buka24)
+    (!fHarian.checked || d.buka_setiap_hari)
 );
     layer.clearLayers();
     markers.clear();
@@ -332,14 +335,12 @@ function render() {
         li.innerHTML = `
           <button type="button"
                   class="flex w-full items-stretch overflow-hidden rounded-xl bg-white text-left shadow-md shadow-slate-300/60 transition hover:shadow-lg">
-            <img src="${FOTO + d.foto}" alt="${d.nama}" class="w-20 shrink-0 object-cover">
+            <img src="${d.foto}" alt="${d.nama}" class="w-20 shrink-0 object-cover">
             <span class="flex min-w-0 flex-col justify-center px-3 py-3">
               <span class="truncate text-sm font-medium text-brand-green-3">${d.nama}</span>
-              <span class="mt-1 flex flex-wrap items-center gap-x-1.5 text-[11px] text-brand-green-3">
-                <span>${koma(d.rating)}</span>
-                ${bintang(d.rating)}
-                <span>· ${d.ulasan} Google Reviews</span>
-              </span>
+              <span class="mt-1 text-[11px] text-slate-500">${d.kelurahan}</span>
+              <span class="mt-1 text-[11px] text-slate-500">${jamText(d)} · ${jadwalText(d)}</span>
+              <span class="mt-1 text-[11px] text-slate-500">${hariLiburText(d)}</span>
             </span>
           </button>`;
         li.firstElementChild.addEventListener('click', () => {
@@ -384,7 +385,7 @@ $('f-reset').addEventListener('click', () => {
     fHarga.value = fHarga.max;
     hargaLabel.textContent = rupiah(Number(fHarga.max));
     fAntar.checked = false;
-    f24.checked = false;
+    fHarian.checked = false;
 
     // Hapus ?q=... dari URL supaya tidak terbawa lagi
     history.replaceState(null, '', location.pathname);
@@ -397,7 +398,13 @@ $('f-reset').addEventListener('click', () => {
 // Tombol close di popup
 map.on('popupopen', (e) => {
     const el = e.popup.getElement();
+    syncFavoriteButtons(el);
     el.querySelector('.popup-close')?.addEventListener('click', () => map.closePopup());
+    el.querySelector('.popup-fav')?.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        toggleFavorite(ev.currentTarget.dataset.favoriteId);
+    });
     el.querySelector('.popup-detail')?.addEventListener('click', (ev) => {
         const d = depots.find((x) => x.id === Number(ev.currentTarget.dataset.id));
         if (d) openDetail(d);

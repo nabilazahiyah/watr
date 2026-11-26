@@ -53,7 +53,7 @@
                 <select name="urut" class="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-xs outline-none md:w-44">
                     <option value="nama_asc"  @selected(request('urut', 'nama_asc') === 'nama_asc')>Nama depot (A-Z)</option>
                     <option value="nama_desc" @selected(request('urut') === 'nama_desc')>Nama depot (Z-A)</option>
-                    <option value="rating"    @selected(request('urut') === 'rating')>Rating tertinggi</option>
+                    <option value="harga_asc" @selected(request('urut') === 'harga_asc')>Harga terendah</option>
                 </select>
 
                 <button type="submit"
@@ -65,7 +65,7 @@
             {{-- Chip filter cepat --}}
             @php $aktif = request('filter', ''); @endphp
             <div class="mt-4 flex flex-wrap gap-2">
-                @foreach (['' => 'Semua', 'buka24' => 'Buka 24 jam', 'antar' => 'Layanan antar'] as $val => $label)
+                @foreach (['' => 'Semua', 'harian' => 'Buka setiap hari', 'antar' => 'Layanan antar'] as $val => $label)
                     <label class="cursor-pointer">
                         <input type="radio" name="filter" value="{{ $val }}" class="peer sr-only"
                                @checked($aktif === $val) onchange="this.form.submit()">
@@ -90,9 +90,9 @@
                 <article class="flex flex-col rounded-2xl border border-slate-100 bg-white p-3 shadow-md shadow-slate-300/40">
 
                     <div class="relative">
-                        <img src="{{ asset('images/depot/' . $d['foto']) }}" alt="{{ $d['nama'] }}"
+                        <img src="{{ $d['foto'] }}" alt="{{ $d['nama'] }}"
                              class="aspect-4/3 w-full rounded-xl object-cover">
-                        <button type="button" aria-label="Favorit" data-id="{{ $d['id'] }}"
+                        <button type="button" aria-label="Tambahkan ke favorit" data-favorite-id="{{ $d['id'] }}"
                                 class="fav-btn absolute right-2 top-2 flex size-8 items-center justify-center rounded-full bg-white/90 text-slate-500 shadow transition hover:scale-105">
                             <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path stroke-linejoin="round" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.7 5 6 5c2 0 3.3 1.1 4 2.2h4C14.7 6.1 16 5 18 5c3.3 0 5.1 3.4 3.6 6.8C19.5 16.4 12 21 12 21z"/>
@@ -102,10 +102,7 @@
 
                     <div class="flex flex-1 flex-col px-1 pb-1 pt-3">
                         <h3 class="text-sm font-semibold text-brand-green-3">{{ $d['nama'] }}</h3>
-                        <p class="mt-1 text-[11px] text-slate-500">
-                            {{ number_format($d['rating'], 1, ',', '') }} · {{ $d['ulasan'] }} Google Reviews
-                        </p>
-                        <p class="mt-2 text-[11px] text-slate-500">DAMIU · Bogor Tengah</p>
+                        <p class="mt-2 text-[11px] text-slate-500">DAMIU · {{ $d['kelurahan'] }}</p>
 
                         {{-- Harga --}}
                         @if ($d['harga_min'])
@@ -119,8 +116,12 @@
                         @endif
 
                         {{-- Jam & layanan --}}
-                        <p class="mt-2 text-[11px] {{ $d['buka24'] ? 'text-brand-green-2' : 'text-slate-600' }}">
-                            {{ $d['buka24'] ? 'Buka 24 jam' : 'Jam buka perlu dikonfirmasi' }}
+                        <p class="mt-2 text-[11px] text-slate-600">
+                            Jam {{ substr($d['jam_buka'], 0, 5) }}-{{ substr($d['jam_tutup'], 0, 5) }}
+                            · {{ $d['buka_setiap_hari'] ? 'Buka setiap hari' : 'Tidak buka setiap hari' }}
+                        </p>
+                        <p class="mt-1 text-[11px] text-slate-500">
+                            {{ count($d['hari_libur']) ? 'Libur: '.implode(', ', $d['hari_libur']) : 'Hari libur belum dicatat' }}
                         </p>
                         <p class="mt-1 text-[11px] text-slate-600">
                             {{ $d['antar'] ? 'Layanan antar tersedia' : 'Layanan: hubungi depot' }}

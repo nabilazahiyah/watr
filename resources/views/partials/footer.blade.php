@@ -1,5 +1,3 @@
-@vite(['resources/css/app.css', 'resources/js/app.js'])
-
 <footer class="bg-brand-sky">
     <div class="mx-auto max-w-6xl px-6 pb-8 pt-14">
 

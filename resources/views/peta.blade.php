@@ -7,7 +7,10 @@
 <section class="relative h-screen">
 
     {{-- Peta --}}
-    <div id="map" class="absolute inset-0 z-0"></div>
+    <div id="map" class="absolute inset-0 z-0"
+         data-batas-kecamatan-url="{{ asset('data/administrasi/batas_kecamatan_bogor_tengah.geojson') }}"
+         data-batas-kelurahan-url="{{ asset('data/administrasi/batas_kelurahan_bogor_tengah.geojson') }}"
+         data-sungai-url="{{ asset('data/hidrologi/sungai_bogor_tengah.geojson') }}"></div>
 
     {{-- Kanan atas: Favorit + Halaman Utama --}}
 <div class="absolute right-4 top-4 z-1000 flex items-center gap-3">
@@ -80,9 +83,6 @@
             <label class="block text-sm font-medium text-brand-green-3">Kelurahan</label>
             <select id="f-kel" class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none">
                 <option value="">Semua Kelurahan</option>
-                @foreach ($kelurahan as $k)
-                    <option value="{{ $k }}">{{ $k }}</option>
-                @endforeach
             </select>
 
             {{-- Harga --}}
@@ -163,8 +163,8 @@
                         ['depot', 'Lokasi depot', true],
                         ['kesehatan', 'Pusat kesehatan', true],
                         ['sungai', 'Sungai', false],
-                        ['wilayah', 'Poligon wilayah', false],
-                        ['kelurahan', 'Batas kelurahan', false],
+                        ['kecamatan', 'Batas Kecamatan Bogor Tengah', true],
+                        ['kelurahan', 'Batas kelurahan', true],
                     ] as [$key, $label, $on])
                         <label class="flex cursor-pointer items-center gap-2.5">
                             <input type="checkbox" data-ov="{{ $key }}" class="ov-check size-4 accent-brand-blue" @checked($on)>
@@ -172,6 +172,7 @@
                         </label>
                     @endforeach
                 </div>
+                <p id="layer-load-error" class="hidden mt-3 rounded-md bg-red-50 p-2 text-[11px] leading-relaxed text-red-700" role="alert"></p>
 
                 <div class="mt-4 border-t border-slate-200 pt-3">
                     <p class="text-[11px] text-slate-500">Peta dasar</p>
@@ -223,16 +224,13 @@
                     Pusat kesehatan
                 </li>
                 <li class="flex items-center gap-3">
-                    <span class="h-0.5 w-4 shrink-0 bg-brand-blue"></span> Sungai
+                    <span class="h-0.5 w-4 shrink-0 bg-brand-blue"></span> Jaringan Sungai
                 </li>
                 <li class="flex items-center gap-3">
-                    <span class="size-4 shrink-0 rounded-sm border border-slate-300 bg-slate-200/70"></span> Poligon wilayah
+                    <span class="h-0.5 w-4 shrink-0 bg-red-600"></span> Batas Kecamatan Bogor Tengah
                 </li>
                 <li class="flex items-center gap-3">
-                    <span class="w-4 shrink-0 border-t-2 border-dashed border-slate-500"></span> Batas kelurahan
-                </li>
-                <li class="flex items-center gap-3">
-                    <span class="size-4 shrink-0 rounded-full border border-pink-400 bg-pink-200/70"></span> Buffer TPS - 200 m
+                    <span class="h-px w-4 shrink-0 bg-slate-500"></span> Batas kelurahan
                 </li>
             </ul>
         </div>

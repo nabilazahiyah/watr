@@ -16,6 +16,15 @@ const jadwalText = (d) => d.buka_setiap_hari ? 'Buka setiap hari' : 'Tidak buka 
 const hariLiburText = (d) => d.hari_libur?.length ? `Libur: ${d.hari_libur.join(', ')}` : 'Hari libur belum dicatat';
 // ---------- Peta ----------
 const map = L.map('map', { zoomControl: false }).setView(PUSAT, 14);
+const MAP_KECAMATAN_PANE = 'kecamatanBoundaryPane';
+const MAP_KELURAHAN_PANE = 'kelurahanBoundaryPane';
+const MAP_SUNGAI_PANE = 'sungaiPane';
+map.createPane(MAP_KECAMATAN_PANE);
+map.createPane(MAP_KELURAHAN_PANE);
+map.createPane(MAP_SUNGAI_PANE);
+map.getPane(MAP_KECAMATAN_PANE).style.zIndex = '430';
+map.getPane(MAP_KELURAHAN_PANE).style.zIndex = '450';
+map.getPane(MAP_SUNGAI_PANE).style.zIndex = '410';
 
 const basemaps = {
     jalan: L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -81,35 +90,209 @@ const kesehatanLayer = L.layerGroup([
     L.marker([-6.6050, 106.7960], { icon: healthIcon }).bindTooltip('Klinik (contoh)'),
 ]).addTo(map);
 
-const sungaiLayer = L.layerGroup([
-    L.polyline([[-6.575, 106.800], [-6.590, 106.803], [-6.605, 106.806], [-6.620, 106.808]],
-        { color: '#0ACBFE', weight: 4 }),
-]);
+const sungaiStyle = {
+    color: '#0284c7',
+    weight: 3,
+    opacity: 0.9,
+    fill: false,
+};
 
-const wilayahLayer = L.layerGroup([
-    L.polygon([[-6.580, 106.780], [-6.580, 106.810], [-6.615, 106.810], [-6.615, 106.780]],
-        { color: '#94a3b8', weight: 1, fillColor: '#cbd5e1', fillOpacity: 0.35 }),
-]);
+function riverPopup(properties = {}) {
+    const popup = document.createElement('div');
+    popup.className = 'space-y-1 text-sm';
 
-const kelurahanLayer = L.layerGroup([
-    L.polyline([[-6.580, 106.795], [-6.615, 106.795]], { color: '#64748b', weight: 2, dashArray: '6 6' }),
-    L.polyline([[-6.597, 106.780], [-6.597, 106.810]], { color: '#64748b', weight: 2, dashArray: '6 6' }),
-]);
+    const nama = String(properties.nama_sungai ?? '').trim();
+    const title = document.createElement('p');
+    title.className = 'font-semibold text-brand-green-3';
+    title.textContent = nama || 'Jaringan sungai';
+    popup.appendChild(title);
+
+    [
+        ['Jenis', properties.jenis_objek],
+        ['Tipe', properties.tipe_sungai],
+        ['Kelas', properties.kelas_sungai],
+    ].forEach(([label, value]) => {
+        if (value === null || value === undefined || String(value).trim() === '') return;
+
+        const detail = document.createElement('p');
+        detail.className = 'text-xs text-slate-600';
+        detail.textContent = `${label}: ${value}`;
+        popup.appendChild(detail);
+    });
+
+    return popup;
+}
+
+const sungaiLayer = L.geoJSON(null, {
+    pane: MAP_SUNGAI_PANE,
+    style: () => sungaiStyle,
+    onEachFeature: (feature, featureLayer) => {
+        featureLayer.bindPopup(riverPopup(feature.properties ?? {}));
+        featureLayer.on('mouseover', (event) => {
+            event.target.setStyle({ color: '#0369a1', weight: 4, opacity: 1 });
+        });
+        featureLayer.on('mouseout', (event) => event.target.setStyle(sungaiStyle));
+    },
+});
+
+const kecamatanNormalStyle = {
+    color: '#dc2626',
+    weight: 3,
+    opacity: 1,
+    fill: true,
+    fillColor: '#dc2626',
+    fillOpacity: 0.001,
+};
+const kecamatanSelectedStyle = {
+    color: '#2563eb',
+    weight: 4,
+    opacity: 1,
+    fill: true,
+    fillColor: '#3b82f6',
+    fillOpacity: 0.2,
+};
+const kelurahanNormalStyle = {
+    color: '#64748b',
+    weight: 1,
+    opacity: 0.85,
+    fill: true,
+    fillColor: '#94a3b8',
+    fillOpacity: 0.035,
+};
+const kelurahanSelectedStyle = {
+    color: '#2563eb',
+    weight: 3,
+    opacity: 1,
+    fill: true,
+    fillColor: '#3b82f6',
+    fillOpacity: 0.22,
+};
+
+let selectedKelurahan = '';
+let kecamatanSelected = false;
+const kelurahanFeatureLayers = new Map();
+
+function selectKelurahan(nama) {
+    selectedKelurahan = nama || '';
+    $('f-kel').value = selectedKelurahan;
+
+    kelurahanFeatureLayers.forEach((featureLayer, featureName) => {
+        featureLayer.setStyle(featureName === selectedKelurahan
+            ? kelurahanSelectedStyle
+            : kelurahanNormalStyle);
+    });
+}
+
+function selectKecamatan(selected) {
+    kecamatanSelected = selected;
+    kecamatanLayer.setStyle(kecamatanSelected ? kecamatanSelectedStyle : kecamatanNormalStyle);
+}
+
+const kecamatanLayer = L.geoJSON(null, {
+    pane: MAP_KECAMATAN_PANE,
+    style: () => kecamatanSelected ? kecamatanSelectedStyle : kecamatanNormalStyle,
+    onEachFeature: (_feature, featureLayer) => {
+        featureLayer.on('click', () => selectKecamatan(true));
+    },
+});
+
+const kelurahanLayer = L.geoJSON(null, {
+    pane: MAP_KELURAHAN_PANE,
+    style: (feature) => feature.properties?.nama_kelurahan === selectedKelurahan
+        ? kelurahanSelectedStyle
+        : kelurahanNormalStyle,
+    onEachFeature: (feature, featureLayer) => {
+        const nama = feature.properties?.nama_kelurahan;
+        if (!nama) return;
+
+        kelurahanFeatureLayers.set(nama, featureLayer);
+        featureLayer.on('click', () => selectKelurahan(nama));
+    },
+});
 
 const overlays = {
     depot: layer,
     kesehatan: kesehatanLayer,
     sungai: sungaiLayer,
-    wilayah: wilayahLayer,
+    kecamatan: kecamatanLayer,
     kelurahan: kelurahanLayer,
 };
+
+// Tampilkan layer yang dicentang pada kondisi awal.
+document.querySelectorAll('.ov-check:checked').forEach((cb) => {
+    overlays[cb.dataset.ov]?.addTo(map);
+});
+
+// Muat batas administrasi tanpa mengubah geometri GeoJSON sumber.
+const layerLoadError = $('layer-load-error');
+const mapElement = $('map');
+const geoJSONLoadErrors = [];
+
+async function loadGeoJSONLayer(layer, url, label, onLoaded = null) {
+    try {
+        const response = await fetch(url, {
+            headers: { Accept: 'application/geo+json, application/json' },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const geoJSON = await response.json();
+        if (!['Feature', 'FeatureCollection'].includes(geoJSON?.type)) {
+            throw new Error('Respons bukan GeoJSON Feature atau FeatureCollection.');
+        }
+
+        layer.addData(geoJSON);
+        onLoaded?.(geoJSON);
+    } catch (error) {
+        console.error(`Gagal memuat ${label}.`, error);
+        geoJSONLoadErrors.push(`Gagal memuat ${label}. Periksa koneksi dan ketersediaan file GeoJSON.`);
+        layerLoadError.textContent = geoJSONLoadErrors.join(' ');
+        layerLoadError.classList.remove('hidden');
+        $('layer-panel').classList.remove('hidden');
+    }
+}
+
+function populateKelurahanOptions(geoJSON) {
+    const select = $('f-kel');
+    const names = [...new Set(geoJSON.features
+        .map((feature) => feature.properties?.nama_kelurahan)
+        .filter((nama) => typeof nama === 'string' && nama.trim() !== ''))];
+
+    select.replaceChildren(new Option('Semua Kelurahan', ''));
+    names.forEach((nama) => select.add(new Option(nama, nama)));
+    selectKelurahan(selectedKelurahan);
+}
+
+loadGeoJSONLayer(
+    kecamatanLayer,
+    mapElement.dataset.batasKecamatanUrl,
+    'batas Kecamatan Bogor Tengah',
+);
+loadGeoJSONLayer(
+    kelurahanLayer,
+    mapElement.dataset.batasKelurahanUrl,
+    'batas kelurahan',
+    populateKelurahanOptions,
+);
+loadGeoJSONLayer(
+    sungaiLayer,
+    mapElement.dataset.sungaiUrl,
+    'jaringan sungai',
+);
 
 // Centang / hapus centang layer
 document.querySelectorAll('.ov-check').forEach((cb) => {
     cb.addEventListener('change', () => {
         const l = overlays[cb.dataset.ov];
-        if (cb.checked) l.addTo(map);
-        else map.removeLayer(l);
+        if (cb.checked) {
+            l.addTo(map);
+        } else {
+            if (cb.dataset.ov === 'kelurahan') selectKelurahan('');
+            if (cb.dataset.ov === 'kecamatan') selectKecamatan(false);
+            map.removeLayer(l);
+        }
     });
 });
 
@@ -308,6 +491,8 @@ const listEl = $('hasil'), jumlahEl = $('hasil-jumlah'), hargaLabel = $('harga-l
 const wrapEl = $('hasil-wrap');
 let listAktif = false; // daftar hasil tampil hanya setelah filter dipakai
 
+fKel.addEventListener('change', () => selectKelurahan(fKel.value));
+
 // ---------- Render ----------
 function render() {
     const q = fQ.value.trim().toLowerCase();
@@ -381,7 +566,7 @@ fHarga.addEventListener('input', () => {
 // Reset semua filter ke kondisi awal
 $('f-reset').addEventListener('click', () => {
     fQ.value = '';
-    fKel.value = '';
+    selectKelurahan('');
     fHarga.value = fHarga.max;
     hargaLabel.textContent = rupiah(Number(fHarga.max));
     fAntar.checked = false;

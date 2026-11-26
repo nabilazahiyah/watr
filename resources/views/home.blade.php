@@ -24,7 +24,7 @@
 
         {{-- Search bar --}}
         <form action="{{ route('jelajahi') }}" method="GET" class="mx-auto mt-12 flex max-w-xl items-center gap-2 rounded-full bg-white p-2 pl-5 shadow-lg">
-            <svg class="h-5 w-5 shrink-0 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg width="20" height="20" class="h-5 w-5 shrink-0 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <circle cx="11" cy="11" r="7" stroke-width="2"/>
                 <path stroke-linecap="round" stroke-width="2" d="M21 21l-4.3-4.3"/>
             </svg>

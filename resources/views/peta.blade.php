@@ -4,7 +4,7 @@
 @section('hide_navbar', '1')
 
 @section('content')
-<section class="relative h-screen">
+<section class="relative h-[100dvh] md:h-screen">
 
     {{-- Peta --}}
     <div id="map" class="absolute inset-0 z-0"
@@ -14,10 +14,10 @@
          data-faskes-url="{{ asset('data/faskes/fasilitas_kesehatan_bogor_tengah.geojson') }}"></div>
 
     {{-- Kanan atas: Favorit + Halaman Utama --}}
-<div class="absolute right-4 top-4 z-1000 flex items-center gap-3">
+<div class="absolute right-4 top-4 z-1000 flex flex-col items-end gap-1 sm:flex-row sm:items-center sm:gap-3">
     <button id="fav-btn" type="button"
-            class="flex items-center gap-2 rounded-full border border-brand-blue/40 bg-white px-5 py-2.5
-                   text-sm font-medium text-brand-green-3 shadow-lg transition hover:bg-slate-50">
+            class="flex min-h-11 items-center gap-1.5 rounded-full border border-brand-blue/40 bg-white px-3 py-2
+                   text-xs font-medium text-brand-green-3 shadow-lg transition hover:bg-slate-50 sm:min-h-0 sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm">
         <svg class="size-4 text-brand-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path stroke-linejoin="round" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.7 5 6 5c2 0 3.3 1.1 4 2.2h4C14.7 6.1 16 5 18 5c3.3 0 5.1 3.4 3.6 6.8C19.5 16.4 12 21 12 21z"/>
         </svg>
@@ -27,8 +27,8 @@
     </button>
 
     <a href="{{ route('home') }}"
-       class="btn-popup flex items-center gap-2 rounded-full bg-brand-blue px-5 py-2.5 text-sm font-medium
-              text-white shadow-lg transition hover:brightness-95">
+       class="btn-popup flex min-h-11 items-center gap-1.5 rounded-full bg-brand-blue px-3 py-2 text-xs font-medium
+              text-white shadow-lg transition hover:brightness-95 sm:min-h-0 sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm">
         <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
@@ -38,15 +38,15 @@
 
 {{-- Panel Depot favorit --}}
 <div id="fav-panel"
-     class="absolute right-4 top-20 z-1000 hidden max-h-[calc(100%-7rem)] w-[calc(100%-2rem)] max-w-sm
-            overflow-y-auto rounded-2xl bg-white p-5 shadow-xl">
+     class="absolute right-4 top-20 z-1000 hidden max-h-[calc(100dvh-8rem)] w-[calc(100%-2rem)] max-w-sm
+            overflow-y-auto rounded-2xl bg-white p-4 shadow-xl sm:p-5 md:max-h-[calc(100%-7rem)]">
     <div class="flex items-start justify-between">
         <div>
             <h2 class="text-lg font-semibold text-brand-green-3">Depot favorit</h2>
             <p id="fav-jumlah" class="mt-1 text-xs text-slate-500">0 depot tersimpan</p>
         </div>
         <button id="fav-close" type="button" aria-label="Tutup"
-                class="flex size-9 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition hover:bg-slate-200">
+                class="flex size-11 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition hover:bg-slate-200 md:size-9">
             <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/>
             </svg>
@@ -58,14 +58,15 @@
 
     {{-- Tombol buka panel (HP) --}}
     <button id="panel-toggle" type="button"
-            class="absolute left-4 top-4 z-1000 rounded-full bg-white px-4 py-2 text-xs font-medium shadow-lg md:hidden">
+            class="absolute left-4 top-4 z-1000 flex min-h-11 items-center rounded-full bg-white px-4 py-2 text-xs font-medium shadow-lg md:hidden">
         Filter
     </button>
 
     {{-- Kolom kiri atas: cari + filter / detail --}}
     <div id="panel"
-         class="absolute left-4 top-4 z-1000 hidden max-h-[calc(100%-6rem)] w-[calc(100%-2rem)] max-w-xs
-                flex-col gap-3 md:flex md:w-80">
+         class="absolute inset-x-4 top-28 bottom-24 z-1000 hidden flex max-h-none w-[calc(100%-5rem)] max-w-none
+                flex-col gap-3 md:inset-x-auto md:bottom-auto md:left-4 md:right-auto md:top-4
+                md:max-h-[calc(100%-6rem)] md:w-80 md:max-w-xs">
 
         {{-- Pil cari --}}
         <div class="flex items-center gap-2 rounded-full bg-white px-4 py-2.5 shadow-lg">
@@ -78,7 +79,7 @@
         </div>
 
         {{-- Kartu filter --}}
-        <div id="filter-card" class="min-h-0 overflow-y-auto rounded-2xl bg-white p-5 shadow-xl">
+        <div id="filter-card" class="min-h-0 flex-1 overflow-y-auto rounded-2xl bg-white p-4 shadow-xl sm:p-5 md:flex-none">
 
             {{-- Kelurahan --}}
             <label class="block text-sm font-medium text-brand-green-3">Kelurahan</label>
@@ -114,7 +115,7 @@
 
             {{-- Terapkan filter --}}
             <button id="f-apply" type="button"
-                    class="mt-6 w-full rounded-full bg-brand-blue py-2.5 text-sm font-medium text-white transition hover:brightness-95">
+                    class="mt-6 min-h-11 w-full rounded-full bg-brand-blue py-2.5 text-sm font-medium text-white transition hover:brightness-95">
                 Terapkan filter
             </button>
 
@@ -138,12 +139,12 @@
     </div>
 
     {{-- Layer peta + Legenda (kiri bawah) --}}
-    <div class="absolute bottom-4 left-4 z-1001 flex flex-col-reverse items-start gap-3 md:flex-row md:items-end">
+    <div class="absolute bottom-4 left-4 z-1001 flex max-h-[calc(100dvh-2rem)] flex-col-reverse items-start gap-3 overflow-y-auto md:max-h-none md:flex-row md:items-end md:overflow-visible">
 
         <div class="flex flex-col items-start gap-2">
 
             {{-- Panel Layer peta --}}
-            <div id="layer-panel" class="hidden w-64 rounded-xl bg-white p-4 shadow-xl">
+            <div id="layer-panel" class="hidden w-60 rounded-xl bg-white p-4 shadow-xl md:w-64">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-2 text-sm font-semibold text-brand-green-3">
                         <svg class="size-4 text-brand-blue" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -196,7 +197,7 @@
 
             {{-- Tombol layer --}}
             <button id="layer-btn" type="button" aria-label="Pengaturan peta"
-                    class="flex size-10 items-center justify-center rounded-lg bg-white text-brand-blue shadow-lg transition hover:bg-slate-50">
+                    class="flex size-11 items-center justify-center rounded-lg bg-white text-brand-blue shadow-lg transition hover:bg-slate-50 md:size-10">
                 <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5z"/>
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 13l9 5 9-5"/>
@@ -205,7 +206,7 @@
         </div>
 
         {{-- Panel Legenda (di kanan panel layer) --}}
-        <div id="legend-panel" class="hidden w-56 rounded-xl bg-white p-4 shadow-xl md:mb-12">
+        <div id="legend-panel" class="hidden w-[min(14rem,calc(100vw-5rem))] rounded-xl bg-white p-4 shadow-xl md:mb-12 md:w-56">
             <div class="flex items-center justify-between">
                 <p class="text-sm font-semibold text-brand-green-3">Legenda</p>
                 <button id="legend-close" type="button" aria-label="Tutup" class="text-slate-400 hover:text-slate-600">
@@ -221,16 +222,8 @@
                     Depot air minum
                 </li>
                 <li class="flex items-center gap-3">
-                    <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-red-600 text-[8px] font-bold leading-none text-white">RS</span>
-                    Rumah sakit
-                </li>
-                <li class="flex items-center gap-3">
-                    <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-[9px] font-bold leading-none text-white">P</span>
-                    Puskesmas
-                </li>
-                <li class="flex items-center gap-3">
-                    <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-violet-600 text-[9px] font-bold leading-none text-white">K</span>
-                    Klinik
+                    <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#0C9624] text-base font-bold leading-none text-white">+</span>
+                    Fasilitas kesehatan
                 </li>
                 <li class="flex items-center gap-3">
                     <span class="h-0.5 w-4 shrink-0 bg-brand-blue"></span> Jaringan sungai
@@ -248,7 +241,7 @@
     {{-- Kontrol kanan bawah: lokasi + zoom --}}
     <div class="absolute bottom-4 right-4 z-1000 flex flex-col gap-2">
         <button id="locate-btn" type="button" aria-label="Lokasi saya"
-                class="flex size-10 items-center justify-center rounded-lg bg-white text-slate-700 shadow-lg transition hover:bg-slate-50">
+                class="flex size-11 items-center justify-center rounded-lg bg-white text-slate-700 shadow-lg transition hover:bg-slate-50 md:size-10">
             <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/>
                 <path stroke-linecap="round" d="M12 2v3M12 19v3M2 12h3M19 12h3"/>
@@ -256,9 +249,9 @@
         </button>
         <div class="flex flex-col overflow-hidden rounded-lg bg-white shadow-lg">
             <button id="zoom-in" type="button" aria-label="Perbesar"
-                    class="flex size-10 items-center justify-center text-xl text-slate-700 transition hover:bg-slate-50">+</button>
+                    class="flex size-11 items-center justify-center text-xl text-slate-700 transition hover:bg-slate-50 md:size-10">+</button>
             <button id="zoom-out" type="button" aria-label="Perkecil"
-                    class="flex size-10 items-center justify-center border-t border-slate-200 text-xl text-slate-700 transition hover:bg-slate-50">&minus;</button>
+                    class="flex size-11 items-center justify-center border-t border-slate-200 text-xl text-slate-700 transition hover:bg-slate-50 md:size-10">&minus;</button>
         </div>
     </div>
 </section>

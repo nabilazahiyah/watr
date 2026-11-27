@@ -32,31 +32,31 @@
         <form id="jelajahi-filter-form" method="GET" action="{{ route('jelajahi') }}"
               class="rounded-2xl border border-slate-100 p-4 shadow-sm md:p-5">
 
-            <div class="grid gap-3 md:grid-cols-[1fr_auto_auto_auto]">
-                <div class="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2.5">
+            <div class="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto_auto_auto]">
+                <div class="flex min-w-0 items-center gap-2 rounded-full border border-slate-200 px-4 py-2.5">
                     <svg class="size-4 shrink-0 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <circle cx="11" cy="11" r="7" stroke-width="2"/>
                         <path stroke-linecap="round" stroke-width="2" d="M21 21l-4.3-4.3"/>
                     </svg>
                     <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari nama depot, alamat, atau kelurahan..."
-                           class="w-full bg-transparent text-xs outline-none placeholder:text-slate-400">
+                           class="min-w-0 w-full bg-transparent text-xs outline-none placeholder:text-slate-400">
                 </div>
 
-                <select name="kelurahan" class="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-xs outline-none md:w-44">
+                <select name="kelurahan" class="min-h-11 w-full rounded-full border border-slate-200 bg-white px-4 py-2.5 text-xs outline-none lg:min-h-0 lg:w-44">
                     <option value="">Semua kelurahan</option>
                     @foreach ($kelurahan as $k)
                         <option value="{{ $k }}" @selected(request('kelurahan') === $k)>{{ $k }}</option>
                     @endforeach
                 </select>
 
-                <select name="urut" class="rounded-full border border-slate-200 bg-white px-4 py-2.5 text-xs outline-none md:w-44">
+                <select name="urut" class="min-h-11 w-full rounded-full border border-slate-200 bg-white px-4 py-2.5 text-xs outline-none lg:min-h-0 lg:w-44">
                     <option value="nama_asc"  @selected(request('urut', 'nama_asc') === 'nama_asc')>Nama depot (A-Z)</option>
                     <option value="nama_desc" @selected(request('urut') === 'nama_desc')>Nama depot (Z-A)</option>
                     <option value="harga_asc" @selected(request('urut') === 'harga_asc')>Harga terendah</option>
                 </select>
 
                 <button type="submit"
-                        class="rounded-full bg-brand-blue px-8 py-2.5 text-xs font-medium text-white transition hover:brightness-95">
+                        class="min-h-11 w-full rounded-full bg-brand-blue px-8 py-2.5 text-xs font-medium text-white transition hover:brightness-95 lg:min-h-0 lg:w-auto">
                     Cari depot
                 </button>
             </div>
@@ -67,7 +67,8 @@
                     <label class="cursor-pointer">
                         <input type="checkbox" name="{{ $val }}" value="1" class="peer sr-only"
                                @checked(request()->boolean($val))>
-                        <span class="block rounded-full border border-brand-blue/40 bg-white px-4 py-1.5 text-[11px] text-slate-700 transition
+                        <span class="flex min-h-11 items-center rounded-full border border-brand-blue/40 bg-white px-4 py-2.5 text-[11px] text-slate-700 transition
+                                     lg:min-h-0 lg:py-1.5
                                      peer-checked:border-brand-blue peer-checked:bg-sky-100 peer-checked:text-brand-blue">
                             {{ $label }}
                         </span>
@@ -75,7 +76,7 @@
                 @endforeach
             </div>
 
-            <div class="mt-4 flex items-center justify-between gap-3">
+            <div class="mt-4 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <a href="{{ route('jelajahi') }}" class="text-[11px] text-slate-500 transition hover:text-brand-blue">
                     Reset filter
                 </a>
@@ -91,7 +92,7 @@
             </div>
 
             {{-- Kartu --}}
-            <div class="mt-5 grid gap-6 md:grid-cols-3">
+            <div class="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 @forelse ($depots as $d)
                 <article class="flex flex-col rounded-2xl border border-slate-100 bg-white p-3 shadow-md shadow-slate-300/40">
 
@@ -154,7 +155,7 @@
 {{-- ================= CTA PETA ================= --}}
 <section class="bg-white pb-16 md:pb-20">
     <div class="mx-auto max-w-6xl px-6">
-        <div class="flex flex-col gap-8 rounded-3xl bg-brand-sky p-8 md:flex-row md:items-center md:justify-between md:px-12 md:py-10">
+        <div class="flex flex-col gap-8 rounded-3xl bg-brand-sky p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between lg:px-12 lg:py-10">
 
             <div class="max-w-xs">
                 <h2 class="text-xl font-semibold leading-snug text-brand-green-3 md:text-2xl">
@@ -169,7 +170,7 @@
                 </a>
             </div>
 
-            <a href="{{ route('peta') }}" class="block w-full md:w-[46%]" aria-label="Buka peta interaktif">
+            <a href="{{ route('peta') }}" class="block w-full lg:w-[46%]" aria-label="Buka peta interaktif">
                 <img src="{{ asset('images/map-preview.png') }}" alt="Pratinjau peta depot"
                      class="aspect-2/1 w-full rounded-2xl object-cover shadow-sm">
             </a>

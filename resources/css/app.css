@@ -42,6 +42,12 @@ html {
 }
 .leaflet-popup-tip-container { margin-top: -1px; }
 
+@media (max-width: 639px) {
+    #map .leaflet-popup-content {
+        width: min(260px, calc(100vw - 3rem)) !important;
+    }
+}
+
 
 .pin-depot { background: none; border: 0; }
 

@@ -61,7 +61,7 @@
         </div>
 
         {{-- Tombol menu mobile --}}
-        <button id="menu-btn" type="button" class="{{ $teks }} md:hidden" aria-label="Menu">
+        <button id="menu-btn" type="button" class="flex size-11 items-center justify-center rounded-lg {{ $teks }} md:hidden" aria-label="Menu">
             <svg class="size-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>

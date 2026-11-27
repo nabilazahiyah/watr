@@ -6,7 +6,7 @@
 @section('content')
 
 <section class="bg-sky-50 py-16 md:py-20">
-    <div class="mx-auto grid max-w-6xl items-center gap-12 px-6 md:grid-cols-2">
+    <div class="mx-auto grid max-w-6xl items-center gap-12 px-6 lg:grid-cols-2">
 
         {{-- Teks --}}
         <div>
@@ -37,7 +37,7 @@
         </div>
 
         {{-- Kolase foto --}}
-        <div class="flex justify-center md:justify-end">
+        <div class="flex justify-center lg:justify-end">
             <img src="{{ asset('images/about-collage.png') }}" alt="Depot air minum isi ulang"
                  class="w-full max-w-md">
         </div>
@@ -46,7 +46,7 @@
 
 {{-- ================= KENAPA WATR HADIR ================= --}}
 <section class="bg-white py-16 md:py-20">
-    <div class="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-2 md:gap-12">
+    <div class="mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-2 lg:gap-12">
 
         <div>
             <p class="text-[11px] font-semibold uppercase tracking-wide text-sky-600">Tentang layanan</p>
@@ -74,7 +74,7 @@
             Cari dan simpan depot.
         </h2>
 
-        <div class="mt-8 grid gap-5 md:grid-cols-3">
+        <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ([
                 ['Temukan lokasi depot', 'Cari depot melalui peta dan gunakan filter kelurahan atau harga.',
                     '<circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M12 2v3M12 19v3M2 12h3M19 12h3"/>'],
@@ -97,7 +97,7 @@
 
 {{-- ================= PENTING DIKETAHUI ================= --}}
 <section class="bg-white py-16 md:py-20">
-    <div class="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-2 md:gap-12">
+    <div class="mx-auto grid max-w-6xl gap-10 px-6 lg:grid-cols-2 lg:gap-12">
 
         <div>
             <p class="text-[11px] font-semibold uppercase tracking-wide text-sky-600">Penting diketahui</p>
@@ -108,7 +108,7 @@
                 Informasi di WATR membantu pencarian. Pastikan detail harga dan layanan kepada depot sebelum memesan.
             </p>
             <p class="mt-6 text-xs text-sky-600">Ada informasi yang perlu diperbarui?</p>
-            <a href="mailto:watr.id@gmail.com" class="text-xs text-slate-600 hover:text-sky-600">watr.id@gmail.com</a>
+            <a href="mailto:watr.id@gmail.com" class="break-words text-xs text-slate-600 hover:text-sky-600">watr.id@gmail.com</a>
         </div>
 
         <div class="space-y-3">
@@ -129,7 +129,7 @@
 {{-- ================= CTA ================= --}}
 <section class="bg-white pb-16 md:pb-20">
     <div class="mx-auto max-w-6xl px-6">
-        <div class="flex flex-col gap-6 rounded-2xl bg-brand-sky px-8 py-8 md:flex-row md:items-center md:justify-between">
+        <div class="flex flex-col gap-6 rounded-2xl bg-brand-sky px-6 py-6 sm:px-8 sm:py-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
                 <h2 class="text-xl font-semibold text-slate-800 md:text-2xl">Mulai kenali depot di sekitarmu.</h2>
                 <p class="mt-2 text-xs text-slate-600">Lihat lokasi depot atau telusuri daftarnya.</p>

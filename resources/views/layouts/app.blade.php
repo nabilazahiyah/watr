@@ -23,7 +23,7 @@
     @include('partials.navbar', ['solid' => $solid])
 @endunless
 
-<main class="{{ $solid && ! $noNav ? 'pt-20' : '' }}">
+<main class="{{ $solid && ! $noNav ? 'pt-[5.25rem] md:pt-20' : '' }}">
     @yield('content')
 </main>
 

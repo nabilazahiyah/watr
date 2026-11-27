@@ -10,27 +10,27 @@
          style="background-image: url('{{ asset('images/asset-hero.png') }}')">
 
     {{-- Konten tengah --}}
-    <div class="relative z-10 mx-auto max-w-3xl px-6 pt-24 text-center">
+    <div class="relative z-10 mx-auto w-full min-w-0 max-w-3xl px-6 pt-24 text-center lg:w-auto">
         <h1 class="text-3xl font-semibold leading-tight text-forest md:text-5xl">
             Temukan Depot Air Minum Isi Ulang Terdekat
             di <span class="text-green-700">Bogor Tengah</span>
         </h1>
 
-        <p class="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-slate-700">
+        <p class="mx-auto mt-6 w-full max-w-xl text-sm leading-relaxed text-slate-700">
             Cari depot air minum di Bogor Tengah. Lihat lokasi, harga, jam buka, dan layanan antar sebelum memilih.
         </p>
 
         {{-- Search bar --}}
-        <form action="{{ route('jelajahi') }}" method="GET" class="mx-auto mt-12 flex max-w-xl items-center gap-2 rounded-full bg-white p-2 pl-5 shadow-lg">
+        <form action="{{ route('jelajahi') }}" method="GET" class="mx-auto mt-12 flex w-full max-w-xl items-center gap-1.5 rounded-full bg-white p-1.5 pl-3 shadow-lg sm:gap-2 sm:p-2 sm:pl-5">
             <svg width="20" height="20" class="h-5 w-5 shrink-0 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <circle cx="11" cy="11" r="7" stroke-width="2"/>
                 <path stroke-linecap="round" stroke-width="2" d="M21 21l-4.3-4.3"/>
             </svg>
             <input type="text" name="q" placeholder="Cari nama depot, alamat, atau kelurahan..."
-                   class="w-full bg-transparent text-sm outline-none placeholder:text-slate-400">
+                   class="min-w-0 w-full bg-transparent text-xs outline-none placeholder:text-slate-400 sm:text-sm">
             <button type="submit"
-                    class="shrink-0 rounded-full bg-brand-blue px-6 py-2.5 text-sm font-medium text-white
-                           transition hover:bg-brand-dark">
+                    class="min-h-11 shrink-0 rounded-full bg-brand-blue px-3 py-2.5 text-xs font-medium text-white
+                           transition hover:bg-brand-dark sm:min-h-0 sm:px-6 sm:text-sm">
                 Cari
             </button>
         </form>
@@ -48,17 +48,17 @@
 </section>
 
 <section id="tentang" class="bg-white py-20 md:py-28">
-    <div class="mx-auto grid max-w-6xl items-center gap-12 px-6 md:grid-cols-2">
+    <div class="mx-auto grid w-full min-w-0 max-w-6xl items-center gap-12 px-6 lg:grid-cols-2">
 
         {{-- Kolase foto --}}
-        <div class="flex justify-center">
+        <div class="flex min-w-0 justify-center">
             <img src="{{ asset('images/about-collage.png') }}"
                  alt="Depot air minum isi ulang"
-                 class="w-full max-w-md md:max-w-none">
+                 class="w-full max-w-md lg:max-w-none">
         </div>
 
         {{-- Teks --}}
-        <div>
+        <div class="min-w-0">
             <p class="text-xs font-semibold text-brand-green-2">Tentang WATR</p>
 
             <h2 class="mt-3 text-2xl font-semibold leading-snug text-brand-green-3 md:text-3xl">
@@ -70,7 +70,7 @@
             </p>
 
             {{-- Statistik dari data depot --}}
-            <dl class="mt-8 grid grid-cols-2 gap-x-8 gap-y-6">
+            <dl class="mt-8 grid grid-cols-1 gap-x-8 gap-y-6 min-[430px]:grid-cols-2">
                 @foreach ($statistics as [$angka, $label])
                     <div>
                         <dt class="text-2xl font-semibold text-brand-green-3">{{ $angka }}</dt>
@@ -84,7 +84,7 @@
 </section>
 
 <section id="favorit" class="bg-brand-sky py-20 md:py-24">
-    <div class="mx-auto max-w-5xl px-6">
+    <div class="mx-auto w-full min-w-0 max-w-5xl px-6">
 
         <div class="text-center">
             <p class="text-xs font-semibold text-brand-green-2">Depot di Bogor Tengah</p>
@@ -103,9 +103,9 @@
             @endforeach
         </div>
 
-        <div class="mt-8 grid gap-6 md:grid-cols-3">
+        <div class="mt-8 grid min-w-0 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @forelse ($recommendedDepots as $d)
-                <article class="depot-card rounded-xl bg-white p-3 shadow-lg shadow-slate-300/50"
+                <article class="depot-card min-w-0 rounded-xl bg-white p-3 shadow-lg shadow-slate-300/50"
                          data-buka="{{ $d['buka_setiap_hari'] ? '1' : '0' }}"
                          data-antar="{{ $d['antar'] ? '1' : '0' }}">
 
@@ -121,7 +121,7 @@
                         </button>
                     </div>
 
-                    <h3 class="mt-3 text-sm font-semibold text-brand-green-3">{{ $d['nama'] }}</h3>
+                    <h3 class="mt-3 break-words text-sm font-semibold text-brand-green-3 sm:break-normal">{{ $d['nama'] }}</h3>
                     <p class="mt-1 truncate text-xs text-slate-500">{{ $d['alamat'] }} · {{ $d['kelurahan'] }}</p>
 
                     <div class="mt-2 space-y-1 text-xs text-slate-600">
@@ -157,7 +157,7 @@
     <img src="{{ asset('images/water-hero.png') }}" alt=""
          class="pointer-events-none absolute inset-x-0 bottom-0 w-full object-cover object-bottom">
 
-    <div class="relative z-10 mx-auto max-w-6xl px-6">
+    <div class="relative z-10 mx-auto w-full min-w-0 max-w-6xl px-6">
 
         <div class="text-center">
             <p class="text-xs font-semibold text-brand-green-2">Cara menggunakan WATR</p>
@@ -166,13 +166,13 @@
             </h2>
         </div>
 
-        <div class="mt-16 grid gap-6 md:grid-cols-3">
+        <div class="mt-16 grid min-w-0 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ([
                 ['1', 'Cari depot',        'Lihat lokasi depot di Bogor Tengah melalui peta.'],
                 ['2', 'Atur pencarian', 'Pilih kelurahan dan harga yang sesuai.'],
                 ['3', 'Lihat informasi',    'Periksa informasi yang tersedia sebelum menghubungi depot.'],
             ] as [$no, $judul, $desk])
-                <article class="rounded-xl bg-white px-6 py-8 text-center shadow-lg shadow-slate-300/50">
+                <article class="min-w-0 rounded-xl bg-white px-6 py-8 text-center shadow-lg shadow-slate-300/50">
                     <span class="mx-auto flex size-8 items-center justify-center rounded-full bg-brand-blue text-sm font-semibold text-white">
                         {{ $no }}
                     </span>

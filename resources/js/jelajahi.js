@@ -78,29 +78,13 @@ const pinIcon = L.divIcon({
 const layer = L.layerGroup().addTo(map);
 const markers = new Map();
 
-const FASKES_CATEGORIES = {
-    'Rumah Sakit': { label: 'RS', color: '#dc2626' },
-    Puskesmas: { label: 'P', color: '#16a34a' },
-    Klinik: { label: 'K', color: '#7c3aed' },
-};
-
-const faskesIcons = Object.fromEntries(Object.entries(FASKES_CATEGORIES).map(([category, style]) => [
-    category,
-    L.divIcon({
-        className: 'pin-depot',
-        html: `<span style="display:flex;width:30px;height:30px;align-items:center;justify-content:center;
-                    border-radius:9999px;background:${style.color};color:#fff;font:700 10px/1 sans-serif;
-                    border:2px solid #fff;box-shadow:0 2px 6px rgb(0 0 0/.3)">${style.label}</span>`,
-        iconSize: [30, 30],
-        iconAnchor: [15, 15],
-    }),
-]));
-
-const fallbackFaskesIcon = L.divIcon({
+const healthIcon = L.divIcon({
     className: 'pin-depot',
-    html: '<span style="display:flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:9999px;background:#64748b;color:#fff;font:700 10px/1 sans-serif;border:2px solid #fff">?</span>',
-    iconSize: [30, 30],
-    iconAnchor: [15, 15],
+    html: `<span style="display:flex;width:28px;height:28px;align-items:center;justify-content:center;
+                border-radius:9999px;background:#0C9624;color:#fff;font:700 18px/1 sans-serif;
+                border:2px solid #fff;box-shadow:0 2px 6px rgb(0 0 0/.3)">+</span>`,
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
 });
 
 let skippedFaskesFeatures = 0;
@@ -160,8 +144,7 @@ const kesehatanLayer = L.geoJSON(null, {
         return valid;
     },
     pointToLayer: (feature, latlng) => {
-        const category = feature.properties?.jenis_faskes;
-        return L.marker(latlng, { icon: faskesIcons[category] ?? fallbackFaskesIcon });
+        return L.marker(latlng, { icon: healthIcon });
     },
     onEachFeature: (feature, featureLayer) => {
         featureLayer.bindPopup(faskesPopup(feature.properties ?? {}));

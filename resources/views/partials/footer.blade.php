@@ -1,7 +1,7 @@
 <footer class="bg-brand-sky">
     <div class="mx-auto max-w-6xl px-6 pb-8 pt-14">
 
-        <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1.4fr]">
+        <div class="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr_1.4fr]">
 
             {{-- Logo + deskripsi --}}
             <div>

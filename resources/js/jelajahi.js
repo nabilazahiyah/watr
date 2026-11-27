@@ -9,22 +9,25 @@ const PUSAT = [-6.5985, 106.7975];
 // ---------- Helper ----------
 const rupiah = (n) => 'Rp' + n.toLocaleString('id-ID');
 const hargaText = (d) => d.harga_min
-    ? `${rupiah(d.harga_min)} – ${rupiah(d.harga_max)} / galon`
+    ? `${rupiah(d.harga_min)} – ${rupiah(d.harga_max)} per galon`
     : 'Harga belum tersedia';
-const jamText = (d) => `Jam ${String(d.jam_buka ?? '').slice(0, 5)}-${String(d.jam_tutup ?? '').slice(0, 5)}`;
+const jamText = (d) => `Jam buka ${String(d.jam_buka ?? '').slice(0, 5)}–${String(d.jam_tutup ?? '').slice(0, 5)}`;
 const jadwalText = (d) => d.buka_setiap_hari ? 'Buka setiap hari' : 'Tidak buka setiap hari';
-const hariLiburText = (d) => d.hari_libur?.length ? `Libur: ${d.hari_libur.join(', ')}` : 'Hari libur belum dicatat';
+const hariLiburText = (d) => d.hari_libur?.length ? `Hari libur: ${d.hari_libur.join(', ')}` : 'Jadwal hari libur belum tersedia';
 // ---------- Peta ----------
 const map = L.map('map', { zoomControl: false }).setView(PUSAT, 14);
 const MAP_KECAMATAN_PANE = 'kecamatanBoundaryPane';
 const MAP_KELURAHAN_PANE = 'kelurahanBoundaryPane';
 const MAP_SUNGAI_PANE = 'sungaiPane';
+const MAP_FASKES_PANE = 'faskesPane';
 map.createPane(MAP_KECAMATAN_PANE);
 map.createPane(MAP_KELURAHAN_PANE);
 map.createPane(MAP_SUNGAI_PANE);
+map.createPane(MAP_FASKES_PANE);
 map.getPane(MAP_KECAMATAN_PANE).style.zIndex = '430';
 map.getPane(MAP_KELURAHAN_PANE).style.zIndex = '450';
 map.getPane(MAP_SUNGAI_PANE).style.zIndex = '410';
+map.getPane(MAP_FASKES_PANE).style.zIndex = '580';
 
 const basemaps = {
     jalan: L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -58,7 +61,7 @@ map.on('locationfound', (e) => {
         radius: 8, color: '#fff', weight: 3, fillColor: '#0ACBFE', fillOpacity: 1,
     }).addTo(map);
 });
-map.on('locationerror', () => alert('Lokasi tidak dapat diakses. Pastikan izin lokasi di browser sudah diaktifkan.'));
+map.on('locationerror', () => alert('Lokasi tidak dapat ditemukan. Periksa izin lokasi di browser, lalu coba lagi.'));
 
 // ---------- Pin & layer ----------
 const pinIcon = L.divIcon({
@@ -75,20 +78,95 @@ const pinIcon = L.divIcon({
 const layer = L.layerGroup().addTo(map);
 const markers = new Map();
 
-// Layer tambahan (data contoh, ganti dengan GeoJSON asli)
-const healthIcon = L.divIcon({
+const FASKES_CATEGORIES = {
+    'Rumah Sakit': { label: 'RS', color: '#dc2626' },
+    Puskesmas: { label: 'P', color: '#16a34a' },
+    Klinik: { label: 'K', color: '#7c3aed' },
+};
+
+const faskesIcons = Object.fromEntries(Object.entries(FASKES_CATEGORIES).map(([category, style]) => [
+    category,
+    L.divIcon({
+        className: 'pin-depot',
+        html: `<span style="display:flex;width:30px;height:30px;align-items:center;justify-content:center;
+                    border-radius:9999px;background:${style.color};color:#fff;font:700 10px/1 sans-serif;
+                    border:2px solid #fff;box-shadow:0 2px 6px rgb(0 0 0/.3)">${style.label}</span>`,
+        iconSize: [30, 30],
+        iconAnchor: [15, 15],
+    }),
+]));
+
+const fallbackFaskesIcon = L.divIcon({
     className: 'pin-depot',
-    html: `<span style="display:flex;width:28px;height:28px;align-items:center;justify-content:center;
-                border-radius:9999px;background:#0C9624;color:#fff;font:700 18px/1 sans-serif;
-                border:2px solid #fff;box-shadow:0 2px 6px rgb(0 0 0/.3)">+</span>`,
-    iconSize: [28, 28],
-    iconAnchor: [14, 14],
+    html: '<span style="display:flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:9999px;background:#64748b;color:#fff;font:700 10px/1 sans-serif;border:2px solid #fff">?</span>',
+    iconSize: [30, 30],
+    iconAnchor: [15, 15],
 });
 
-const kesehatanLayer = L.layerGroup([
-    L.marker([-6.5935, 106.8010], { icon: healthIcon }).bindTooltip('Puskesmas (contoh)'),
-    L.marker([-6.6050, 106.7960], { icon: healthIcon }).bindTooltip('Klinik (contoh)'),
-]).addTo(map);
+let skippedFaskesFeatures = 0;
+
+function faskesPopup(properties = {}) {
+    const popup = document.createElement('div');
+    popup.className = 'space-y-2 text-sm';
+
+    const title = document.createElement('p');
+    title.className = 'font-semibold text-brand-green-3';
+    title.textContent = properties.nama_faskes || 'Fasilitas kesehatan';
+    popup.appendChild(title);
+
+    const category = String(properties.jenis_faskes ?? '').trim();
+    if (category) {
+        const label = document.createElement('span');
+        label.className = 'inline-block rounded-full bg-sky-100 px-2.5 py-1 text-xs font-medium text-sky-800';
+        label.textContent = category;
+        popup.appendChild(label);
+    }
+
+    const kelurahan = String(properties.kelurahan ?? '').trim();
+    const address = String(properties.alamat ?? '').trim();
+    const addressParts = address.split(',').map((part) => part.trim()).filter(Boolean);
+    const conciseAddress = addressParts
+        .filter((part) => !kelurahan || part.localeCompare(kelurahan, 'id', { sensitivity: 'base' }) !== 0)
+        .join(', ');
+
+    [
+        ['Alamat', conciseAddress],
+        ['Kelurahan', kelurahan],
+    ].forEach(([label, value]) => {
+        if (value === null || value === undefined || String(value).trim() === '') return;
+
+        const detail = document.createElement('p');
+        detail.className = 'text-xs text-slate-600';
+        detail.textContent = `${label}: ${value}`;
+        popup.appendChild(detail);
+    });
+
+    return popup;
+}
+
+const kesehatanLayer = L.geoJSON(null, {
+    pane: MAP_FASKES_PANE,
+    filter: (feature) => {
+        const coordinates = feature?.geometry?.coordinates;
+        const valid = feature?.geometry?.type === 'Point'
+            && Array.isArray(coordinates)
+            && coordinates.length >= 2
+            && Number.isFinite(coordinates[0])
+            && Number.isFinite(coordinates[1])
+            && coordinates[0] >= -180 && coordinates[0] <= 180
+            && coordinates[1] >= -90 && coordinates[1] <= 90;
+
+        if (!valid) skippedFaskesFeatures++;
+        return valid;
+    },
+    pointToLayer: (feature, latlng) => {
+        const category = feature.properties?.jenis_faskes;
+        return L.marker(latlng, { icon: faskesIcons[category] ?? fallbackFaskesIcon });
+    },
+    onEachFeature: (feature, featureLayer) => {
+        featureLayer.bindPopup(faskesPopup(feature.properties ?? {}));
+    },
+});
 
 const sungaiStyle = {
     color: '#0284c7',
@@ -106,19 +184,6 @@ function riverPopup(properties = {}) {
     title.className = 'font-semibold text-brand-green-3';
     title.textContent = nama || 'Jaringan sungai';
     popup.appendChild(title);
-
-    [
-        ['Jenis', properties.jenis_objek],
-        ['Tipe', properties.tipe_sungai],
-        ['Kelas', properties.kelas_sungai],
-    ].forEach(([label, value]) => {
-        if (value === null || value === undefined || String(value).trim() === '') return;
-
-        const detail = document.createElement('p');
-        detail.className = 'text-xs text-slate-600';
-        detail.textContent = `${label}: ${value}`;
-        popup.appendChild(detail);
-    });
 
     return popup;
 }
@@ -247,7 +312,7 @@ async function loadGeoJSONLayer(layer, url, label, onLoaded = null) {
         onLoaded?.(geoJSON);
     } catch (error) {
         console.error(`Gagal memuat ${label}.`, error);
-        geoJSONLoadErrors.push(`Gagal memuat ${label}. Periksa koneksi dan ketersediaan file GeoJSON.`);
+        geoJSONLoadErrors.push(`Informasi ${label} belum dapat dimuat. Periksa koneksi internet, lalu muat ulang halaman.`);
         layerLoadError.textContent = geoJSONLoadErrors.join(' ');
         layerLoadError.classList.remove('hidden');
         $('layer-panel').classList.remove('hidden');
@@ -260,7 +325,7 @@ function populateKelurahanOptions(geoJSON) {
         .map((feature) => feature.properties?.nama_kelurahan)
         .filter((nama) => typeof nama === 'string' && nama.trim() !== ''))];
 
-    select.replaceChildren(new Option('Semua Kelurahan', ''));
+    select.replaceChildren(new Option('Semua kelurahan', ''));
     names.forEach((nama) => select.add(new Option(nama, nama)));
     selectKelurahan(selectedKelurahan);
 }
@@ -280,6 +345,16 @@ loadGeoJSONLayer(
     sungaiLayer,
     mapElement.dataset.sungaiUrl,
     'jaringan sungai',
+);
+loadGeoJSONLayer(
+    kesehatanLayer,
+    mapElement.dataset.faskesUrl,
+    'fasilitas kesehatan',
+    () => {
+        if (skippedFaskesFeatures > 0) {
+            console.warn(`${skippedFaskesFeatures} fitur fasilitas kesehatan dilewati karena geometry Point atau koordinatnya tidak valid.`);
+        }
+    },
 );
 
 // Centang / hapus centang layer
@@ -454,7 +529,7 @@ function renderFav() {
 
     if (!items.length) {
         favList.innerHTML = `<li class="py-6 text-center text-xs leading-relaxed text-slate-500">
-            Belum ada depot favorit.<br>Tekan ikon hati pada depot untuk menyimpannya.</li>`;
+            Belum ada depot favorit.<br>Ketuk ikon hati untuk menyimpan depot.</li>`;
         return;
     }
 
@@ -538,7 +613,7 @@ function render() {
     jumlahEl.textContent = `(${hasil.length})`;
 
     if (!hasil.length) {
-        listEl.innerHTML = '<li class="text-xs text-slate-500">Tidak ada depot yang cocok.</li>';
+        listEl.innerHTML = '<li class="text-xs text-slate-500">Tidak ditemukan depot yang cocok. Coba ubah pencarian atau filter.</li>';
     } else if (listAktif) {
         // Zoom ke hasil hanya saat filter dipakai
         map.fitBounds(L.latLngBounds(hasil.map((d) => [d.lat, d.lng])), { padding: [80, 80], maxZoom: 16 });

@@ -10,7 +10,8 @@
     <div id="map" class="absolute inset-0 z-0"
          data-batas-kecamatan-url="{{ asset('data/administrasi/batas_kecamatan_bogor_tengah.geojson') }}"
          data-batas-kelurahan-url="{{ asset('data/administrasi/batas_kelurahan_bogor_tengah.geojson') }}"
-         data-sungai-url="{{ asset('data/hidrologi/sungai_bogor_tengah.geojson') }}"></div>
+         data-sungai-url="{{ asset('data/hidrologi/sungai_bogor_tengah.geojson') }}"
+         data-faskes-url="{{ asset('data/faskes/fasilitas_kesehatan_bogor_tengah.geojson') }}"></div>
 
     {{-- Kanan atas: Favorit + Halaman Utama --}}
 <div class="absolute right-4 top-4 z-1000 flex items-center gap-3">
@@ -72,7 +73,7 @@
                 <circle cx="11" cy="11" r="7" stroke-width="2"/>
                 <path stroke-linecap="round" stroke-width="2" d="M21 21l-4.3-4.3"/>
             </svg>
-            <input id="f-q" type="text" placeholder="Cari depot atau lokasi..."
+            <input id="f-q" type="text" placeholder="Cari nama depot, alamat, atau kelurahan..."
                    class="w-full bg-transparent text-sm outline-none placeholder:text-slate-400">
         </div>
 
@@ -82,13 +83,13 @@
             {{-- Kelurahan --}}
             <label class="block text-sm font-medium text-brand-green-3">Kelurahan</label>
             <select id="f-kel" class="mt-2 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none">
-                <option value="">Semua Kelurahan</option>
+                <option value="">Semua kelurahan</option>
             </select>
 
             {{-- Harga --}}
             <div class="mt-5 flex items-baseline justify-between">
                 <label class="text-sm font-medium text-brand-green-3">
-                    Rentang Harga <span class="text-xs font-normal text-slate-500">(per galon)</span>
+                    Harga maksimum <span class="text-xs font-normal text-slate-500">(per galon)</span>
                 </label>
                 <span id="harga-label" class="text-xs font-semibold text-brand-blue">Rp15.000</span>
             </div>
@@ -103,7 +104,7 @@
             <div class="mt-2 grid grid-cols-2 gap-2">
                 <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 px-3 py-2.5 text-xs text-slate-700">
                     <input id="f-antar" type="checkbox" class="size-4 shrink-0 accent-brand-blue">
-                    Antar jemput
+                    Layanan antar
                 </label>
                 <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-slate-200 px-3 py-2.5 text-xs text-slate-700">
                     <input id="f-harian" type="checkbox" class="size-4 shrink-0 accent-brand-blue">
@@ -114,20 +115,20 @@
             {{-- Terapkan filter --}}
             <button id="f-apply" type="button"
                     class="mt-6 w-full rounded-full bg-brand-blue py-2.5 text-sm font-medium text-white transition hover:brightness-95">
-                Terapkan Filter
+                Terapkan filter
             </button>
 
             {{-- Hasil (disembunyikan sampai filter diterapkan) --}}
             <div id="hasil-wrap" class="hidden">
                 <p class="mt-6 text-sm font-medium text-brand-green-3">
-                    Hasil Pencarian <span id="hasil-jumlah" class="text-xs font-normal text-slate-500"></span>
+                    Hasil pencarian <span id="hasil-jumlah" class="text-xs font-normal text-slate-500"></span>
                 </p>
                 <ul id="hasil" class="mt-3 space-y-3"></ul>
 
                 <button id="f-reset" type="button"
                         class="mt-6 w-full rounded-full border border-brand-blue bg-white py-2.5 text-sm font-medium
                                text-brand-blue transition hover:bg-brand-blue/10">
-                    Reset Filter
+                    Reset filter
                 </button>
             </div>
         </div>
@@ -149,7 +150,7 @@
                             <path stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 13l9 5 9-5"/>
                         </svg>
-                        Layer peta
+                        Pengaturan peta
                     </div>
                     <button id="layer-close" type="button" aria-label="Tutup" class="text-slate-400 hover:text-slate-600">
                         <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -161,9 +162,9 @@
                 <div class="mt-4 space-y-3 text-xs text-slate-700">
                     @foreach ([
                         ['depot', 'Lokasi depot', true],
-                        ['kesehatan', 'Pusat kesehatan', true],
+                        ['kesehatan', 'Fasilitas kesehatan', true],
                         ['sungai', 'Sungai', false],
-                        ['kecamatan', 'Batas Kecamatan Bogor Tengah', true],
+                        ['kecamatan', 'Batas kecamatan Bogor Tengah', true],
                         ['kelurahan', 'Batas kelurahan', true],
                     ] as [$key, $label, $on])
                         <label class="flex cursor-pointer items-center gap-2.5">
@@ -194,7 +195,7 @@
             </div>
 
             {{-- Tombol layer --}}
-            <button id="layer-btn" type="button" aria-label="Layer peta"
+            <button id="layer-btn" type="button" aria-label="Pengaturan peta"
                     class="flex size-10 items-center justify-center rounded-lg bg-white text-brand-blue shadow-lg transition hover:bg-slate-50">
                 <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5z"/>
@@ -220,14 +221,22 @@
                     Depot air minum
                 </li>
                 <li class="flex items-center gap-3">
-                    <span class="flex size-4 shrink-0 items-center justify-center rounded-full bg-brand-green-2 text-[11px] font-bold leading-none text-white">+</span>
-                    Pusat kesehatan
+                    <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-red-600 text-[8px] font-bold leading-none text-white">RS</span>
+                    Rumah sakit
                 </li>
                 <li class="flex items-center gap-3">
-                    <span class="h-0.5 w-4 shrink-0 bg-brand-blue"></span> Jaringan Sungai
+                    <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-green-600 text-[9px] font-bold leading-none text-white">P</span>
+                    Puskesmas
                 </li>
                 <li class="flex items-center gap-3">
-                    <span class="h-0.5 w-4 shrink-0 bg-red-600"></span> Batas Kecamatan Bogor Tengah
+                    <span class="flex size-5 shrink-0 items-center justify-center rounded-full bg-violet-600 text-[9px] font-bold leading-none text-white">K</span>
+                    Klinik
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="h-0.5 w-4 shrink-0 bg-brand-blue"></span> Jaringan sungai
+                </li>
+                <li class="flex items-center gap-3">
+                    <span class="h-0.5 w-4 shrink-0 bg-red-600"></span> Batas kecamatan Bogor Tengah
                 </li>
                 <li class="flex items-center gap-3">
                     <span class="h-px w-4 shrink-0 bg-slate-500"></span> Batas kelurahan

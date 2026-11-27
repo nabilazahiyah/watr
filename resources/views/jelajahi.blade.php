@@ -11,10 +11,9 @@
             <nav class="text-[11px] text-slate-500">
                 <a href="{{ route('home') }}" class="hover:text-brand-blue">Beranda</a> / Daftar depot
             </nav>
-            <h1 class="mt-5 text-2xl font-semibold text-brand-green-3 md:text-3xl">Daftar semua depot</h1>
+            <h1 class="mt-5 text-2xl font-semibold text-brand-green-3 md:text-3xl">Daftar depot</h1>
             <p class="mt-3 max-w-md text-xs leading-relaxed text-slate-600">
-                Temukan Depot Air Minum Isi Ulang di Bogor Tengah.
-                Kenali informasi dan layanan depot sebelum menentukan pilihan.
+                Cari depot air minum di Bogor Tengah dan lihat informasi yang tersedia.
             </p>
         </div>
 
@@ -30,7 +29,7 @@
     <div class="mx-auto max-w-6xl px-6">
 
         {{-- Filter --}}
-        <form method="GET" action="{{ route('jelajahi') }}"
+        <form id="jelajahi-filter-form" method="GET" action="{{ route('jelajahi') }}"
               class="rounded-2xl border border-slate-100 p-4 shadow-sm md:p-5">
 
             <div class="grid gap-3 md:grid-cols-[1fr_auto_auto_auto]">
@@ -39,7 +38,7 @@
                         <circle cx="11" cy="11" r="7" stroke-width="2"/>
                         <path stroke-linecap="round" stroke-width="2" d="M21 21l-4.3-4.3"/>
                     </svg>
-                    <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari nama depot atau lokasi..."
+                    <input type="text" name="q" value="{{ request('q') }}" placeholder="Cari nama depot, alamat, atau kelurahan..."
                            class="w-full bg-transparent text-xs outline-none placeholder:text-slate-400">
                 </div>
 
@@ -62,13 +61,12 @@
                 </button>
             </div>
 
-            {{-- Chip filter cepat --}}
-            @php $aktif = request('filter', ''); @endphp
+            {{-- Filter layanan dan jadwal --}}
             <div class="mt-4 flex flex-wrap gap-2">
-                @foreach (['' => 'Semua', 'harian' => 'Buka setiap hari', 'antar' => 'Layanan antar'] as $val => $label)
+                @foreach ([['harian', 'Buka setiap hari'], ['antar', 'Layanan antar']] as [$val, $label])
                     <label class="cursor-pointer">
-                        <input type="radio" name="filter" value="{{ $val }}" class="peer sr-only"
-                               @checked($aktif === $val) onchange="this.form.submit()">
+                        <input type="checkbox" name="{{ $val }}" value="1" class="peer sr-only"
+                               @checked(request()->boolean($val))>
                         <span class="block rounded-full border border-brand-blue/40 bg-white px-4 py-1.5 text-[11px] text-slate-700 transition
                                      peer-checked:border-brand-blue peer-checked:bg-sky-100 peer-checked:text-brand-blue">
                             {{ $label }}
@@ -76,17 +74,25 @@
                     </label>
                 @endforeach
             </div>
+
+            <div class="mt-4 flex items-center justify-between gap-3">
+                <a href="{{ route('jelajahi') }}" class="text-[11px] text-slate-500 transition hover:text-brand-blue">
+                    Reset filter
+                </a>
+                <span class="text-[10px] text-slate-400">Hasil diperbarui otomatis saat pencarian atau filter berubah.</span>
+            </div>
         </form>
 
-        {{-- Judul daftar --}}
-        <div class="mt-10 flex items-baseline justify-between">
-            <h2 class="text-base font-semibold text-brand-green-3">Depot di Bogor Tengah</h2>
-            <p class="text-[11px] text-slate-500">{{ count($depots) }} depot ditampilkan</p>
-        </div>
+        <div id="jelajahi-results">
+            {{-- Judul daftar --}}
+            <div class="mt-10 flex items-baseline justify-between">
+                <h2 class="text-base font-semibold text-brand-green-3">Depot di Bogor Tengah</h2>
+                <p class="text-[11px] text-slate-500" aria-live="polite">{{ count($depots) }} depot ditemukan</p>
+            </div>
 
-        {{-- Kartu --}}
-        <div class="mt-5 grid gap-6 md:grid-cols-3">
-            @forelse ($depots as $d)
+            {{-- Kartu --}}
+            <div class="mt-5 grid gap-6 md:grid-cols-3">
+                @forelse ($depots as $d)
                 <article class="flex flex-col rounded-2xl border border-slate-100 bg-white p-3 shadow-md shadow-slate-300/40">
 
                     <div class="relative">
@@ -111,20 +117,19 @@
                             </p>
                             <p class="text-[10px] text-slate-500">per galon</p>
                         @else
-                            <p class="mt-3 text-sm font-semibold text-brand-green-3">Konfirmasi harga ke depot</p>
                             <p class="text-[10px] text-slate-500">Harga belum tersedia</p>
                         @endif
 
                         {{-- Jam & layanan --}}
                         <p class="mt-2 text-[11px] text-slate-600">
-                            Jam {{ substr($d['jam_buka'], 0, 5) }}-{{ substr($d['jam_tutup'], 0, 5) }}
+                            Jam buka {{ substr($d['jam_buka'], 0, 5) }}–{{ substr($d['jam_tutup'], 0, 5) }}
                             · {{ $d['buka_setiap_hari'] ? 'Buka setiap hari' : 'Tidak buka setiap hari' }}
                         </p>
                         <p class="mt-1 text-[11px] text-slate-500">
-                            {{ count($d['hari_libur']) ? 'Libur: '.implode(', ', $d['hari_libur']) : 'Hari libur belum dicatat' }}
+                            {{ count($d['hari_libur']) ? 'Hari libur: '.implode(', ', $d['hari_libur']) : 'Jadwal hari libur belum tersedia' }}
                         </p>
                         <p class="mt-1 text-[11px] text-slate-600">
-                            {{ $d['antar'] ? 'Layanan antar tersedia' : 'Layanan: hubungi depot' }}
+                            {{ $d['antar'] ? 'Melayani antar' : 'Tidak melayani antar' }}
                         </p>
 
                         <a href="{{ route('peta', ['depot' => $d['id']]) }}"
@@ -134,11 +139,12 @@
                         </a>
                     </div>
                 </article>
-            @empty
-                <p class="col-span-full py-10 text-center text-sm text-slate-500">
-                    Tidak ada depot yang cocok dengan pencarianmu.
-                </p>
-            @endforelse
+                @empty
+                    <p class="col-span-full py-10 text-center text-sm text-slate-500">
+                        Tidak ditemukan depot yang cocok. Coba ubah pencarian atau filter.
+                    </p>
+                @endforelse
+            </div>
         </div>
     </div>
 

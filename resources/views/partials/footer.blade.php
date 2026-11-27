@@ -9,8 +9,7 @@
                     <img src="{{ asset('images/logo.svg') }}" alt="Watr.id" class="h-10">
                 </a>
                 <p class="mt-4 max-w-[15rem] text-xs leading-relaxed text-brand-green-3">
-                    Watr menyediakan informasi dan peta interaktif dari Depot Air Minum
-                    Isi Ulang (DAMIU) terverifikasi di Kecamatan Bogor Tengah.
+                    WATR menampilkan peta dan informasi depot air minum isi ulang di Bogor Tengah.
                 </p>
             </div>
 
@@ -29,10 +28,10 @@
             <div>
                 <h4 class="text-sm font-semibold text-brand-green-3">Fitur</h4>
                 <ul class="mt-4 space-y-3 text-xs text-brand-green-3">
-                    <li>Eksplorasi DAMIU</li>
-                    <li>Informasi DAMIU</li>
-                    <li>Pengelolaan Favorit</li>
-                    <li>Pencarian &amp; Filter</li>
+                    <li>Peta depot</li>
+                    <li>Informasi depot</li>
+                    <li>Depot favorit</li>
+                    <li>Pencarian dan filter</li>
                 </ul>
             </div>
 
@@ -49,7 +48,7 @@
 
         {{-- Garis + copyright --}}
         <div class="mt-12 border-t border-slate-300/70 pt-8 text-center text-xs text-brand-green-3">
-            &copy; {{ date('Y') }} Watr. All Rights Reserved.
+            &copy; {{ date('Y') }} WATR. Hak cipta dilindungi.
         </div>
 
     </div>

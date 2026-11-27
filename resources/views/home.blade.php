@@ -17,9 +17,7 @@
         </h1>
 
         <p class="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-slate-700">
-            Akses pemetaan interaktif untuk menjelajahi lokasi depot air minum di seluruh wilayah
-            Kecamatan Bogor Tengah. Cek informasi harga galon, status operasional, hingga
-            ketersediaan layanan pesan antar dengan cepat dan mudah.
+            Cari depot air minum di Bogor Tengah. Lihat lokasi, harga, jam buka, dan layanan antar sebelum memilih.
         </p>
 
         {{-- Search bar --}}
@@ -28,18 +26,18 @@
                 <circle cx="11" cy="11" r="7" stroke-width="2"/>
                 <path stroke-linecap="round" stroke-width="2" d="M21 21l-4.3-4.3"/>
             </svg>
-            <input type="text" name="q" placeholder="Cari depot atau kelurahan..."
+            <input type="text" name="q" placeholder="Cari nama depot, alamat, atau kelurahan..."
                    class="w-full bg-transparent text-sm outline-none placeholder:text-slate-400">
             <button type="submit"
                     class="shrink-0 rounded-full bg-brand-blue px-6 py-2.5 text-sm font-medium text-white
                            transition hover:bg-brand-dark">
-                Cari Sekarang
+                Cari
             </button>
         </form>
     </div>
 
     <div class="absolute inset-x-0 bottom-0 z-10 bg-brand-yellow py-2 text-center text-xs font-medium text-slate-900">
-        Untuk pengaduan hubungi watr.id@gmail.com
+        Ada pertanyaan atau koreksi? Hubungi watr.id@gmail.com.
     </div>
 
     <a href="#jelajahi" class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-bounce text-white">
@@ -64,12 +62,11 @@
             <p class="text-xs font-semibold text-brand-green-2">Tentang WATR</p>
 
             <h2 class="mt-3 text-2xl font-semibold leading-snug text-brand-green-3 md:text-3xl">
-                Memudahkan Akses Informasi Air Minum Isi Ulang Terpercaya
+                Informasi depot air minum di Bogor Tengah
             </h2>
 
             <p class="mt-4 text-sm leading-relaxed text-slate-600">
-                Dibangun untuk warga, pendatang, dan siapa pun yang membutuhkan akses cepat
-                ke informasi depot air minum di pusat Kota Bogor.
+                WATR membantu warga dan pengunjung menemukan informasi depot air minum di Bogor Tengah.
             </p>
 
             {{-- Statistik dari data depot --}}
@@ -90,10 +87,9 @@
     <div class="mx-auto max-w-5xl px-6">
 
         <div class="text-center">
-            <p class="text-xs font-semibold text-brand-green-2">Data Depot</p>
+            <p class="text-xs font-semibold text-brand-green-2">Depot di Bogor Tengah</p>
             <h2 class="mt-2 text-2xl font-semibold text-brand-green-3 md:text-3xl">
-                Depot Air Minum
-                <span class="bg-brand-yellow px-1">Terdata</span>
+                Informasi depot
             </h2>
         </div>
 
@@ -114,7 +110,7 @@
                          data-antar="{{ $d['antar'] ? '1' : '0' }}">
 
                     <div class="relative">
-                        <img src="{{ asset('images/fotodummy.jpg') }}" alt="Foto simulasi depot"
+                        <img src="{{ asset('images/fotodummy.jpg') }}" alt="Ilustrasi depot air minum"
                              class="aspect-4/3 w-full rounded-lg object-cover">
 
                         <button type="button" data-favorite-id="{{ $d['id'] }}" aria-label="Tambahkan ke favorit" aria-pressed="false"
@@ -126,22 +122,22 @@
                     </div>
 
                     <h3 class="mt-3 text-sm font-semibold text-brand-green-3">{{ $d['nama'] }}</h3>
-                    <p class="mt-1 truncate text-xs text-slate-500">{{ $d['kelurahan'] }} - {{ $d['alamat'] }}</p>
+                    <p class="mt-1 truncate text-xs text-slate-500">{{ $d['alamat'] }} · {{ $d['kelurahan'] }}</p>
 
                     <div class="mt-2 space-y-1 text-xs text-slate-600">
                         <p class="font-medium text-brand-green-3">Rp{{ number_format($d['harga'], 0, ',', '.') }} per galon</p>
-                        <p>Jam {{ $d['jam_buka'] }} sampai {{ $d['jam_tutup'] }} - {{ $d['antar'] ? 'Melayani antar' : 'Tidak ada layanan antar' }}</p>
-                        <p>{{ count($d['hari_libur']) ? 'Libur: '.implode(', ', $d['hari_libur']) : 'Hari libur belum dicatat' }}</p>
+                        <p>Jam buka {{ $d['jam_buka'] }}–{{ $d['jam_tutup'] }} · {{ $d['antar'] ? 'Melayani antar' : 'Tidak melayani antar' }}</p>
+                        <p>{{ count($d['hari_libur']) ? 'Hari libur: '.implode(', ', $d['hari_libur']) : 'Jadwal hari libur belum tersedia' }}</p>
                     </div>
 
                     <a href="{{ route('jelajahi', ['q' => $d['nama']]) }}"
                        class="mt-3 block rounded-lg border border-slate-300 py-2 text-center text-xs font-medium text-slate-700 transition hover:bg-slate-50">
-                        Lihat di Peta
+                        Lihat di peta
                     </a>
                 </article>
             @empty
                 <p class="col-span-full rounded-xl bg-white p-8 text-center text-sm text-slate-600">
-                    Belum ada data depot. Informasi akan tampil setelah data tersedia.
+                    Informasi depot belum tersedia.
                 </p>
             @endforelse
         </div>
@@ -149,7 +145,7 @@
         <div class="mt-10 text-center">
             <a href="{{ route('jelajahi') }}"
                class="inline-block rounded-full bg-brand-blue px-7 py-2.5 text-sm font-medium text-white transition hover:brightness-95">
-                Jelajahi Semua Depot
+                Lihat semua depot
             </a>
         </div>
 
@@ -164,17 +160,17 @@
     <div class="relative z-10 mx-auto max-w-6xl px-6">
 
         <div class="text-center">
-            <p class="text-xs font-semibold text-brand-green-2">Mulai Pencarian</p>
+            <p class="text-xs font-semibold text-brand-green-2">Cara menggunakan WATR</p>
             <h2 class="mt-2 text-2xl font-semibold text-slate-800 md:text-3xl">
-                Tiga Langkah Sederhana
+                Temukan depot pilihanmu
             </h2>
         </div>
 
         <div class="mt-16 grid gap-6 md:grid-cols-3">
             @foreach ([
-                ['1', 'Buka Peta',        'Lihat persebaran depot di seluruh wilayah Bogor Tengah.'],
-                ['2', 'Filter Kebutuhan', 'Pilih lokasi dan rentang harga yang sesuai.'],
-                ['3', 'Hubungi Depot',    'Lihat informasi lengkap lalu hubungi depot pilihan Anda.'],
+                ['1', 'Cari depot',        'Lihat lokasi depot di Bogor Tengah melalui peta.'],
+                ['2', 'Atur pencarian', 'Pilih kelurahan dan harga yang sesuai.'],
+                ['3', 'Lihat informasi',    'Periksa informasi yang tersedia sebelum menghubungi depot.'],
             ] as [$no, $judul, $desk])
                 <article class="rounded-xl bg-white px-6 py-8 text-center shadow-lg shadow-slate-300/50">
                     <span class="mx-auto flex size-8 items-center justify-center rounded-full bg-brand-blue text-sm font-semibold text-white">

@@ -15,9 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            KelurahanSeeder::class,
-            DepotSeeder::class,
-            DepotHariLiburSeeder::class,
+            PruneUnverifiedDepotsSeeder::class,
         ]);
     }
 }

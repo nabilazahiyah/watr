@@ -13,7 +13,7 @@
             <p class="text-[11px] font-semibold uppercase tracking-wide text-sky-600">Tentang WATR</p>
 
             <h1 class="mt-4 text-3xl font-semibold leading-tight text-slate-800 md:text-4xl">
-                Lebih dekat dengan<br>pilihan air minummu.
+                Informasi depot air minum di Bogor Tengah.
             </h1>
 
             <p class="mt-6 max-w-md text-sm leading-relaxed text-slate-600">
@@ -21,8 +21,7 @@
                 (DAMIU) di Kecamatan Bogor Tengah, Kota Bogor.
             </p>
             <p class="mt-5 max-w-md text-sm leading-relaxed text-slate-600">
-                Dibangun untuk warga, pendatang, dan siapa pun yang membutuhkan akses cepat
-                ke informasi depot air minum di pusat Kota Bogor.
+                WATR membantu warga dan pengunjung mencari depot air minum di Bogor Tengah.
             </p>
 
             <div class="mt-8 flex flex-wrap gap-3">
@@ -50,7 +49,7 @@
     <div class="mx-auto grid max-w-6xl gap-8 px-6 md:grid-cols-2 md:gap-12">
 
         <div>
-            <p class="text-[11px] font-semibold uppercase tracking-wide text-sky-600">Kenapa WATR hadir?</p>
+            <p class="text-[11px] font-semibold uppercase tracking-wide text-sky-600">Tentang layanan</p>
             <h2 class="mt-4 text-2xl font-semibold leading-snug text-slate-800 md:text-3xl">
                 Informasi depot,<br>dalam satu tempat.
             </h2>
@@ -58,14 +57,10 @@
 
         <div class="space-y-4 text-sm leading-relaxed text-slate-600">
             <p>
-                Mencari depot air minum isi ulang seharusnya tidak rumit. WATR membantu
-                mempertemukan kebutuhan sehari-hari dengan informasi lokasi dan layanan
-                depot di sekitar.
+                WATR menyajikan lokasi dan informasi depot air minum dalam satu peta dan daftar.
             </p>
             <p>
-                Mulai dari menemukan lokasi, melihat informasi harga dan jam operasional,
-                sampai menyimpan depot pilihan&mdash;semuanya dapat dijelajahi melalui satu
-                website.
+                Kamu dapat mencari depot, melihat informasi yang tersedia, dan menyimpan pilihan di perangkatmu.
             </p>
         </div>
     </div>
@@ -74,18 +69,18 @@
 {{-- ================= YANG BISA KAMU LAKUKAN ================= --}}
 <section class="bg-brand-sky py-16 md:py-20">
     <div class="mx-auto max-w-6xl px-6">
-        <p class="text-[11px] font-semibold uppercase tracking-wide text-sky-600">Yang bisa kamu lakukan</p>
+        <p class="text-[11px] font-semibold uppercase tracking-wide text-sky-600">Fitur WATR</p>
         <h2 class="mt-4 text-2xl font-semibold leading-snug text-slate-800 md:text-3xl">
-            Satu website, lebih mudah memilih depot.
+            Cari dan simpan depot.
         </h2>
 
         <div class="mt-8 grid gap-5 md:grid-cols-3">
             @foreach ([
-                ['Temukan lokasi depot', 'Jelajahi persebaran depot melalui peta interaktif. Gunakan pencarian dan filter untuk menemukan lokasi yang sesuai.',
+                ['Temukan lokasi depot', 'Cari depot melalui peta dan gunakan filter kelurahan atau harga.',
                     '<circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M12 2v3M12 19v3M2 12h3M19 12h3"/>'],
-                ['Kenali harga dan layanan', 'Lihat harga galon, rentang harga, jam operasional, serta ketersediaan layanan antar sebelum menghubungi depot.',
+                ['Lihat informasi depot', 'Periksa harga, jam buka, dan layanan antar jika informasinya tersedia.',
                     '<path stroke-linejoin="round" d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/>'],
-                ['Simpan depot pilihan', 'Tandai depot sebagai favorit agar lebih mudah ditemukan kembali saat kamu membutuhkan isi ulang berikutnya.',
+                ['Simpan depot pilihan', 'Tandai depot dengan ikon hati agar mudah ditemukan kembali di perangkat ini.',
                     '<path stroke-linejoin="round" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.7 5 6 5c2 0 3.3 1.1 4 2.2h4C14.7 6.1 16 5 18 5c3.3 0 5.1 3.4 3.6 6.8C19.5 16.4 12 21 12 21z"/>'],
             ] as [$judul, $desk, $ikon])
                 <article class="rounded-xl bg-white p-5 shadow-md shadow-slate-300/40">
@@ -110,8 +105,7 @@
                 Informasi yang jelas.<br>Pilihan tetap di tanganmu.
             </h2>
             <p class="mt-5 max-w-sm text-sm leading-relaxed text-slate-600">
-                WATR membantu pencarian informasi. Pastikan kebutuhanmu sesuai dengan layanan
-                depot sebelum melakukan pemesanan.
+                Informasi di WATR membantu pencarian. Pastikan detail harga dan layanan kepada depot sebelum memesan.
             </p>
             <p class="mt-6 text-xs text-sky-600">Ada informasi yang perlu diperbarui?</p>
             <a href="mailto:watr.id@gmail.com" class="text-xs text-slate-600 hover:text-sky-600">watr.id@gmail.com</a>
@@ -138,7 +132,7 @@
         <div class="flex flex-col gap-6 rounded-2xl bg-brand-sky px-8 py-8 md:flex-row md:items-center md:justify-between">
             <div>
                 <h2 class="text-xl font-semibold text-slate-800 md:text-2xl">Mulai kenali depot di sekitarmu.</h2>
-                <p class="mt-2 text-xs text-slate-600">Buka peta atau telusuri daftar depot di Bogor Tengah.</p>
+                <p class="mt-2 text-xs text-slate-600">Lihat lokasi depot atau telusuri daftarnya.</p>
             </div>
             <div class="flex flex-wrap gap-3">
                 <a href="{{ route('peta') }}"

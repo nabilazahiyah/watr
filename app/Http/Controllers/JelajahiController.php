@@ -19,11 +19,12 @@ class JelajahiController extends Controller
     {
         $depots = collect($this->depots());
 
-        if ($q = trim((string) $request->query('q'))) {
+        $q = Str::lower(trim((string) $request->query('q')));
+        if ($q !== '') {
             $depots = $depots->filter(fn ($d) =>
-                str_contains(strtolower($d['nama']), strtolower($q)) ||
-                str_contains(strtolower($d['kelurahan']), strtolower($q)) ||
-                str_contains(strtolower($d['alamat'] ?? ''), strtolower($q))
+                Str::contains(Str::lower((string) ($d['nama'] ?? '')), $q) ||
+                Str::contains(Str::lower((string) ($d['kelurahan'] ?? '')), $q) ||
+                Str::contains(Str::lower((string) ($d['alamat'] ?? '')), $q)
             );
         }
 
@@ -31,11 +32,13 @@ class JelajahiController extends Controller
             $depots = $depots->where('kelurahan', $kel);
         }
 
-        $depots = match ($request->query('filter')) {
-            'harian' => $depots->where('buka_setiap_hari', true),
-            'antar'  => $depots->where('antar', true),
-            default  => $depots,
-        };
+        if ($request->boolean('harian')) {
+            $depots = $depots->where('buka_setiap_hari', true);
+        }
+
+        if ($request->boolean('antar')) {
+            $depots = $depots->where('antar', true);
+        }
 
         $depots = match ($request->query('urut', 'nama_asc')) {
             'nama_desc' => $depots->sortByDesc('nama', SORT_NATURAL | SORT_FLAG_CASE),

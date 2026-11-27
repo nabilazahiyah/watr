@@ -1,0 +1,1159 @@
+{
+  "type": "FeatureCollection",
+  "name": "Inventaris Fasilitas Kesehatan Kecamatan Bogor Tengah – pembaruan 27 November 2026",
+  "metadata": {
+    "kecamatan": "Bogor Tengah",
+    "kota": "Kota Bogor",
+    "crs": "WGS 84 / EPSG:4326",
+    "tanggal_pembaruan": "2026-11-27",
+    "catatan": "Inventaris penelitian, bukan klaim daftar resmi lengkap. Koordinat memakai CRS WGS 84 / EPSG:4326 dan urutan [longitude, latitude]. Sebagian titik berasal dari tautan peta fasilitas; titik Klinik Pratama Dermies Max mewakili gedung Botani Square, bukan unit tenant. Dua fasilitas masih belum memperoleh titik numerik yang cukup dapat ditelusuri. Koordinat belum diuji secara spasial terhadap polygon batas Kecamatan Bogor Tengah.",
+    "jumlah_fitur": 35,
+    "jumlah_point": 33,
+    "jumlah_tanpa_geometri": 2
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7975702,
+          -6.5914863
+        ]
+      },
+      "properties": {
+        "id_faskes": "RS-01",
+        "nama_faskes": "RSU Tk IV Salak Bogor",
+        "alias": "",
+        "jenis_faskes": "Rumah Sakit",
+        "subjenis": "Rumah Sakit",
+        "kelurahan": "Sempur",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Jend. Sudirman No. 8, Sempur, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Bapperida Kota Bogor, RPJMD Kota Bogor 2025–2029, Tabel 2.34",
+        "url_sumber_identitas": "https://bapperida.kotabogor.go.id/po-content/uploads/rpjmd_kota_bogor_tahun_2025_2029.pdf",
+        "sumber_koordinat": "Medicastore; koordinat peta profil fasilitas",
+        "url_sumber_koordinat": "https://medicastore.com/faskes/detail?faskes=rumah-sakit-tni-ad-salak-bogor-Mjg0MDk5MzY%3D",
+        "tahun_koordinat": "Tidak dinyatakan",
+        "status_kualitas_koordinat": "Koordinat sekunder; sumber ditampilkan dan perlu cek silang/survei lapangan",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=RSU+Tk+IV+Salak+Bogor+Jl.+Jend.+Sudirman+No.+8%2C+Sempur%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Koordinat sekunder dari peta profil. Cocokkan kembali dengan pin Google Maps dan survei lapangan.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kelas_rs": "C",
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8050535,
+          -6.5986673
+        ]
+      },
+      "properties": {
+        "id_faskes": "RS-02",
+        "nama_faskes": "RSU PMI Bogor",
+        "alias": "",
+        "jenis_faskes": "Rumah Sakit",
+        "subjenis": "Rumah Sakit",
+        "kelurahan": "Tegallega",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Raya Pajajaran No. 80, Tegallega, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Bapperida Kota Bogor, RPJMD Kota Bogor 2025–2029, Tabel 2.34",
+        "url_sumber_identitas": "https://bapperida.kotabogor.go.id/po-content/uploads/rpjmd_kota_bogor_tahun_2025_2029.pdf",
+        "sumber_koordinat": "Medicastore; koordinat peta profil fasilitas",
+        "url_sumber_koordinat": "https://medicastore.com/faskes/detail?faskes=rumah-sakit-pmi-bogor-4-OTMx",
+        "tahun_koordinat": "Tidak dinyatakan",
+        "status_kualitas_koordinat": "Koordinat sekunder; sumber ditampilkan dan perlu cek silang/survei lapangan",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=RSU+PMI+Bogor+Jl.+Raya+Pajajaran+No.+80%2C+Tegallega%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Koordinat sekunder dari peta profil. Cocokkan kembali dengan pin Google Maps dan survei lapangan.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kelas_rs": "B",
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8046881,
+          -6.5956638
+        ]
+      },
+      "properties": {
+        "id_faskes": "RS-03",
+        "nama_faskes": "Siloam Hospitals Bogor",
+        "alias": "",
+        "jenis_faskes": "Rumah Sakit",
+        "subjenis": "Rumah Sakit",
+        "kelurahan": "Babakan",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Raya Pajajaran No. 27, Babakan, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Bapperida Kota Bogor, RPJMD Kota Bogor 2025–2029, Tabel 2.34",
+        "url_sumber_identitas": "https://bapperida.kotabogor.go.id/po-content/uploads/rpjmd_kota_bogor_tahun_2025_2029.pdf",
+        "sumber_koordinat": "Medicastore; koordinat peta profil fasilitas",
+        "url_sumber_koordinat": "https://medicastore.com/faskes/detail?faskes=rumah-sakit-siloam-bogor-7-OTEyMg%3D%3D",
+        "tahun_koordinat": "Tidak dinyatakan",
+        "status_kualitas_koordinat": "Koordinat sekunder; sumber ditampilkan dan perlu cek silang/survei lapangan",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Siloam+Hospitals+Bogor+Jl.+Raya+Pajajaran+No.+27%2C+Babakan%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Koordinat sekunder dari peta profil. Cocokkan kembali dengan pin Google Maps dan survei lapangan.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kelas_rs": "C",
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7936266,
+          -6.5881116
+        ]
+      },
+      "properties": {
+        "id_faskes": "RS-04",
+        "nama_faskes": "RSKIA Sawojajar",
+        "alias": "",
+        "jenis_faskes": "Rumah Sakit",
+        "subjenis": "Rumah Sakit",
+        "kelurahan": "Pabaton",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Sawojajar No. 9 RT 001/RW 002, Pabaton, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Bapperida Kota Bogor, RPJMD Kota Bogor 2025–2029, Tabel 2.34",
+        "url_sumber_identitas": "https://bapperida.kotabogor.go.id/po-content/uploads/rpjmd_kota_bogor_tahun_2025_2029.pdf",
+        "sumber_koordinat": "Medicastore; halaman fasilitas menampilkan koordinat numerik dan tautan Lihat di Peta Google Maps",
+        "url_sumber_koordinat": "https://medicastore.com/faskes/detail?faskes=rumah-sakit-khusus-ibu-dan-anak-sawojajar-Mjg0MDk4ODg%3D",
+        "tahun_koordinat": "Tidak dinyatakan",
+        "status_kualitas_koordinat": "Koordinat sekunder; sumber ditampilkan dan perlu cek silang/survei lapangan",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=RSKIA+Sawojajar+Jl.+Sawojajar+No.+9+RT+001%2FRW+002%2C+Pabaton%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Koordinat hasil penelusuran peta sekunder; alamat juga dicocokkan dengan RPJMD. Perlu konfirmasi lapangan.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kelas_rs": "C",
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.791258,
+          -6.596275
+        ]
+      },
+      "properties": {
+        "id_faskes": "RS-05",
+        "nama_faskes": "RSU Bhayangkara Tk. IV Bogor",
+        "alias": "",
+        "jenis_faskes": "Rumah Sakit",
+        "subjenis": "Rumah Sakit",
+        "kelurahan": "Paledang",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Kapten Muslihat No. 18, Paledang, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Bapperida Kota Bogor, RPJMD Kota Bogor 2025–2029, Tabel 2.34",
+        "url_sumber_identitas": "https://bapperida.kotabogor.go.id/po-content/uploads/rpjmd_kota_bogor_tahun_2025_2029.pdf",
+        "sumber_koordinat": "Google Maps embed pada situs resmi RS Bhayangkara Bogor; titik pusat peta dengan label RS Bhayangkara Bogor",
+        "url_sumber_koordinat": "https://www.google.com/maps/embed?pb=%211m14%211m8%211m3%211d15853.626658145811%212d106.791258%213d-6.596275%213m2%211i1024%212i768%214f13.1%213m3%211m2%211s0x2e69c5b719aab0e7%3A0xe40f7acd24631520%212sRS+Bhayangkara+Bogor%215e0%213m2%211sid%212sid%214v1716057429144%215m2%211sid%212sid",
+        "tahun_koordinat": "Tidak dinyatakan",
+        "status_kualitas_koordinat": "Koordinat sekunder; sumber ditampilkan dan perlu cek silang/survei lapangan",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=RSU+Bhayangkara+Tk.+IV+Bogor+Jl.+Kapten+Muslihat+No.+18%2C+Paledang%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Koordinat diambil dari parameter pusat peta Google Maps pada situs resmi RS. Ini titik peta, bukan titik survei GPS; cocokkan pin dan pintu masuk.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kelas_rs": "D",
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.800401,
+          -6.607678
+        ]
+      },
+      "properties": {
+        "id_faskes": "PKM-01",
+        "nama_faskes": "Puskesmas Gang Aut",
+        "alias": "",
+        "jenis_faskes": "Puskesmas",
+        "subjenis": "Puskesmas Non Rawat Inap",
+        "kelurahan": "Gudang",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Gang Aut No. 18, Gudang, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Kementerian Kesehatan, KMK HK.01.07/MENKES/314/2026, Data Puskesmas Teregistrasi Semester II 2025",
+        "url_sumber_identitas": "https://regpus.kemkes.go.id/media/dokumen/publikasi/2026-04-23/KMK_No._HK.01.07-MENKES-314-2026_ttg_Data_PKM_Teregistrasi__nZUZbyn.pdf",
+        "sumber_koordinat": "Kementerian Kesehatan, Buku Informasi Mudik 2018",
+        "url_sumber_koordinat": "https://sehatnegeriku.kemkes.go.id/wp-content/uploads/2018/06/BUKU-INFORMASI-MUDIK-TAHUN-2018-FINAL-1.pdf",
+        "tahun_koordinat": "2018",
+        "status_kualitas_koordinat": "Koordinat lama 2018; perlu validasi ulang",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Puskesmas+Gang+Aut+Jl.+Gang+Aut+No.+18%2C+Gudang%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Titik lama dari sumber Kemenkes 2018; identitas/registrasi dicocokkan dengan data Puskesmas Kemenkes 2026.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kode_registrasi_kemenkes": "1000052558",
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7982,
+          -6.5868
+        ]
+      },
+      "properties": {
+        "id_faskes": "PKM-02",
+        "nama_faskes": "Puskesmas Bogor Tengah",
+        "alias": "",
+        "jenis_faskes": "Puskesmas",
+        "subjenis": "Puskesmas Non Rawat Inap",
+        "kelurahan": "Pabaton",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Telepon No. 1 RT 02/RW 01, Pabaton, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Kementerian Kesehatan, KMK HK.01.07/MENKES/314/2026, Data Puskesmas Teregistrasi Semester II 2025",
+        "url_sumber_identitas": "https://regpus.kemkes.go.id/media/dokumen/publikasi/2026-04-23/KMK_No._HK.01.07-MENKES-314-2026_ttg_Data_PKM_Teregistrasi__nZUZbyn.pdf",
+        "sumber_koordinat": "Kementerian Kesehatan, Buku Informasi Mudik 2018",
+        "url_sumber_koordinat": "https://sehatnegeriku.go.id/wp-content/uploads/2018/06/BUKU-INFORMASI-MUDIK-TAHUN-2018-FINAL-1.pdf",
+        "tahun_koordinat": "2018",
+        "status_kualitas_koordinat": "Koordinat lama 2018; perlu validasi ulang",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Puskesmas+Bogor+Tengah+Jl.+Telepon+No.+1+RT+02%2FRW+01%2C+Pabaton%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Titik lama dari sumber Kemenkes 2018; identitas/registrasi dicocokkan dengan data Puskesmas Kemenkes 2026.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kode_registrasi_kemenkes": "1000052560",
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.79715,
+          -6.587162
+        ]
+      },
+      "properties": {
+        "id_faskes": "PKM-03",
+        "nama_faskes": "Puskesmas Sempur",
+        "alias": "",
+        "jenis_faskes": "Puskesmas",
+        "subjenis": "Puskesmas Non Rawat Inap",
+        "kelurahan": "Sempur",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Sempur Kaler No. 100 RT 05/RW 02, Sempur, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Kementerian Kesehatan, KMK HK.01.07/MENKES/314/2026, Data Puskesmas Teregistrasi Semester II 2025",
+        "url_sumber_identitas": "https://regpus.kemkes.go.id/media/dokumen/publikasi/2026-04-23/KMK_No._HK.01.07-MENKES-314-2026_ttg_Data_PKM_Teregistrasi__nZUZbyn.pdf",
+        "sumber_koordinat": "Kementerian Kesehatan, Buku Informasi Mudik 2018",
+        "url_sumber_koordinat": "https://sehatnegeriku.kemkes.go.id/wp-content/uploads/2018/06/BUKU-INFORMASI-MUDIK-TAHUN-2018-FINAL-1.pdf",
+        "tahun_koordinat": "2018",
+        "status_kualitas_koordinat": "Koordinat lama 2018; perlu validasi ulang",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Puskesmas+Sempur+Jl.+Sempur+Kaler+No.+100+RT+05%2FRW+02%2C+Sempur%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Titik lama dari sumber Kemenkes 2018; identitas/registrasi dicocokkan dengan data Puskesmas Kemenkes 2026.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kode_registrasi_kemenkes": "1000052479",
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7875611111111,
+          -6.591625
+        ]
+      },
+      "properties": {
+        "id_faskes": "PKM-04",
+        "nama_faskes": "Puskesmas Merdeka",
+        "alias": "",
+        "jenis_faskes": "Puskesmas",
+        "subjenis": "Puskesmas Non Rawat Inap",
+        "kelurahan": "Ciwaringin",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Merdeka No. 114 RT 03/RW 03, Ciwaringin, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Kementerian Kesehatan, KMK HK.01.07/MENKES/314/2026, Data Puskesmas Teregistrasi Semester II 2025",
+        "url_sumber_identitas": "https://regpus.kemkes.go.id/media/dokumen/publikasi/2026-04-23/KMK_No._HK.01.07-MENKES-314-2026_ttg_Data_PKM_Teregistrasi__nZUZbyn.pdf",
+        "sumber_koordinat": "Album Inventarisasi Aset Pusaka Kota Bogor; koordinat DMS pada entri bangunan Puskesmas Merdeka",
+        "url_sumber_koordinat": "https://id.scribd.com/document/634815334/Untitled",
+        "tahun_koordinat": "Tidak dinyatakan pada entri; publikasi inventaris",
+        "status_kualitas_koordinat": "Koordinat numerik eksplisit dari inventaris bangunan; sumber sekunder/arsip, belum survei GPS terkini",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Puskesmas+Merdeka+Jl.+Merdeka+No.+114+RT+03%2FRW+03%2C+Ciwaringin%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Pin Google Maps/daftar fasilitas ditemukan melalui pencarian alamat, tetapi koordinat numerik pin yang dapat disalin belum terverifikasi dalam data yang diakses. Tidak memakai titik halte/bus yang kebetulan bernama sama. Koordinat DMS sumber 106°47′15.22″ BT; 6°35′29.85″ LS dikonversi ke WGS84. Nama dan alamat dicocokkan dengan registrasi Kemenkes 2026. Validasi geometris terhadap batas administrasi Bogor Tengah dilakukan.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "kode_registrasi_kemenkes": "1000052417",
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.80085845624606,
+          -6.604581445529062
+        ]
+      },
+      "properties": {
+        "id_faskes": "PKM-05",
+        "nama_faskes": "Puskesmas Belong",
+        "alias": "",
+        "jenis_faskes": "Puskesmas",
+        "subjenis": "Puskesmas Non Rawat Inap",
+        "kelurahan": "Babakan Pasar",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Roda No. 25 RT 02/RW 06, Babakan Pasar, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Kementerian Kesehatan, KMK HK.01.07/MENKES/314/2026, Data Puskesmas Teregistrasi Semester II 2025",
+        "url_sumber_identitas": "https://regpus.kemkes.go.id/media/dokumen/publikasi/2026-04-23/KMK_No._HK.01.07-MENKES-314-2026_ttg_Data_PKM_Teregistrasi__nZUZbyn.pdf",
+        "sumber_koordinat": "Titik peta pada laman resmi Dinas Kesehatan Kota Bogor (Puskesmas Belong)",
+        "url_sumber_koordinat": "https://dinkes.kotabogor.go.id/",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Puskesmas+Belong+Jl.+Roda+No.+25+RT+02%2FRW+06%2C+Babakan+Pasar%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Alamat dikonfirmasi oleh Pemkot dan registrasi Kemenkes 2026; pin Google Maps dapat ditelusuri melalui tautan, tetapi koordinat numerik belum diekstrak.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "kode_registrasi_kemenkes": "1000052596",
+        "catatan_koordinat": "Koordinat ditarik dari tautan peta pada laman resmi Dinas Kesehatan Kota Bogor."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.792729,
+          -6.589133
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-01",
+        "nama_faskes": "Klinik Mursidin",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik Pratama",
+        "kelurahan": "Ciwaringin",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Merdeka No. 128 RT 03/RW 04, Ciwaringin, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Medicastore facility profile; alamat dan jenis fasilitas",
+        "url_sumber_identitas": "https://medicastore.com/faskes/detail?faskes=klinik-mursidin",
+        "sumber_koordinat": "Medicastore facility profile; coordinate displayed on profile map",
+        "url_sumber_koordinat": "https://medicastore.com/faskes/detail?faskes=klinik-mursidin",
+        "tahun_koordinat": "Tidak dinyatakan",
+        "status_kualitas_koordinat": "Koordinat sekunder; perlu verifikasi silang dan survei lapangan",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Mursidin+Jl.+Merdeka+No.+128+RT+03%2FRW+04%2C+Ciwaringin%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Koordinat sekunder pada peta profil Medicastore.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7944946,
+          -6.5921792
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-02",
+        "nama_faskes": "Klinik TelkoMedika Health Center 19",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik Pratama",
+        "kelurahan": "Pabaton",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Pengadilan No. 19 RT 05/RW 03, Pabaton, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Medicastore facility profile; alamat dan jenis fasilitas",
+        "url_sumber_identitas": "https://medicastore.com/faskes/detail?faskes=klinik-telkomedika-health-center-19-MTA0OTY%3D",
+        "sumber_koordinat": "Medicastore facility profile; coordinate displayed on profile map",
+        "url_sumber_koordinat": "https://medicastore.com/faskes/detail?faskes=klinik-telkomedika-health-center-19-MTA0OTY%3D",
+        "tahun_koordinat": "Tidak dinyatakan",
+        "status_kualitas_koordinat": "Koordinat sekunder; perlu verifikasi silang dan survei lapangan",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+TelkoMedika+Health+Center+19+Jl.+Pengadilan+No.+19+RT+05%2FRW+03%2C+Pabaton%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Koordinat sekunder; ada perbedaan penulisan nomor alamat dengan direktori izin, jadi verifikasi lapangan disarankan.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.807226,
+          -6.602811
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-03",
+        "nama_faskes": "Klinik Utama M3",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik Utama",
+        "kelurahan": "Tegallega",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Cidangiang No. 5 RT 04/RW 05, Tegallega, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Kementerian Kesehatan, Direktorat Jenderal Kesehatan Lanjutan, direktori profil klinik",
+        "url_sumber_identitas": "https://keslan.kemkes.go.id/klinik/cari/index/2051",
+        "sumber_koordinat": "Medicastore; halaman fasilitas menampilkan koordinat numerik dan tautan Lihat di Peta Google Maps",
+        "url_sumber_koordinat": "https://medicastore.com/faskes/detail?faskes=klinik-kulit-m3-MTE0Mw%3D%3D",
+        "tahun_koordinat": "Tidak dinyatakan",
+        "status_kualitas_koordinat": "Koordinat sekunder; perlu verifikasi silang dan survei lapangan",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Utama+M3+Jl.+Cidangiang+No.+5+RT+04%2FRW+05%2C+Tegallega%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Koordinat sekunder. Nama Kemenkes tercatat sebagai Klinik Utama M3; profil sekunder juga menyebut klinik kulit M3.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.791879,
+          -6.5966491
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-04",
+        "nama_faskes": "Klinik Pratama Melania Bruderan",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Paledang",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Kapten Muslihat No. 20, Paledang, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Kementerian Kesehatan, Direktorat Jenderal Kesehatan Lanjutan, profil Klinik Pratama Melania Bruderan",
+        "url_sumber_identitas": "https://keslan.kemkes.go.id/klinik/profile/bWoxR014d0pwL0NDeDhTb0hYcHBBdz09",
+        "sumber_koordinat": "Titik peta direktori lokasi klinik",
+        "url_sumber_koordinat": "https://keslan.kemkes.go.id/klinik/profile/bWoxR014d0pwL0NDeDhTb0hYcHBBdz09",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Pratama+Melania+Bruderan+Jl.+Kapten+Muslihat+No.+20%2C+Paledang%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Google Maps search URL tersedia; koordinat numerik belum diekstrak.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "catatan_koordinat": "Titik koordinat diperoleh dari peta lokasi klinik; identitas/alamat mengacu pada inventaris."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.78936221125592,
+          -6.587386745188394
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-05",
+        "nama_faskes": "Klinik Afiah",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Ciwaringin",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Ciwaringin No. 37 RT 04/RW 03, Ciwaringin, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Kementerian Kesehatan, Direktorat Jenderal Kesehatan Lanjutan, profil Klinik Afiah",
+        "url_sumber_identitas": "https://keslan.kemkes.go.id/klinik/profile/WWFjVEJwLzhpS2FOMERDdTF1MXBnUT09",
+        "sumber_koordinat": "Tautan peta pada profil Klinik Afiah di Kementerian Kesehatan",
+        "url_sumber_koordinat": "https://keslan.kemkes.go.id/klinik/profile/WWFjVEJwLzhpS2FOMERDdTF1MXBnUT09",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Afiah+Jl.+Ciwaringin+No.+37+RT+04%2FRW+03%2C+Ciwaringin%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Google Maps search URL tersedia; koordinat numerik belum diekstrak.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "catatan_koordinat": "Koordinat diambil dari tautan peta pada profil fasilitas Kemenkes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.79503931652482,
+          -6.581655141388113
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-06",
+        "nama_faskes": "Klinik Denkesyah 03.04.01",
+        "alias": "Klinik Pratama Pusdikzi",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Pabaton",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. R.E. Martadinata No. 55 RT 002/RW 005 (listing Google Maps/Waze juga menyebut Jl. Perwira No. 55), Pabaton, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Kementerian Kesehatan, Direktorat Jenderal Kesehatan Lanjutan, profil Klinik Denkesyah 03.04.01; Waze location listing; Google Maps business listing (nama tampilan/alias Pusdikzi pada alamat yang sama)",
+        "url_sumber_identitas": "https://keslan.kemkes.go.id/klinik/profile/a0VST1lzUkJ1eGNhdnEwSXZoYldFZz09",
+        "sumber_koordinat": "Tautan peta pada profil Klinik Denkesyah 03.04.01 di Kementerian Kesehatan",
+        "url_sumber_koordinat": "https://keslan.kemkes.go.id/klinik/profile/a0VST1lzUkJ1eGNhdnEwSXZoYldFZz09",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Pratama+Pusdikzi&query_place_id=ChIJ71xOAQDFaS4RowEJHb4_Oxo",
+        "catatan": "Terdapat perbedaan penamaan jalan di sumber; jangan digandakan dengan Klinik Pratama Pusdikzi sebelum dipastikan bukan satu lokasi/unit.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "catatan_koordinat": "Koordinat diambil dari tautan peta pada profil fasilitas Kemenkes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7871569,
+          -6.5940329
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-07",
+        "nama_faskes": "Klinik Pratama Tera Medika",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Kebon Kelapa",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Perintis Kemerdekaan No. 28, Kebon Kelapa, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Data SITB fasilitas kesehatan; alamat juga ditemukan pada direktori sekunder",
+        "url_sumber_identitas": "https://data.sitb.id/fasyankes/v_fasyankes_list.php?goto=659",
+        "sumber_koordinat": "Tautan peta Google Maps pada listing Klinik Pratama Tera Medika",
+        "url_sumber_koordinat": "https://caribisnis.id/klinik-rs/bogor/bogor-tengah/klinik-pratama-tera-medika-bogo-imp1",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Pratama+Tera+Medika+Jl.+Perintis+Kemerdekaan+No.+28%2C+Kebon+Kelapa%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Google Maps search URL tersedia; koordinat numerik belum diekstrak.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "catatan_koordinat": "Koordinat diambil dari tautan peta listing; nama dan alamat Jl. Perintis Kemerdekaan No. 28 juga tercantum pada profil/listing fasilitas."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8146068,
+          -6.5928601
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-08",
+        "nama_faskes": "Klinik Pratama Tegal Lega",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Tegallega",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Tegal Lega No. 17 RT 04/RW 01, Tegallega, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Listing Waze; nama/alamat perlu konfirmasi registrasi aktif",
+        "url_sumber_identitas": "https://www.waze.com/live-map/directions/klinik-pratama-tegal-lega-jalan-tegal-lega-17-bogor?to=place",
+        "sumber_koordinat": "Tautan peta Google Maps pada listing lokasi Klinik Pratama Tegal Lega",
+        "url_sumber_koordinat": "https://www.google.com/maps?hl=id&output=embed&q=-6.5928601%2C106.8146068&z=16",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Pratama+Tegal+Lega+Jl.+Tegal+Lega+No.+17+RT+04%2FRW+01%2C+Tegallega%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Nama/alamat ditemukan, tetapi status registrasi aktif perlu konfirmasi.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "catatan_koordinat": "Koordinat diambil dari tautan peta pada listing lokasi."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7881627,
+          -6.574037
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-09",
+        "nama_faskes": "Q Medical n Dental Clinic",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Ciwaringin",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Tentara Pelajar No. 20G, Ciwaringin, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Direktori klinik sekunder / listing lokasi; verifikasi Kemenkes belum ditemukan",
+        "url_sumber_identitas": "https://www.google.com/maps/search/?api=1&query=Q+Medical+n+Dental+Clinic+Bogor",
+        "sumber_koordinat": "Tautan peta Google Maps pada listing Q Medical n Dental Clinic",
+        "url_sumber_koordinat": "https://www.google.com/maps?hl=id&output=embed&q=-6.574037%2C106.7881627&z=16",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta listing; perlu cek posisi terhadap batas kecamatan",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Q+Medical+n+Dental+Clinic+Jl.+Tentara+Pelajar+No.+20G%2C+Ciwaringin%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Google Maps search URL tersedia; koordinat numerik belum diekstrak.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "catatan_koordinat": "Titik diambil dari tautan peta listing. Periksa kembali terhadap polygon Bogor Tengah karena posisinya dekat sisi utara wilayah."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8063967,
+          -6.602924
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-10",
+        "nama_faskes": "eRDe Dental Care 2",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Tegallega",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Cidangiang No. 1, Tegallega, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Google Maps business listing / direktori klinik sekunder",
+        "url_sumber_identitas": "https://www.google.com/maps/search/?api=1&query=eRDe+Dental+Care+2+Bogor",
+        "sumber_koordinat": "Tautan peta Google Maps pada listing eRDe Dental Care 2",
+        "url_sumber_koordinat": "https://www.google.com/maps?hl=id&output=embed&q=-6.602924%2C106.8063967&z=16",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta listing; alamat listing perlu dicocokkan kembali",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=eRDe+Dental+Care+2+Jl.+Cidangiang+No.+1%2C+Tegallega%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Google Maps search URL tersedia; koordinat numerik belum diekstrak.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "catatan_koordinat": "Koordinat diambil dari tautan peta listing yang mencantumkan alamat Jl. Cidangiang No. 1."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8067358,
+          -6.6022316
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-11",
+        "nama_faskes": "Happy Dental Clinic Botani Square Bogor",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Tegallega",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Botani Square, Jl. Raya Pajajaran No. 40 Lt. LG Unit 2A, Tegallega, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Situs resmi Happy Dental Clinic, halaman lokasi Botani Square",
+        "url_sumber_identitas": "https://happydentalclinic.com/lokasi/botani-square/",
+        "sumber_koordinat": "Tautan peta Google Maps pada listing Happy Dental Clinic Botani Square",
+        "url_sumber_koordinat": "https://www.google.com/maps?hl=id&output=embed&q=-6.6022316%2C106.8067358&z=16",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik lokasi klinik di area Botani Square; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Happy+Dental+Clinic+Botani+Square+Bogor+Botani+Square%2C+Jl.+Raya+Pajajaran+No.+40+Lt.+LG+Unit+2A%2C+Tegallega%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Alamat dikonfirmasi situs resmi klinik; koordinat numerik belum diekstrak.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "catatan_koordinat": "Titik berasal dari tautan peta listing Happy Dental Clinic Botani Square."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7967868,
+          -6.5890611
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-12",
+        "nama_faskes": "Klinik Gigi Senyum dan Senyum - Sudirman Bogor",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Sempur",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Jend. Sudirman No. 15, Sempur, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Situs resmi Klinik Gigi Senyum&Senyum, halaman kontak",
+        "url_sumber_identitas": "https://senyumdansenyum.com/kontak/",
+        "sumber_koordinat": "Tautan peta Google Maps pada situs resmi Klinik Gigi Senyum & Senyum",
+        "url_sumber_koordinat": "https://senyumdansenyum.com/kontak/",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Gigi+Senyum+dan+Senyum+-+Sudirman+Bogor+Jl.+Jend.+Sudirman+No.+15%2C+Sempur%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Alamat dikonfirmasi situs resmi klinik; koordinat numerik belum diekstrak.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "catatan_koordinat": "Alamat didukung situs resmi klinik; koordinat diambil dari tautan petanya."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8022838,
+          -6.5921575
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-13",
+        "nama_faskes": "ARDE Dental Clinic",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Babakan",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Salak No. 6, Babakan, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Google Maps business listing; direktori sekunder",
+        "url_sumber_identitas": "https://www.google.com/maps/search/?api=1&query=ARDE+Dental+Clinic+Bogor",
+        "sumber_koordinat": "Tautan peta Google Maps untuk ARDE Dental Clinic",
+        "url_sumber_koordinat": "https://www.google.com/maps/search/?api=1&query=ARDE+Dental+Clinic+Bogor",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta listing; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=ARDE+Dental+Clinic+Jl.+Salak+No.+6%2C+Babakan%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Google Maps search URL tersedia; koordinat numerik belum diekstrak.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "catatan_koordinat": "Koordinat diperoleh dari tautan petunjuk arah/peta listing ARDE Dental Clinic."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "id_faskes": "KLINIK-14",
+        "nama_faskes": "Klinik Dr Sunardi 1",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Kebon Kelapa",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Veteran No. 48C, Kebon Kelapa, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Data SITB clinic list dan Google Maps business listing",
+        "url_sumber_identitas": "https://data.sitb.id/fasyankes/v_klinik_punyauser_rpt_report.php?goto=2",
+        "sumber_koordinat": null,
+        "url_sumber_koordinat": null,
+        "tahun_koordinat": null,
+        "status_kualitas_koordinat": "Belum ada koordinat numerik tervalidasi",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Dr+Sunardi+1+Jl.+Veteran+No.+48C%2C+Kebon+Kelapa%2C+Bogor+Tengah%2C+Kota+Bogor+Bogor",
+        "catatan": "Kecamatan/kelurahan berasal dari listing lokasi; status aktif dan alamat sebaiknya dicek ulang.",
+        "validasi_batas_kecamatan": "Belum dapat diuji karena koordinat numerik belum tersedia"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7909166667,
+          -6.5938611111
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-15",
+        "nama_faskes": "Klinik Mediska Bogor",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik (subjenis perlu verifikasi)",
+        "kelurahan": "Cibogor (perlu konfirmasi)",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Nyi Raja Permas 1 RT 04/RW 06, Kota Bogor",
+        "sumber_identitas": "Direktorat Jenderal Kesehatan Lanjutan, direktori klinik Kemenkes",
+        "url_sumber_identitas": "https://keslan.kemkes.go.id/klinik/cari/index/2051",
+        "sumber_koordinat": "Tautan peta pada direktori Klinik Mediska Kementerian Kesehatan",
+        "url_sumber_koordinat": "https://keslan.kemkes.go.id/klinik/cari/index/2051",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Koordinat hasil konversi dari koordinat DMS pada tautan peta; belum diuji terhadap polygon",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Mediska+Bogor+Jl.+Nyi+Raja+Permas+1+RT+04%2FRW+06%2C+Kota+Bogor+Bogor",
+        "catatan": "Alamat ada pada direktori Kemenkes; kelurahan perlu pemeriksaan administrasi. Tidak diberi titik.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "catatan_koordinat": "Koordinat dikonversi dari format derajat-menit-detik yang tercantum pada tautan peta direktori Kemenkes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.79451059681354,
+          -6.600222651288603
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-16",
+        "nama_faskes": "Klinik Kimia Farma Juanda",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik Pratama",
+        "kelurahan": "Paledang",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Ir. H. Juanda No.30, RT.03/RW.02, Paledang, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Profil Klinik Kementerian Kesehatan; diperkuat direktori alamat dan koordinat KnowDengue/Takeda",
+        "url_sumber_identitas": "https://keslan.kemkes.go.id/klinik/profile/VUN2N0g4MnUvcW5pdW1sU2RSK0hVdz09",
+        "sumber_koordinat": "KnowDengue/Takeda facility listing; mencantumkan lintang-bujur numerik dan tautan petunjuk arah Google Maps",
+        "url_sumber_koordinat": "https://www.cegahdbd.com/klinik-kimia-farma-juanda",
+        "tahun_koordinat": "Dinyatakan pada halaman sumber (halaman menyebut C-ANPROM/ID/QDE/0956 July 2025)",
+        "status_kualitas_koordinat": "Koordinat sekunder numerik dengan tautan Google Maps; cocokkan lagi dengan pin Google Maps sebelum survei lapangan",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik%20Kimia%20Farma%20Juanda%2C%20Jl.%20Ir.%20H.%20Juanda%20No.30%2C%20RT.03%2FRW.02%2C%20Paledang%2C%20Bogor%20Tengah%2C%20Kota%20Bogor",
+        "catatan": "Alamat dan status klinik didukung profil Kemenkes; koordinat eksplisit tersedia pada direktori sekunder. Titik diuji terhadap poligon administrasi Bogor Tengah.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kode_faskes_bpjs": "0133B024",
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.79706019391938,
+          -6.58419392034492
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-17",
+        "nama_faskes": "Klinik Utama No Rawat Inap Prodia",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik Utama Non Rawat Inap",
+        "kelurahan": "Sempur",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Jend. Sudirman No.38B, Sempur, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Profil Klinik Kementerian Kesehatan; daftar provider asuransi juga menyebut alamat yang sama",
+        "url_sumber_identitas": "https://keslan.kemkes.go.id/klinik/profile/QlJiSUdCWnorZ0R3R1ZDVk9MUi9Kdz09",
+        "sumber_koordinat": "Tautan peta pada profil Klinik Utama Prodia di Kementerian Kesehatan",
+        "url_sumber_koordinat": "https://keslan.kemkes.go.id/klinik/profile/QlJiSUdCWnorZ0R3R1ZDVk9MUi9Kdz09",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik%20Utama%20No%20Rawat%20Inap%20Prodia%2C%20Jl.%20Jend.%20Sudirman%20No.38B%2C%20Sempur%2C%20Bogor%20Tengah%2C%20Kota%20Bogor",
+        "catatan": "Identitas dan alamat terverifikasi dari profil Kemenkes. Belum menemukan koordinat numerik yang bisa dicantumkan tanpa menebak.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "catatan_koordinat": "Koordinat diambil dari tautan peta pada profil fasilitas Kemenkes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.80561985999603,
+          -6.592423093965949
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-18",
+        "nama_faskes": "Arlisa Clinic",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik Pratama Non Rawat Inap",
+        "kelurahan": "Babakan (kelurahan perlu cek silang)",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Lodaya I No.4, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Profil Klinik Kementerian Kesehatan; alamat kelurahan Babakan tercantum pada direktori sekunder",
+        "url_sumber_identitas": "https://keslan.kemkes.go.id/klinik/profile/dkVIa29tQVhkdFBMRDRNR2ZhT3h0dz09",
+        "sumber_koordinat": "Tautan peta pada profil Arlisa Clinic di Kementerian Kesehatan",
+        "url_sumber_koordinat": "https://keslan.kemkes.go.id/klinik/profile/dkVIa29tQVhkdFBMRDRNR2ZhT3h0dz09",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Arlisa%20Clinic%2C%20Jl.%20Lodaya%20I%20No.4%2C%20Bogor%20Tengah%2C%20Kota%20Bogor",
+        "catatan": "Kemenkes mengonfirmasi nama, jenis, dan alamat Bogor Tengah; sumber direktori sekunder menyebut Babakan. Koordinat belum ditemukan secara numerik.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "catatan_koordinat": "Koordinat diambil dari tautan peta pada profil fasilitas Kemenkes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": null,
+      "properties": {
+        "id_faskes": "KLINIK-19",
+        "nama_faskes": "Klinik Pajajaran",
+        "alias": "Klinik 24 Jam Pajajaran (listing pada alamat sama; identitas perlu konfirmasi)",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik",
+        "kelurahan": "Babakan",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Raya Pajajaran No.41, RT.01/RW.06, Babakan, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Direktori alamat klinik dan halaman direktori dengan review Google Maps; listing Klinik 24 Jam Pajajaran pada alamat yang sama diperlakukan sebagai alias, belum dipastikan bukan entitas berbeda",
+        "url_sumber_identitas": "https://idalamat.com/alamat/klinik-pajajaran-876688",
+        "sumber_koordinat": null,
+        "url_sumber_koordinat": null,
+        "tahun_koordinat": null,
+        "status_kualitas_koordinat": "Belum ada koordinat numerik yang cukup terverifikasi; jangan membuat titik perkiraan",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik%20Pajajaran%2C%20Jl.%20Raya%20Pajajaran%20No.41%2C%20RT.01%2FRW.06%2C%20Babakan%2C%20Bogor%20Tengah%2C%20Kota%20Bogor",
+        "catatan": "Alamat dan wilayah didukung direktori publik; nama Klinik Pajajaran dan listing Klinik 24 Jam Pajajaran berada pada alamat yang sama sehingga tidak dihitung sebagai dua fasilitas. Belum ada koordinat numerik terverifikasi.",
+        "validasi_batas_kecamatan": null,
+        "jarak_dari_batas_m": null
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.80737,
+          -6.60132
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-20",
+        "nama_faskes": "Klinik Pratama Dermies Max by Erha Botani Square",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik Pratama Non Rawat Inap",
+        "kelurahan": "Tegallega",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Botani Square Mall Unit GF 88, Jl. Raya Pajajaran, RT.04/RW.05, Tegallega, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Profil Klinik Kementerian Kesehatan",
+        "url_sumber_identitas": "https://keslan.kemkes.go.id/klinik/profile/ZzlIVTRpUmFKZjhxQ012SUlKQ2dHQT09",
+        "sumber_koordinat": "Titik lokasi gedung Botani Square dari peta OpenStreetMap/Mapcarta",
+        "url_sumber_koordinat": "https://mapcarta.com/W142604654",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Perkiraan titik bangunan Botani Square; bukan titik unit tenant Dermies Max",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik%20Pratama%20Dermies%20Max%20by%20Erha%20Botani%20Square%2C%20Botani%20Square%20Mall%20Unit%20GF%2088%2C%20Jl.%20Raya%20Pajajaran%2C%20RT.04%2FRW.05%2C%20Tegallega%2C%20Bogor%20Tengah%2C%20Kota%20Bogor",
+        "catatan": "Profil Kemenkes mencantumkan nama, jenis, dan alamat di Tegallega. Koordinat numerik belum ditemukan.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "catatan_koordinat": "Klinik berada di Botani Square Mall Unit GF 88. Koordinat mewakili lokasi gedung mal, bukan posisi persis unit klinik."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.7922278,
+          -6.6067921
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-21",
+        "nama_faskes": "Klinik Dr. Sunardi",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik",
+        "kelurahan": "Paledang",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Pancasan No.40, RT.04/RW.07, Paledang, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Listing navigasi Waze; identitas harus dibedakan dari Klinik Pratama Sunardi I di Jl. Veteran No.48C",
+        "url_sumber_identitas": "https://www.waze.com/id/live-map/directions/id/jawa-barat/klinik-dr.-sunardi?to=place.ChIJPQaLcb7FaS4RCFx4Yr1wSiM",
+        "sumber_koordinat": "Tautan peta Google Maps pada listing Klinik Dr. Sunardi",
+        "url_sumber_koordinat": "https://www.google.com/maps?hl=id&output=embed&q=-6.6067921%2C106.7922278&z=16",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik%20Dr.%20Sunardi%2C%20Jl.%20Pancasan%20No.40%2C%20RT.04%2FRW.07%2C%20Paledang%2C%20Bogor%20Tengah%2C%20Kota%20Bogor",
+        "catatan": "Listing Waze menyebut lokasi di Paledang. Tidak digabung dengan Klinik Pratama Sunardi I (alamat berbeda). Status registrasi/fasilitas aktif perlu cek silang; koordinat numerik tidak ditampilkan dalam sumber yang dibaca.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "catatan_koordinat": "Titik merujuk Klinik Dr. Sunardi di Jl. Pancasan No. 40; berbeda dari Klinik Dr Sunardi 1 di Jl. Veteran."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.81277,
+          -6.591334
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-22",
+        "nama_faskes": "Klinik Pratama Kinawa Dermacare",
+        "alias": "",
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik Pratama (status operasional perlu cek)",
+        "kelurahan": "Tegallega",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Kota Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Bogor Baru A-VI No.8 Unit D, RT.06/RW.01, Tegallega, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Dokumen perizinan Pemerintah Kota Bogor yang mencatat SIP dokter pada Klinik Pratama Kinawa Dermacare (2025)",
+        "url_sumber_identitas": "https://tnd.kotabogor.go.id/uploads/backup/PNG-4990.pdf",
+        "sumber_koordinat": "Tautan peta pada profil Klinik Pratama Kinawa Dermacare di Kementerian Kesehatan",
+        "url_sumber_koordinat": "https://keslan.kemkes.go.id/klinik/profile/",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; perlu cek posisi terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik%20Pratama%20Kinawa%20Dermacare%2C%20Jl.%20Bogor%20Baru%20A-VI%20No.8%20Unit%20D%2C%20RT.06%2FRW.01%2C%20Tegallega%2C%20Bogor%20Tengah%2C%20Kota%20Bogor",
+        "catatan": "Sumber pemerintah yang ditemukan adalah catatan izin praktik tenaga medis, bukan direktori titik fasilitas. Masukkan sebagai kandidat inventaris; status fasilitas aktif dan alamat operasional perlu konfirmasi. Tidak diberi titik.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "catatan_koordinat": "Koordinat diambil dari tautan peta profil fasilitas; alamatnya Jl. Bogor Baru A-VI No. 8 Unit D."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.797,
+          -6.58407
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-23",
+        "nama_faskes": "Klinik Sudirman (JMC Group)",
+        "alias": null,
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik Pratama (provider listing; klasifikasi izin terkini perlu cross-check)",
+        "kelurahan": "Sempur",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Jend. Sudirman No. 38D, RT 01/RW 03, Sempur, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Direktori provider asuransi; direktori bisnis mencantumkan alamat dan lokasi; Google Maps business listing (Klinik Sudirman, Place ID ChIJJXkqwdfYaS4RN7lYWHgJjMk)",
+        "url_sumber_identitas": "https://www.chinalife.co.id/; https://caribisnis.id/ (lihat catatan sumber pada metadata)",
+        "sumber_koordinat": "WorldPlaces listing; explicit GPS coordinate (-6.58407, 106.797), coordinate precision limited",
+        "url_sumber_koordinat": "https://indonesia.worldplaces.me/hospitals-in-jakarta/54160678-klinik-sudirman-24-jam-jl-sudirman-bogor-jawa-barat-indonesia.html",
+        "tahun_koordinat": "Tidak dinyatakan",
+        "status_kualitas_koordinat": "Koordinat sekunder berpresisi terbatas; bujur 3 desimal, ketelitian spasial rendah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Sudirman&query_place_id=ChIJJXkqwdfYaS4RN7lYWHgJjMk",
+        "catatan": "Alamat 38D/Sempur didukung beberapa daftar provider; sumber koordinat menampilkan GPS -6.58407, 106.797. Titik wajib dicocokkan visual pada pin Google Maps dan/atau survei lapangan sebelum analisis presisi. Titik berada di dalam poligon Bogor Tengah; karena pembulatan bujur, marker bersifat indikatif, bukan titik pintu masuk.",
+        "validasi_batas_kecamatan": "Di dalam poligon Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kelas_rs": null,
+        "validasi_point_in_polygon": true
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8061892321323,
+          -6.59102287474675
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-24",
+        "nama_faskes": "Blooming Child Development Clinic",
+        "alias": null,
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik Utama Non Rawat Inap",
+        "kelurahan": "Babakan",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Sancang No. 1, Babakan, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Profil fasilitas Kementerian Kesehatan; alamat kelurahan dicross-check dari sumber publik sekunder",
+        "url_sumber_identitas": "https://keslan.kemkes.go.id/klinik/profile/RVpyUHZjbHdRUytBSjlOOThOTm4yUT09",
+        "sumber_koordinat": "Tautan peta pada profil Blooming Child Development Clinic di Kementerian Kesehatan",
+        "url_sumber_koordinat": "https://keslan.kemkes.go.id/klinik/profile/RVpyUHZjbHdRUytBSjlOOThOTm4yUT09",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Blooming+Child+Development+Clinic+Jl.+Sancang+No.+1,+Babakan,+Bogor+Tengah,+Kota+Bogor",
+        "catatan": "Tidak ada koordinat numerik yang ditemukan pada sumber yang dapat ditelusuri. Alamat dan nama terdaftar di Kemenkes; status lokasi kelurahan didukung cross-check sekunder.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kelas_rs": null,
+        "validasi_point_in_polygon": null,
+        "catatan_koordinat": "Koordinat diambil dari tautan peta pada profil fasilitas Kemenkes."
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          106.8020789,
+          -6.6077789
+        ]
+      },
+      "properties": {
+        "id_faskes": "KLINIK-25",
+        "nama_faskes": "Klinik Pratama Rosalina",
+        "alias": null,
+        "jenis_faskes": "Klinik",
+        "subjenis": "Klinik Pratama (status operasional perlu konfirmasi)",
+        "kelurahan": "Gudang",
+        "kecamatan": "Bogor Tengah",
+        "kota": "Bogor",
+        "provinsi": "Jawa Barat",
+        "alamat": "Jl. Suryakencana No. 188/210, Gudang, Bogor Tengah, Kota Bogor",
+        "sumber_identitas": "Dokumen perizinan Pemkot Bogor dan direktori bisnis publik",
+        "url_sumber_identitas": "https://tnd.kotabogor.go.id/uploads/SIGNED/PNG-4990.pdf",
+        "sumber_koordinat": "Tautan peta Google Maps pada listing Klinik Rosalina",
+        "url_sumber_koordinat": "https://caribisnis.id/klinik-rs/bogor/bogor-tengah/rosalina-bogo-imp1",
+        "tahun_koordinat": "2026",
+        "status_kualitas_koordinat": "Titik peta fasilitas; belum diuji terhadap polygon batas Bogor Tengah",
+        "url_google_maps": "https://www.google.com/maps/search/?api=1&query=Klinik+Pratama+Rosalina+Jl.+Suryakencana+No.+188/210,+Gudang,+Bogor+Tengah,+Kota+Bogor",
+        "catatan": "Dokumen perizinan mencantumkan tempat praktik/nama klinik di alamat Suryakencana; direktori bisnis juga menggunakan nama Rosalina. Belum ada pin koordinat numerik dan aktivitas klinik saat ini belum dipastikan.",
+        "validasi_batas_kecamatan": "Belum diuji terhadap polygon batas Kecamatan Bogor Tengah",
+        "jarak_dari_batas_m": null,
+        "kelas_rs": null,
+        "validasi_point_in_polygon": null,
+        "catatan_koordinat": "Koordinat diambil dari tautan peta listing Rosalina yang mencantumkan Jl. Suryakencana No. 188."
+      }
+    }
+  ]
+}
